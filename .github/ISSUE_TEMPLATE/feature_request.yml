@@ -1,0 +1,67 @@
+name: "Feature request"
+description: "Propone una mejora del contenido o experiencia de uso"
+title: "[FEATURE] "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Gracias por proponer mejoras. Intentemos mantener el foco en didactica practica para OP-1 Field.
+
+  - type: textarea
+    id: objetivo
+    attributes:
+      label: Objetivo de la mejora
+      description: Que necesidad resuelve?
+      placeholder: Ej. Hacer mas clara la diferencia entre resampling interno y audio externo.
+    validations:
+      required: true
+
+  - type: textarea
+    id: propuesta
+    attributes:
+      label: Propuesta concreta
+      description: Que cambio exacto propones?
+      placeholder: Ej. Anadir un bloque A/B en modulo 11 con 3 pasos reproducibles.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: tipo
+    attributes:
+      label: Tipo de mejora
+      options:
+        - Contenido didactico
+        - Estructura HTML/UI
+        - Widget interactivo
+        - Workflow/edicion
+        - Documentacion
+    validations:
+      required: true
+
+  - type: dropdown
+    id: prioridad
+    attributes:
+      label: Prioridad sugerida
+      options:
+        - Alta
+        - Media
+        - Baja
+    validations:
+      required: true
+
+  - type: textarea
+    id: criterios
+    attributes:
+      label: Criterios de aceptacion
+      description: Como sabemos que quedo bien?
+      placeholder: |
+        - [ ] El ejercicio se entiende en <2 min
+        - [ ] No rompe estilo visual existente
+        - [ ] Mantiene enfoque OP-1 Field
+
+  - type: textarea
+    id: referencias
+    attributes:
+      label: Referencias
+      description: Manual oficial, ejemplos, links, etc.

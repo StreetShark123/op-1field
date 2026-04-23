@@ -1,0 +1,76 @@
+name: "Bug report"
+description: "Reporta un error en el curso (contenido, estructura o interaccion)"
+title: "[BUG] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Gracias por reportar. Completa los campos para poder reproducir y corregir rapido.
+
+  - type: textarea
+    id: resumen
+    attributes:
+      label: Resumen del problema
+      description: Que falla exactamente?
+      placeholder: Ej. En modulo 07, el widget LFO no reproduce audio en Safari.
+    validations:
+      required: true
+
+  - type: textarea
+    id: pasos
+    attributes:
+      label: Pasos para reproducir
+      description: Lista de pasos concretos para ver el error.
+      placeholder: |
+        1. Abrir index.html
+        2. Ir a modulo 07
+        3. Pulsar "escuchar" en LFO
+        4. ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: esperado
+    attributes:
+      label: Resultado esperado
+      placeholder: Que deberia pasar?
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Resultado actual
+      placeholder: Que pasa en realidad?
+    validations:
+      required: true
+
+  - type: dropdown
+    id: impacto
+    attributes:
+      label: Impacto
+      options:
+        - Alto (bloquea uso normal)
+        - Medio (molesto, hay workaround)
+        - Bajo (detalle menor)
+    validations:
+      required: true
+
+  - type: input
+    id: navegador
+    attributes:
+      label: Navegador y version
+      placeholder: Ej. Chrome 135 / Safari 17.5
+
+  - type: input
+    id: dispositivo
+    attributes:
+      label: Dispositivo / SO
+      placeholder: Ej. macOS 15, iPhone iOS 18
+
+  - type: textarea
+    id: contexto
+    attributes:
+      label: Contexto adicional
+      description: Capturas, consola, video corto, etc.
