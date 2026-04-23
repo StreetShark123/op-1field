@@ -1,67 +1,67 @@
 name: "Feature request"
-description: "Propone una mejora del contenido o experiencia de uso"
+description: "Propose an improvement to content or user experience"
 title: "[FEATURE] "
 labels: ["enhancement"]
 body:
   - type: markdown
     attributes:
       value: |
-        Gracias por proponer mejoras. Intentemos mantener el foco en didactica practica para OP-1 Field.
+        Thanks for proposing an improvement. Let's keep changes practical and aligned with OP-1 Field workflows.
 
   - type: textarea
-    id: objetivo
+    id: goal
     attributes:
-      label: Objetivo de la mejora
-      description: Que necesidad resuelve?
-      placeholder: Ej. Hacer mas clara la diferencia entre resampling interno y audio externo.
+      label: Improvement goal
+      description: What need does this solve?
+      placeholder: e.g. Make the difference between internal resampling and external recording clearer.
     validations:
       required: true
 
   - type: textarea
-    id: propuesta
+    id: proposal
     attributes:
-      label: Propuesta concreta
-      description: Que cambio exacto propones?
-      placeholder: Ej. Anadir un bloque A/B en modulo 11 con 3 pasos reproducibles.
+      label: Concrete proposal
+      description: What exact change are you proposing?
+      placeholder: e.g. Add an A/B block in module 11 with 3 reproducible steps.
     validations:
       required: true
 
   - type: dropdown
-    id: tipo
+    id: type
     attributes:
-      label: Tipo de mejora
+      label: Improvement type
       options:
-        - Contenido didactico
-        - Estructura HTML/UI
-        - Widget interactivo
-        - Workflow/edicion
-        - Documentacion
+        - Didactic content
+        - HTML/UI structure
+        - Interactive widget
+        - Workflow/editing
+        - Documentation
     validations:
       required: true
 
   - type: dropdown
-    id: prioridad
+    id: priority
     attributes:
-      label: Prioridad sugerida
+      label: Suggested priority
       options:
-        - Alta
-        - Media
-        - Baja
+        - High
+        - Medium
+        - Low
     validations:
       required: true
 
   - type: textarea
-    id: criterios
+    id: criteria
     attributes:
-      label: Criterios de aceptacion
-      description: Como sabemos que quedo bien?
+      label: Acceptance criteria
+      description: How do we know this is done well?
       placeholder: |
-        - [ ] El ejercicio se entiende en <2 min
-        - [ ] No rompe estilo visual existente
-        - [ ] Mantiene enfoque OP-1 Field
+        - [ ] The exercise is understandable in under 2 minutes
+        - [ ] It does not break the existing visual style
+        - [ ] It stays aligned with OP-1 Field focus
 
   - type: textarea
-    id: referencias
+    id: references
     attributes:
-      label: Referencias
-      description: Manual oficial, ejemplos, links, etc.
+      label: References
+      description: Official manual notes, examples, links, etc.

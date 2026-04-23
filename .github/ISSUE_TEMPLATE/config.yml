@@ -1,5 +1,5 @@
 blank_issues_enabled: false
 contact_links:
-  - name: Guia de colaboracion
+  - name: Collaboration guide
     url: https://github.com/AxelSeara/op-1field/blob/main/docs/EDITING_GUIDE.md
-    about: Revisa esta guia antes de abrir un issue o PR.
+    about: Read this guide before opening an issue or pull request.

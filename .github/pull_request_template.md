@@ -1,35 +1,35 @@
-## Resumen
+## Summary
 
-Describe en 2-4 lineas que cambia este PR.
+Describe in 2-4 lines what this PR changes.
 
-## Tipo de cambio
+## Change type
 
-- [ ] Contenido didactico
-- [ ] Estructura/HTML
-- [ ] Estilos/CSS
-- [ ] JS core (navegacion, progreso, idioma)
-- [ ] Widgets interactivos
-- [ ] Documentacion
-- [ ] Fix de bug
+- [ ] Didactic content
+- [ ] HTML/structure
+- [ ] CSS/style
+- [ ] JS core (navigation, progress, language)
+- [ ] Interactive widgets
+- [ ] Documentation
+- [ ] Bug fix
 
-## Modulos o zonas afectadas
+## Affected modules or areas
 
-Ejemplo: Modulo 04 Tape, Modulo 11 Input/Resampling, Sidebar, etc.
+Example: Module 04 Tape, Module 11 Input/Resampling, Sidebar, etc.
 
-## Checklist de calidad
+## Quality checklist
 
-- [ ] No rompe navegacion entre modulos
-- [ ] No introduce secciones duplicadas
-- [ ] IDs HTML unicos
-- [ ] Si hay shortcuts/claims del OP-1, estan verificados o formulados como aproximacion
-- [ ] Mantiene estilo didactico y accionable
-- [ ] Probado en escritorio
-- [ ] Probado en movil (si aplica)
+- [ ] Does not break module navigation
+- [ ] Does not introduce duplicated sections
+- [ ] HTML IDs are unique
+- [ ] Any OP-1 shortcuts/claims are verified or clearly framed as practical approximations
+- [ ] Keeps the didactic and action-oriented style
+- [ ] Tested on desktop
+- [ ] Tested on mobile (if applicable)
 
-## Evidencia
+## Evidence
 
-Incluye capturas, gif o notas de prueba si aplica.
+Add screenshots, gif, or validation notes if applicable.
 
-## Notas para review
+## Notes for reviewers
 
-Algo especifico a revisar con mas atencion?
+Anything specific you want reviewers to focus on?

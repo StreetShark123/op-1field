@@ -1,76 +1,76 @@
 name: "Bug report"
-description: "Reporta un error en el curso (contenido, estructura o interaccion)"
+description: "Report a bug in course content, structure, or interaction"
 title: "[BUG] "
 labels: ["bug"]
 body:
   - type: markdown
     attributes:
       value: |
-        Gracias por reportar. Completa los campos para poder reproducir y corregir rapido.
+        Thanks for reporting this issue. Please fill out the fields so we can reproduce and fix it quickly.
 
   - type: textarea
-    id: resumen
+    id: summary
     attributes:
-      label: Resumen del problema
-      description: Que falla exactamente?
-      placeholder: Ej. En modulo 07, el widget LFO no reproduce audio en Safari.
+      label: Problem summary
+      description: What is failing exactly?
+      placeholder: e.g. In module 07, the LFO widget does not play audio in Safari.
     validations:
       required: true
 
   - type: textarea
-    id: pasos
+    id: steps
     attributes:
-      label: Pasos para reproducir
-      description: Lista de pasos concretos para ver el error.
+      label: Steps to reproduce
+      description: List clear, concrete steps to reproduce the issue.
       placeholder: |
-        1. Abrir index.html
-        2. Ir a modulo 07
-        3. Pulsar "escuchar" en LFO
+        1. Open index.html
+        2. Go to module 07
+        3. Click "listen" in the LFO widget
         4. ...
     validations:
       required: true
 
   - type: textarea
-    id: esperado
+    id: expected
     attributes:
-      label: Resultado esperado
-      placeholder: Que deberia pasar?
+      label: Expected result
+      placeholder: What should happen?
     validations:
       required: true
 
   - type: textarea
     id: actual
     attributes:
-      label: Resultado actual
-      placeholder: Que pasa en realidad?
+      label: Actual result
+      placeholder: What happens instead?
     validations:
       required: true
 
   - type: dropdown
-    id: impacto
+    id: impact
     attributes:
-      label: Impacto
+      label: Impact
       options:
-        - Alto (bloquea uso normal)
-        - Medio (molesto, hay workaround)
-        - Bajo (detalle menor)
+        - High (blocks normal usage)
+        - Medium (annoying but has workaround)
+        - Low (minor detail)
     validations:
       required: true
 
   - type: input
-    id: navegador
+    id: browser
     attributes:
-      label: Navegador y version
-      placeholder: Ej. Chrome 135 / Safari 17.5
+      label: Browser and version
+      placeholder: e.g. Chrome 135 / Safari 17.5
 
   - type: input
-    id: dispositivo
+    id: device
     attributes:
-      label: Dispositivo / SO
-      placeholder: Ej. macOS 15, iPhone iOS 18
+      label: Device / OS
+      placeholder: e.g. macOS 15, iPhone iOS 18
 
   - type: textarea
-    id: contexto
+    id: context
     attributes:
-      label: Contexto adicional
-      description: Capturas, consola, video corto, etc.
+      label: Additional context
+      description: Screenshots, console logs, short video, etc.
