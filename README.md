@@ -1,57 +1,54 @@
-# OP-1 Field Practical Course
+# op-1 field practical course
 
-A practical, hands-on OP-1 Field course focused on fast learning through direct action.
+a practical, no-fluff guide for making music on op-1 field.
+built from a beginner mindset. made to be used, not admired.
 
-This project is a single-page interactive manual designed to help musicians and producers move from idea to finished track using real OP-1 Field workflows:
+## why
 
-- Core theory without dogma
-- Tape-first composition and editing
-- Synthesis engines (FM, DNA, Cluster, and more)
-- LFO movement and sound design
-- Input and resampling workflows
-- Sequencer experimentation labs
-- Mixing and export decisions
+after some time experimenting with ep-133, i decided to go deeper with op-1 field.
+on the way in, i hit a bunch of beginner bumps and entry barriers.
 
-## Who this is for
+inspired by another TE user on reddit, i decided to build a small course:
+simple, practical, and made for people starting from scratch (like me).
 
-- New OP-1 Field users who want a clear starting point
-- Producers who prefer practice over long technical explanations
-- Artists building experimental electronic workflows
+## what you get
 
-## Project goals
+- minimal theory
+- tape-first workflow
+- engines, lfo, input, resampling
+- sequencing experiments
+- mix and export decisions
+- op-1 <-> ep-133 sync/routing ideas
 
-- Keep the learning path practical and reproducible
-- Preserve a strong didactic style
-- Stay specific to OP-1 Field behavior
-- Make complex concepts easier through A/B exercises and interactive blocks
+## status
 
-## Project structure
+work in progress.
+first units are reviewed carefully, not all units yet.
 
-- `index.html` — main course page and content
-- `assets/css/main.css` — all styling
-- `assets/js/core.js` — navigation/progress/language logic
-- `assets/js/widgets.js` — educational interactive widgets
-- `docs/EDITING_GUIDE.md` — contributor editing workflow
-- `op1-curso-final.html` — compatibility redirect to `index.html`
+most of the guide was generated with codex, then manually curated and corrected over the last days.
 
-## Local usage
+## language
 
-Open `index.html` directly in a browser.
+original version: spanish.
+english version: automatic translation.
 
-## Collaborate
+fixes, better wording, and new languages are very welcome.
 
-Contributions are very welcome.
+## next
 
-You can help by:
+could be great to add a switch for:
 
-- Improving clarity in explanations
-- Proposing better exercises
-- Fixing structure/HTML issues
-- Suggesting OP-1 Field-specific corrections based on official documentation
-- Adding useful educational interactive components
+- op-1 field
+- op-1 classic
 
-Please open an issue for ideas or submit a pull request.
+also open to adding workflows for more devices.
 
-## Status
+## contribute
 
-Work in progress. The course is actively evolving.
+open an issue.
+open a pull request.
+improve anything that helps people learn faster.
+
+---
+
+遊んで、間違えて、作ろう。
