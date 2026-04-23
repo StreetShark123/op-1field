@@ -1,0 +1,50 @@
+{
+  "name": "op1-field-learning-app",
+  "version": "1.0.0",
+  "description": "Offline-first OP-1 Field learning app",
+  "main": "main.js",
+  "author": "StreetShark123",
+  "license": "MIT",
+  "scripts": {
+    "dev": "electron .",
+    "start": "electron .",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder",
+    "dist:win": "electron-builder --win nsis"
+  },
+  "devDependencies": {
+    "electron": "^31.7.7",
+    "electron-builder": "^24.13.3"
+  },
+  "build": {
+    "appId": "com.streetshark.op1field",
+    "productName": "OP-1 Field Learning App",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "index.html",
+      "op1-curso-final.html",
+      "assets/**/*",
+      "docs/**/*",
+      "README.md",
+      "main.js",
+      "package.json"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "perMachine": false
+    }
+  }
+}

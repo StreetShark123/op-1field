@@ -6,8 +6,12 @@ This project was restructured to make maintenance easier.
 
 - `index.html`: main course page (content + structure)
 - `assets/css/main.css`: all styles
-- `assets/js/core.js`: navigation, progress, language switch/detection
+- `assets/js/state.js`: local persistence storage
+- `assets/js/core.js`: course engine (navigation, progress, core/full path logic)
+- `assets/js/app-shell.js`: onboarding + product UI controls
 - `assets/js/widgets.js`: interactive audio/teaching widgets
+- `main.js`: Electron main process
+- `package.json`: desktop scripts and packaging config
 - `op1-curso-final.html`: compatibility redirect to `index.html`
 
 ## Quick edit map
@@ -16,7 +20,9 @@ If you want to edit...
 
 - Course text/content: edit `index.html`
 - Visual style: edit `assets/css/main.css`
-- Sidebar/subsection navigation logic: edit `assets/js/core.js` (`secs` map)
+- Sidebar/subsection navigation logic: edit `assets/js/core.js`
+- Product controls (onboarding/search/modes): edit `assets/js/app-shell.js`
+- Persistence schema: edit `assets/js/state.js`
 - Dynamic labs/widgets: edit `assets/js/widgets.js`
 
 ## Add a new section safely

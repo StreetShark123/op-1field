@@ -20,10 +20,29 @@
       <div class="htag">módulos <span>16</span></div>
       <div class="htag">práctica <span>~20h</span></div>
     </div>
+    <div class="hmode" aria-label="view mode">
+      <button class="mode-btn" id="mode-practice" type="button">practice</button>
+      <button class="mode-btn" id="mode-reading" type="button">reading</button>
+    </div>
     <div class="hlang" aria-label="language switch">
       <span class="hlang-lb">lang</span>
       <button class="lang-btn" data-lang="es" type="button" translate="no" onclick="setManualLanguage('es')">ES</button>
       <button class="lang-btn" data-lang="en" type="button" translate="no" onclick="setManualLanguage('en')">EN</button>
+    </div>
+  </div>
+</div>
+<div class="onb hidden" id="onboarding">
+  <div class="onb-card">
+    <div class="onb-ey">op-1 field learning app</div>
+    <div class="onb-ti">start where it makes sense</div>
+    <div class="onb-tx">Pick your path. We will save your progress locally and resume where you left off.</div>
+    <div class="onb-row">
+      <button class="onb-btn primary" id="onb-start" type="button">start course</button>
+      <button class="onb-btn" id="onb-continue" type="button">continue course</button>
+    </div>
+    <div class="onb-row">
+      <button class="onb-btn tiny" id="onb-core" type="button">core track</button>
+      <button class="onb-btn tiny" id="onb-full" type="button">full course</button>
     </div>
   </div>
 </div>
@@ -32,6 +51,14 @@
     <div class="pb">
       <div class="pl"><span>completado</span><span id="pt">0 / 16</span></div>
       <div class="pt"><div class="pf" id="pf"></div></div>
+    </div>
+    <div class="s-tools">
+      <input class="s-search" id="module-search" type="search" placeholder="search modules">
+      <div class="s-tools-row">
+        <button class="s-tool-btn" id="filter-bookmarks" type="button">bookmarks</button>
+        <button class="s-tool-btn" id="track-core-btn" type="button">core</button>
+        <button class="s-tool-btn active" id="track-full-btn" type="button">full</button>
+      </div>
     </div>
             <div class="ngl">teoría</div>
     <button class="ni active" onclick="go(0)"><span class="nn">00</span><span class="nt">teoría mínima</span><span class="nc" id="nc0">○</span></button>
@@ -1947,8 +1974,9 @@ Via ordenador (DAW como hub): USB-C del OP-1 + USB-C del EP-133 → DAW enruta e
 
   </main>
 </div>
-<div id="google_translate_element" aria-hidden="true"></div>
+<script src="assets/js/state.js"></script>
 <script src="assets/js/core.js"></script>
+<script src="assets/js/app-shell.js"></script>
 <script src="assets/js/widgets.js"></script>
 </body>
 </html>

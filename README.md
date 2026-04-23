@@ -1,53 +1,77 @@
-# op-1 field practical course
+# OP-1 Field Learning App
 
-a practical, no-fluff guide for making music on op-1 field.
-built from a beginner mindset. made to be used, not admired.
+An offline-first desktop learning app built around a practical OP-1 Field course.
 
-## why
+This started as a long HTML manual. It is now packaged like a product app with onboarding, persistent progress, core/full learning paths, search, bookmarks, and study modes.
 
-after some time experimenting with ep-133, i decided to go deeper with op-1 field.
-on the way in, i hit a bunch of beginner bumps and entry barriers.
+## What is inside
 
-inspired by another TE user on reddit, i decided to build a small course:
-simple, practical, and made for people starting from scratch (like me).
+- 16 course modules (original content preserved)
+- Sidebar + subnavigation + progress tracking
+- Interactive learning widgets
+- Onboarding start screen
+- Resume where you left off
+- Core track and full track modes
+- Practice mode and reading mode
+- Offline local persistence (localStorage)
 
-## what you get
+## Install dependencies
 
-- minimal theory
-- tape-first workflow
-- engines, lfo, input, resampling
-- sequencing experiments
-- mix and export decisions
-- op-1 <-> ep-133 sync/routing ideas
+```bash
+npm install
+```
 
-## status
+## Run in development
 
-work in progress.
-first units are reviewed carefully, not all units yet.
+```bash
+npm run dev
+```
 
-most of the guide was generated with codex, then manually curated and corrected over the last days.
+## Run app (same as dev)
 
-## language
+```bash
+npm start
+```
 
-original version: spanish.
-english version: automatic translation.
+## Package desktop builds
 
-fixes, better wording, and new languages are very welcome.
+Build all configured targets:
 
-## next
+```bash
+npm run dist
+```
 
-could be great to add a switch for:
+Build Windows installer (NSIS) first:
 
-- op-1 field
-- op-1 classic
+```bash
+npm run dist:win
+```
 
-also open to adding workflows for more devices.
+## Where the installer appears
 
-## contribute
+Generated files are written to:
 
-open an issue.
-open a pull request.
-improve anything that helps people learn faster.
+- `dist/`
+
+For Windows target, the `.exe` installer is produced there.
+
+## App structure
+
+- `main.js` — Electron main process and window boot
+- `package.json` — scripts + electron-builder config
+- `index.html` — app shell + course content
+- `assets/css/main.css` — styles (visual identity preserved)
+- `assets/js/state.js` — persistence layer
+- `assets/js/core.js` — course navigation/progress/core-full logic
+- `assets/js/app-shell.js` — onboarding and product UI controls
+- `assets/js/widgets.js` — interactive audio/learning widgets
+- `docs/EDITING_GUIDE.md` — contributor editing workflow
+
+## Notes
+
+- Original course content is preserved.
+- No cloud backend is required.
+- Works offline after install.
 
 ---
 
