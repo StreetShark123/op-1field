@@ -455,6 +455,23 @@ window.CourseLocales.es = {
 </div>
 <div class="co"><div class="co-b or"></div><div class="co-bd"><strong>regla de oro — separa “sonido” de “arreglo”</strong>Usa presets para versionar timbres. Usa tapes duplicadas para versionar arreglo/composición. Esa separación evita confusión y te da un flujo claro dentro del OP-1 Field.</div></div>
 </div>
+<div class="co"><div class="co-b bl"></div><div class="co-bd"><strong>pieza interactiva</strong>Mapa de control rápido: elige modo (Synth, Drum, Tape, Mixer) y confirma qué hace cada encoder y qué botón manda en ese contexto.</div></div>
+<div class="widget" id="w-anatomy-map">
+  <div class="w-title">mapa de anatomía — modo y controles clave</div>
+  <div class="w-row">
+    <button class="w-btn active" id="wan-synth" onclick="wanSet('synth')">synth</button>
+    <button class="w-btn inactive" id="wan-drum" onclick="wanSet('drum')">drum</button>
+    <button class="w-btn inactive" id="wan-tape" onclick="wanSet('tape')">tape</button>
+    <button class="w-btn inactive" id="wan-mixer" onclick="wanSet('mixer')">mixer</button>
+  </div>
+  <div class="w-panel">
+    <div class="w-small" id="wan-title">Synth — T1/T2/T3/T4 = engine/envelope/FX/LFO</div>
+    <div class="w-small" id="wan-body" style="margin-top:8px">Ochre/Blue/Gray controlan el engine activo. Orange ajusta volumen del instrumento. Shift en encoders abre ADSR.</div>
+  </div>
+  <div class="w-row">
+    <span class="w-tag" id="wan-tip">haz una pasada completa por los 4 modos y valida en pantalla que cada control responde como esperas.</span>
+  </div>
+</div>
 <div class="ex">
   <div class="ex-lb">ejercicio del módulo</div>
   <div class="ex-ti">orientación completa — 25 min</div>
@@ -565,7 +582,7 @@ window.CourseLocales.es = {
   <div class="step"><div class="sl">tempo/sync</div><div class="sb"><strong>guarda tempo y sync con cada tape</strong><p>Un hábito clave: deja cada tape con su BPM y sync ya listos para ese proyecto. Cuando vuelvas días después, arrancas en contexto correcto sin perder tiempo en reconfigurar reloj y ruteo.</p></div></div>
   <div class="step"><div class="sl">flujo</div><div class="sb"><strong>método rápido: A base · B edit · C performance</strong><p>Tape A = estructura principal. Tape B = edición agresiva (lift/drop, reordenar). Tape C = versión de performance con trucos de tape. Si B o C fallan, A sigue intacta. Ese método acelera decisiones y reduce bloqueo.</p></div></div>
 </div>
-<div class="co"><div class="co-b bl"></div><div class="co-bd"><strong>pieza dinámica opcional</strong>Comparador A/B de tape style: mismo loop, cambio instantáneo de style y voto rápido "encaja / no encaja". Objetivo pedagógico: entrenar decisión auditiva en 30 segundos y evitar sobreanalizar.</div></div>
+<div class="co"><div class="co-b bl"></div><div class="co-bd"><strong>ejercicio guiado opcional</strong>Comparador A/B de tape style: mismo loop, cambio instantáneo de style y voto rápido "encaja / no encaja". Objetivo pedagógico: entrenar decisión auditiva en 30 segundos y evitar sobreanalizar.</div></div>
 </div>
 
 <div class="ex">
@@ -610,18 +627,23 @@ window.CourseLocales.es = {
   <div class="step"><div class="sl"><kbd class="enc">Ochre</kbd></div><div class="sb"><strong>ratio — relación entre osciladores</strong><p>Ratios simples (1:1, 2:1, 3:1) suelen sonar más estables y armónicas. Ratios raras o no enteras suelen generar color metálico, campana e inarmonía.</p></div></div>
   <div class="step"><div class="sl"><kbd class="enc">Blue</kbd></div><div class="sb"><strong>modulación — cantidad de armónicos</strong><p>Modulación baja: timbre más puro y controlable. Modulación alta: más brillo, más complejidad y más agresividad. Este es el control más directo de “suave vs áspero”.</p></div></div>
   <div class="step"><div class="sl"><kbd class="enc">Gray</kbd></div><div class="sb"><strong>feedback — borde y suciedad</strong><p>Sube feedback para añadir borde y densidad. Si pierdes definición de nota, retrocede un poco: el punto útil suele estar justo antes del caos total.</p></div></div>
-  <div class="step"><div class="sl"><kbd class="enc">Orange</kbd></div><div class="sb"><strong>volumen</strong><p>Úsalo para balancear FM dentro del track, no para rediseñar el patch. Primero diseña timbre; luego ajusta nivel en mezcla.</p></div></div>
+  <div class="step"><div class="sl"><kbd class="enc">Orange</kbd></div><div class="sb"><strong>origin — punto de partida del timbre</strong><p>Origin mueve el “centro” del comportamiento FM: más bajo suele sentirse más profundo, más alto más cortante. Úsalo junto a ratio/mod para ubicar el carácter antes de mezclar.</p></div></div>
 </div>
-<div class="co"><div class="co-b"></div><div class="co-bd"><strong>tabla rápida · si quieres X, mueve Y</strong>Más limpio y redondo: baja <strong>Blue</strong>.<br>Más brillante y áspero: sube <strong>Blue</strong>.<br>Más armónico/estable: usa ratio simple en <strong>Ochre</strong>.<br>Más metal/campana: prueba ratio rara en <strong>Ochre</strong>.<br>Más borde: sube <strong>Gray</strong> con cuidado.</div></div>
+<div class="co"><div class="co-b"></div><div class="co-bd"><strong>tabla rápida · si quieres X, mueve Y</strong>Más limpio y redondo: baja <strong>Blue</strong>.<br>Más brillante y áspero: sube <strong>Blue</strong>.<br>Más armónico/estable: usa ratio simple en <strong>Ochre</strong>.<br>Más metal/campana: prueba ratio rara en <strong>Ochre</strong>.<br>Más borde: sube <strong>Gray</strong> con cuidado.<br>Más grave/profundo o más agudo/cortante: ajusta <strong>origin</strong>.</div></div>
 <div class="co"><div class="co-b bl"></div><div class="co-bd"><strong>ejercicios A/B (obligatorios)</strong><strong>A/B 1 · modulación:</strong> mismo ratio, Blue bajo vs Blue alto. <br><strong>A/B 2 · ratio:</strong> misma modulación, ratio simple vs ratio rara. <br><strong>A/B 3 · feedback:</strong> mismo patch, Gray bajo vs Gray alto. Elige en cada caso cuál funciona mejor en mezcla completa.</div></div>
 </div>
 
 <div class="widget" id="w-fm-lab">
-  <div class="w-title">fm a/b — ratio, modulación y feedback</div>
+  <div class="w-title">fm a/b — ratio, origin, modulación y feedback</div>
   <div class="w-row">
     <span class="w-label">ratio</span>
     <input type="range" class="w-range" id="wfm-ratio" min="5" max="80" value="20" oninput="wfmUpdate()">
     <span class="w-val" id="wfm-ratiov">2.0</span>
+  </div>
+  <div class="w-row">
+    <span class="w-label">origin</span>
+    <input type="range" class="w-range" id="wfm-origin" min="0" max="100" value="50" oninput="wfmUpdate()">
+    <span class="w-val" id="wfm-originv">+0 st · 110Hz</span>
   </div>
   <div class="w-row">
     <span class="w-label">modulación</span>
@@ -796,7 +818,7 @@ window.CourseLocales.es = {
   <div class="step"><div class="sl">pulse/voltage</div><div class="sb"><strong>dos caminos para carácter rítmico</strong><p>Pulse te da contorno marcado y oscilación firme para líneas secas. Voltage aporta inestabilidad útil y color más áspero. Prueba el mismo patrón en ambos y decide por el carácter que necesita el tema.</p></div></div>
   <div class="step"><div class="sl">dsynth</div><div class="sb"><strong>ataques percusivos rápidos para kits híbridos</strong><p>DSynth funciona muy bien para generar material de drum sintético antes de samplearlo al kit. Haz 10 golpes cortos, elige 3 que destaquen y conviértelos en kit base. Es una vía rápida para kits propios.</p></div></div>
 </div>
-<div class="co"><div class="co-b gr"></div><div class="co-bd"><strong>pieza dinámica opcional</strong>Banco A/B/C de engines: mismo patrón de 1 compás, cambio instantáneo entre tres engines con igual envelope. Objetivo: entrenar oído de "carácter" separándolo de melodía y ritmo.</div></div>
+<div class="co"><div class="co-b gr"></div><div class="co-bd"><strong>ejercicio guiado opcional</strong>Banco A/B/C de engines: mismo patrón de 1 compás, cambio instantáneo entre tres engines con igual envelope. Objetivo: entrenar oído de "carácter" separándolo de melodía y ritmo.</div></div>
 </div>
 
 
@@ -926,7 +948,7 @@ window.CourseLocales.es = {
   <div class="step"><div class="sl">uso real</div><div class="sb"><strong>expresividad sin automatizar en tape</strong><p>Si no quieres dibujar automatizaciones ni grabar encoder moves, usa Velocity LFO para dinámica orgánica y MIDI LFO para gestos macro. La combinación da movimiento musical con menos edición posterior.</p></div></div>
   <div class="step"><div class="sl">ejercicio A/B</div><div class="sb"><strong>mismo loop, dos respuestas distintas</strong><p>A: loop sin velocity, todas las notas con mismo golpe. B: mismo loop con Velocity LFO en filtro o timbre. Compara cuál respira mejor. Después añade MIDI LFO en un parámetro lento para evolución de 8 compases.</p></div></div>
 </div>
-<div class="co"><div class="co-b bl"></div><div class="co-bd"><strong>pieza dinámica</strong>Visualizador de "toque vs timbre": barra de velocity en tiempo real + color de cutoff/timbre. Ayuda a entender causa-efecto al instante al practicar digitación expresiva.</div></div>
+<div class="co"><div class="co-b bl"></div><div class="co-bd"><strong>ejercicio guiado opcional</strong>Visualizador de "toque vs timbre": barra de velocity en tiempo real + color de cutoff/timbre. Ayuda a entender causa-efecto al instante al practicar digitación expresiva.</div></div>
 </div>
 
 <div class="ex">
@@ -970,7 +992,7 @@ window.CourseLocales.es = {
   <div class="step"><div class="sl"><kbd class="enc">Ochre</kbd></div><div class="sb"><strong>feedback</strong><p>Poco feedback: apoyo sutil. Mucho feedback: textura que ocupa primer plano. Si tapa la melodía original, reduce feedback o abre más espacio entre notas.</p></div></div>
   <div class="step"><div class="sl">error típico</div><div class="sb"><strong>usar delay largo en todos los elementos</strong><p>Pasa porque suena “grande” al principio. Corrige dejando uno o dos elementos con delay protagonista y el resto más seco para conservar definición.</p></div></div>
 </div>
-<div class="co"><div class="co-b"></div><div class="co-bd"><strong>pieza dinámica opcional</strong>Comparador “seco vs delay sync vs delay libre” sobre el mismo riff en loop, con botón A/B/C para entrenar decisión de tempo y espacio.</div></div>
+<div class="co"><div class="co-b"></div><div class="co-bd"><strong>ejercicio guiado opcional</strong>Comparador “seco vs delay sync vs delay libre” sobre el mismo riff en loop, con botón A/B/C para entrenar decisión de tempo y espacio.</div></div>
 </div>
 
 <div class="sec" id="m8-s3">
@@ -980,7 +1002,7 @@ window.CourseLocales.es = {
   <div class="step"><div class="sl">criterio</div><div class="sb"><strong>delante vs detrás en la mezcla</strong><p>Más Mother suele empujar elementos hacia atrás. Menos Mother los trae delante. Decide qué debe liderar y qué debe acompañar antes de tocar otros parámetros.</p></div></div>
   <div class="step"><div class="sl">error típico</div><div class="sb"><strong>usar Mother para “arreglar” falta de arreglo</strong><p>Pasa cuando un loop suena vacío. Corrige primero patrón y registro; después usa Mother para dar profundidad.</p></div></div>
 </div>
-<div class="co"><div class="co-b gr"></div><div class="co-bd"><strong>pieza dinámica opcional</strong>Slider de profundidad percibida: mismo loop con tres estados (primer plano, medio, fondo) para entrenar oído de “posición” en mezcla.</div></div>
+<div class="co"><div class="co-b gr"></div><div class="co-bd"><strong>ejercicio guiado opcional</strong>Slider de profundidad percibida: mismo loop con tres estados (primer plano, medio, fondo) para entrenar oído de “posición” en mezcla.</div></div>
 </div>
 
 <div class="sec" id="m8-s4">
@@ -990,7 +1012,7 @@ window.CourseLocales.es = {
   <div class="step"><div class="sl">criterio</div><div class="sb"><strong>cuándo elegir spring</strong><p>Si quieres color reconocible y no solo “espacio”, empieza por Spring. Si quieres atmósfera amplia y más limpia, vuelve a Mother.</p></div></div>
   <div class="step"><div class="sl">error típico</div><div class="sb"><strong>exceso de resonancia en medios</strong><p>Pasa al sumar Spring en varias capas. Corrige usando Spring en una o dos pistas clave y dejando otras sin ese color.</p></div></div>
 </div>
-<div class="co"><div class="co-b"></div><div class="co-bd"><strong>pieza dinámica opcional</strong>A/B “Mother vs Spring” en el mismo snare y pad para distinguir “profundidad” frente a “carácter”.</div></div>
+<div class="co"><div class="co-b"></div><div class="co-bd"><strong>ejercicio guiado opcional</strong>A/B “Mother vs Spring” en el mismo snare y pad para distinguir “profundidad” frente a “carácter”.</div></div>
 </div>
 
 <div class="sec" id="m8-s5">
@@ -1000,7 +1022,7 @@ window.CourseLocales.es = {
   <div class="step"><div class="sl">A/B</div><div class="sb"><strong>si mejora pegada sin agresividad, se queda</strong><p>Haz comparación corta con y sin Punch en contexto de mezcla completa. Si el sonido se vuelve duro o fatigante, baja intensidad o desactiva.</p></div></div>
   <div class="step"><div class="sl">error típico</div><div class="sb"><strong>aplicar punch en todo el proyecto</strong><p>Pasa por buscar “más energía”. Corrige priorizando solo kick/snare o una capa rítmica principal.</p></div></div>
 </div>
-<div class="co"><div class="co-b"></div><div class="co-bd"><strong>pieza dinámica opcional</strong>Medidor visual de transiente antes/después de Punch con escucha A/B en loop de 2 compases.</div></div>
+<div class="co"><div class="co-b"></div><div class="co-bd"><strong>ejercicio guiado opcional</strong>Medidor visual de transiente antes/después de Punch con escucha A/B en loop de 2 compases.</div></div>
 </div>
 
 <div class="sec" id="m8-s6">
@@ -1010,7 +1032,7 @@ window.CourseLocales.es = {
   <div class="step"><div class="sl">criterio</div><div class="sb"><strong>si pierdes detalle, retrocede un paso</strong><p>El punto útil suele estar justo antes de perder definición de ataque o afinación. Busca ese borde y quédate allí.</p></div></div>
   <div class="step"><div class="sl">error típico</div><div class="sb"><strong>confundir “más fuerte” con “mejor”</strong><p>Nitro puede parecer mejor por subir percepción de volumen. Corrige igualando nivel en A/B antes de decidir.</p></div></div>
 </div>
-<div class="co"><div class="co-b gr"></div><div class="co-bd"><strong>pieza dinámica opcional</strong>Control “clean → grit → broken” con tres versiones guardadas del mismo patch para entrenar escucha de saturación útil.</div></div>
+<div class="co"><div class="co-b gr"></div><div class="co-bd"><strong>ejercicio guiado opcional</strong>Control “clean → grit → broken” con tres versiones guardadas del mismo patch para entrenar escucha de saturación útil.</div></div>
 </div>
 
 <div class="sec" id="m8-s7">
@@ -1020,7 +1042,7 @@ window.CourseLocales.es = {
   <div class="step"><div class="sl">criterio</div><div class="sb"><strong>mejor por capas que en el bus completo</strong><p>En una capa secundaria suele funcionar mejor que en todo el mix. Úsalo para contraste entre “zona estable” y “zona viva”.</p></div></div>
   <div class="step"><div class="sl">error típico</div><div class="sb"><strong>hacer CWO protagonista en todos los elementos</strong><p>Genera fatiga rápida y pérdida de foco. Corrige eligiendo un solo elemento con CWO destacado por sección.</p></div></div>
 </div>
-<div class="co"><div class="co-b bl"></div><div class="co-bd"><strong>pieza dinámica opcional</strong>XY pad de CWO con grabación de automatización en 8 compases para experimentar transformación gradual.</div></div>
+<div class="co"><div class="co-b bl"></div><div class="co-bd"><strong>ejercicio guiado opcional</strong>XY pad de CWO con grabación de automatización en 8 compases para experimentar transformación gradual.</div></div>
 </div>
 
 <div class="sec" id="m8-s8">
@@ -1030,7 +1052,7 @@ window.CourseLocales.es = {
   <div class="step"><div class="sl">criterio</div><div class="sb"><strong>útil por secciones, no durante todo el tema</strong><p>Si lo dejas fijo en toda la pista, pierde efecto. Funciona mejor como recurso de transición o color puntual.</p></div></div>
   <div class="step"><div class="sl">error típico</div><div class="sb"><strong>confundir contraste con falta de cuerpo</strong><p>Si todo suena delgado, quizá Phone está ocupando el papel equivocado. Devuelve el cuerpo en bajo y base, y deja Phone para detalle.</p></div></div>
 </div>
-<div class="co"><div class="co-b bl"></div><div class="co-bd"><strong>pieza dinámica opcional</strong>Botón de transición “full band ↔ phone” para practicar cambios de sección sin parar el tape.</div></div>
+<div class="co"><div class="co-b bl"></div><div class="co-bd"><strong>ejercicio guiado opcional</strong>Botón de transición “full band ↔ phone” para practicar cambios de sección sin parar el tape.</div></div>
 </div>
 
 <div class="sec" id="m8-s9">
@@ -1041,7 +1063,7 @@ window.CourseLocales.es = {
   <div class="step"><div class="sl">error típico</div><div class="sb"><strong>sumar grid y terminal sin dejar huecos</strong><p>Cuando ambos van al máximo, el rango medio se congestiona. Corrige alternando protagonismo por secciones: primero ritmo (Grid), luego rotura (Terminal).</p></div></div>
   <div class="step"><div class="sl">laboratorio</div><div class="sb"><strong>mismo riff, decisiones opuestas</strong><p>Versión A: Grid sutil, Terminal apagado. Versión B: Grid mínimo, Terminal protagonista. Versión C: equilibrio moderado. Elige según la función narrativa del tema, no por espectacularidad aislada.</p></div></div>
 </div>
-<div class="co"><div class="co-b gr"></div><div class="co-bd"><strong>pieza dinámica</strong>Selector ciego de renders con etiquetas ocultas (Delay/Mother/Spring/Punch/Nitro/CWO/Phone/Grid/Terminal) para elegir solo por oído y luego revelar el efecto.</div></div>
+<div class="co"><div class="co-b gr"></div><div class="co-bd"><strong>pieza interactiva</strong>Selector ciego de renders con etiquetas ocultas (Delay/Mother/Spring/Punch/Nitro/CWO/Phone/Grid/Terminal) para elegir solo por oído y luego revelar el efecto.</div></div>
 </div>
 
 <div class="widget" id="w-fx-blind">
@@ -1379,7 +1401,7 @@ window.CourseLocales.es = {
   <div class="step"><div class="sl">comparativa</div><div class="sb"><strong>hold vs arp vs pattern</strong><p>Arp ordena automáticamente. Pattern fija pasos explícitos. Hold mantiene el material tocado y te permite explorarlo con enfoque performativo. Los tres sirven; elige según control deseado y tiempo disponible.</p></div></div>
   <div class="step"><div class="sl">A/B/C</div><div class="sb"><strong>mismo acorde, tres secuenciadores</strong><p>Haz tres tomas de 20 segundos: Arp, Hold y Pattern con las mismas notas. Escucha sin mirar pantalla y elige la toma que mejor encaje en el track. Este test entrena criterio real de producción.</p></div></div>
 </div>
-<div class="co"><div class="co-b bl"></div><div class="co-bd"><strong>pieza dinámica</strong>Comparador instantáneo Arp/Hold/Pattern sobre mismo acorde y mismo engine. Útil para clase porque convierte una idea abstracta en decisión auditiva inmediata.</div></div>
+<div class="co"><div class="co-b bl"></div><div class="co-bd"><strong>pieza interactiva</strong>Comparador instantáneo Arp/Hold/Pattern sobre mismo acorde y mismo engine. Útil para clase porque convierte una idea abstracta en decisión auditiva inmediata.</div></div>
 </div>
 
 
@@ -1463,7 +1485,7 @@ window.CourseLocales.es = {
   <div class="step"><div class="sl">compactar</div><div class="sb"><strong>cuándo resamplear por espacio</strong><p>Si tus 4 pistas ya están llenas pero el groove base funciona, imprime una capa combinada, regrábala en nuevo material y abre espacio para elementos nuevos. Esta técnica acelera arreglos largos sin perder identidad del track.</p></div></div>
 </div>
 <div class="co"><div class="co-b or"></div><div class="co-bd"><strong>ejercicios obligatorios · input/resampling</strong>1) Resamplea una textura interna de 8 compases y conviértela en pad nuevo. 2) Graba una fuente externa corta (5–10 s) y úsala como elemento percusivo. 3) Toma una capa del tape, recíclala en un nuevo sample y compón 4 compases con ese material.</div></div>
-<div class="co"><div class="co-b bl"></div><div class="co-bd"><strong>pieza dinámica</strong>Diagrama interactivo "fuente → proceso → destino" (externo o interno). Al cambiar origen, cambia automáticamente la recomendación de uso: textura, compactación o performance.</div></div>
+<div class="co"><div class="co-b bl"></div><div class="co-bd"><strong>pieza interactiva</strong>Diagrama interactivo "fuente → proceso → destino" (externo o interno). Al cambiar origen, cambia automáticamente la recomendación de uso: textura, compactación o performance.</div></div>
 
 <div class="widget" id="w-resample-map">
   <div class="w-title">input / resampling map — fuente → proceso → destino</div>
@@ -1677,6 +1699,16 @@ window.CourseLocales.es = {
   <div class="mm-row"><div class="mm">90 min</div><div class="mm">OP-1 Field</div><div class="mm">el track completo</div></div>
 </div>
 
+<div class="sec" id="m13-s0">
+<div class="st">reset rápido antes de empezar</div>
+<div class="steps">
+  <div class="step"><div class="sl">mixer</div><div class="sb"><strong>arranca limpio para no heredar suciedad</strong><p>Antes de hacer el workflow, deja Mixer en estado neutro: canales alrededor de 80 y paneo al centro (T1), EQ en clean (T2), efecto en OFF (T3), y master L/R a 99 con drive y release en 0.</p></div></div>
+  <div class="step"><div class="sl">sequencers</div><div class="sb"><strong>apaga secuenciadores activos</strong><p>Si queda un secuenciador encendido, puede alterar el comportamiento del patch y confundir el resultado. Desactiva cualquier secuenciador antes de grabar.</p></div></div>
+  <div class="step"><div class="sl">por qué</div><div class="sb"><strong>evita diagnósticos falsos de sonido “sucio”</strong><p>Muchos problemas de mezcla o timbre vienen de estados previos del master/mixer, no del patch actual. Este reset de 20–30 segundos te ahorra perder tiempo.</p></div></div>
+</div>
+<div class="co"><div class="co-b gr"></div><div class="co-bd"><strong>nota práctica</strong>En OP-1 Field estos valores pueden mantenerse entre cambios de contexto. Si algo suena raro al inicio de sesión, haz este reset antes de tocar el synth.</div></div>
+</div>
+
 <div class="sec" id="m13-s1">
 <div class="st">el flujo — 90 minutos de principio a fin</div>
 <div class="steps">
@@ -1689,6 +1721,31 @@ window.CourseLocales.es = {
   <div class="step"><div class="sl">80–90 min</div><div class="sb"><strong>exportar — cuando suena el timer, exportas</strong><p>No hay "un ajuste más". Una mezcla buena que existe es mejor que una mezcla perfecta que nunca terminas. <a href="#" onclick="go(15);buildSub(15);return false;">Tres rutas de exportación →</a> · Checklist antes de exportar: bajo en móvil, colas de reverb, clipping.</p></div></div>
 </div>
 <div class="co"><div class="co-b"></div><div class="co-bd"><strong>el timer es la herramienta más importante</strong>Trabaja en fases con límite de tiempo. Los límites fuerzan decisiones — el cerebro no puede seguir analizando y empieza a confiar en el instinto. 90 minutos para un track completo es factible. Pruébalo.</div></div>
+</div>
+<div class="co"><div class="co-b bl"></div><div class="co-bd"><strong>pieza interactiva</strong>Planificador de 90 minutos: mueve el minuto actual, marca fases completadas y usa la recomendación automática para no quedarte bloqueado entre etapas.</div></div>
+<div class="widget" id="w-workflow-90">
+  <div class="w-title">workflow 90 min — guía de fase en tiempo real</div>
+  <div class="w-row">
+    <span class="w-label">minuto actual</span>
+    <input type="range" class="w-range" id="wwf-min" min="0" max="90" value="0" oninput="wwfUpdate()">
+    <span class="w-val" id="wwf-minv">0</span>
+  </div>
+  <div class="w-panel">
+    <div class="w-small" id="wwf-stage">fase: setup (0–5). Define BPM, duplica tape y prepara contexto.</div>
+  </div>
+  <div class="w-checks">
+    <label><input type="checkbox" id="wwf-c1" onchange="wwfUpdate()">setup listo</label>
+    <label><input type="checkbox" id="wwf-c2" onchange="wwfUpdate()">drums grabados</label>
+    <label><input type="checkbox" id="wwf-c3" onchange="wwfUpdate()">bajo grabado</label>
+    <label><input type="checkbox" id="wwf-c4" onchange="wwfUpdate()">melodía grabada</label>
+    <label><input type="checkbox" id="wwf-c5" onchange="wwfUpdate()">textura grabada</label>
+    <label><input type="checkbox" id="wwf-c6" onchange="wwfUpdate()">mezcla base hecha</label>
+    <label><input type="checkbox" id="wwf-c7" onchange="wwfUpdate()">export realizado</label>
+  </div>
+  <div class="w-row">
+    <button class="w-btn inactive" onclick="wwfReset()">reset checklist</button>
+    <span class="w-tag" id="wwf-progress">0/7 fases completadas.</span>
+  </div>
 </div>
 
 <div class="sec" id="m13-s2">
@@ -1811,7 +1868,33 @@ Via ordenador (DAW como hub): USB-C del OP-1 + USB-C del EP-133 → DAW enruta e
   <div class="step"><div class="sl">control list</div><div class="sb"><strong>filtra qué mensajes midi entran y salen</strong><p>Usa control list para dejar pasar solo lo necesario (clock, notas o CC concretos). Reducir ruido MIDI evita cambios accidentales de parámetro y hace más estable el comportamiento en directo.</p></div></div>
   <div class="step"><div class="sl">check rápido</div><div class="sb"><strong>test de estabilidad en 60 segundos</strong><p>1) play/stop dos veces seguidas. 2) comprueba que ambos arrancan en el mismo beat. 3) mueve un control externo y confirma que solo afecta el parámetro esperado. Si pasa este test, puedes grabar sin miedo.</p></div></div>
 </div>
-<div class="co"><div class="co-b gr"></div><div class="co-bd"><strong>pieza dinámica opcional</strong>Matriz interactiva de conexión (USB host, BLE, pulso) con semáforo de riesgo: verde=estable para grabar, amarillo=jam, rojo=evitar para toma final.</div></div>
+<div class="co"><div class="co-b gr"></div><div class="co-bd"><strong>pieza interactiva</strong>Matriz interactiva de conexión (USB host, BLE, pulso) con semáforo de riesgo: verde=estable para grabar, amarillo=jam, rojo=evitar para toma final.</div></div>
+<div class="widget" id="w-conn-matrix">
+  <div class="w-title">matriz de conexión — riesgo y recomendación</div>
+  <div class="w-row">
+    <span class="w-label">ruta de clock</span>
+    <select id="wcm-path" class="w-btn inactive" style="text-transform:none;padding:6px 10px" onchange="wcmUpdate()">
+      <option value="usb_host">USB host</option>
+      <option value="ble">BLE</option>
+      <option value="pulse">PO / 1/16 pulse</option>
+    </select>
+    <span class="w-label">objetivo</span>
+    <select id="wcm-goal" class="w-btn inactive" style="text-transform:none;padding:6px 10px" onchange="wcmUpdate()">
+      <option value="record">grabar toma final</option>
+      <option value="jam">jam / boceto</option>
+      <option value="live">directo ligero</option>
+    </select>
+  </div>
+  <div class="w-row">
+    <span class="w-label">dispositivos</span>
+    <input type="range" class="w-range" id="wcm-dev" min="2" max="5" value="2" oninput="wcmUpdate()">
+    <span class="w-val" id="wcm-devv">2</span>
+  </div>
+  <div class="w-panel">
+    <div class="w-small" id="wcm-risk">riesgo: verde · estable para grabar.</div>
+    <div class="w-small" id="wcm-note" style="margin-top:8px">recomendación: valida play/stop dos veces y graba.</div>
+  </div>
+</div>
 </div>
 
 <div class="ex">
@@ -1901,7 +1984,7 @@ Via ordenador (DAW como hub): USB-C del OP-1 + USB-C del EP-133 → DAW enruta e
   <div class="step"><div class="sl">baja 01</div><div class="sb"><strong>cierre expandido: mixdown largo y salida por rutas</strong><p>Objetivo: decidir rápido cómo cerrar cada tema (interno, estéreo, stems). Entregable: tres exports del mismo track con notas de uso para cada ruta.</p></div></div>
   <div class="step"><div class="sl">baja 02</div><div class="sb"><strong>fm transmit + OB–4 auto sync para performance</strong><p>Objetivo: dominar flujo inalámbrico de escucha/performance en ecosistema field. Entregable: prueba funcional de transmisión FM, sincronía y grabación de una mini-performance de 2 minutos.</p></div></div>
 </div>
-<div class="co"><div class="co-b bl"></div><div class="co-bd"><strong>piezas dinámicas del curso</strong>1) comparador A/B de tape style. 2) tablero "fuente → proceso → destino" para input/resampling. 3) visualizador de velocity vs timbre. 4) comparador de secuenciadores sobre mismo patrón. 5) selector ciego de efectos. 6) matriz de conexión con semáforo de estabilidad.</div></div>
+<div class="co"><div class="co-b bl"></div><div class="co-bd"><strong>bloques prácticos del curso</strong>1) comparador A/B de tape style. 2) tablero "fuente → proceso → destino" para input/resampling. 3) visualizador de velocity vs timbre. 4) comparador de secuenciadores sobre mismo patrón. 5) selector ciego de efectos. 6) matriz de conexión con semáforo de estabilidad.</div></div>
 </div>
 
 <div class="sec" id="m15-s5">
@@ -1911,7 +1994,29 @@ Via ordenador (DAW como hub): USB-C del OP-1 + USB-C del EP-133 → DAW enruta e
   <div class="step"><div class="sl">ob–4</div><div class="sb"><strong>auto sync para ecosistema field</strong><p>Si trabajas con OB–4, auto sync te permite alinear reproducción y mantener experiencia más integrada. Úsalo como opción de performance y referencia de escucha; el control final sigue en la mezcla.</p></div></div>
   <div class="step"><div class="sl">criterio</div><div class="sb"><strong>cuándo usar esta ruta</strong><p>Ideal para rehearsals, escucha compartida y sets ligeros. Para entrega final o edición crítica, conserva ruta cableada/USB además de esta vía, así comparas coherencia y evitas sorpresas de última hora.</p></div></div>
 </div>
-<div class="co"><div class="co-b gr"></div><div class="co-bd"><strong>pieza dinámica opcional</strong>Checklist interactivo pre-performance (canal FM, nivel, sync, latencia percibida, fallback cableado). Si una casilla falla, el sistema propone automáticamente la ruta alternativa.</div></div>
+<div class="co"><div class="co-b gr"></div><div class="co-bd"><strong>pieza interactiva</strong>Checklist interactivo pre-performance (canal FM, nivel, sync, latencia percibida, fallback cableado). Si una casilla falla, el sistema propone automáticamente la ruta alternativa.</div></div>
+<div class="widget" id="w-preperf-check">
+  <div class="w-title">pre-performance — checklist y fallback</div>
+  <div class="w-checks">
+    <label><input type="checkbox" id="wpf-fm" onchange="wpfUpdate()">canal FM libre</label>
+    <label><input type="checkbox" id="wpf-level" onchange="wpfUpdate()">nivel de salida estable</label>
+    <label><input type="checkbox" id="wpf-sync" onchange="wpfUpdate()">sync validado</label>
+    <label><input type="checkbox" id="wpf-lat" onchange="wpfUpdate()">latencia aceptable</label>
+    <label><input type="checkbox" id="wpf-fallback" onchange="wpfUpdate()">fallback cableado listo</label>
+  </div>
+  <div class="w-row">
+    <span class="w-label">escenario</span>
+    <select id="wpf-mode" class="w-btn inactive" style="text-transform:none;padding:6px 10px" onchange="wpfUpdate()">
+      <option value="performance">performance</option>
+      <option value="rehearsal">ensayo</option>
+      <option value="capture">captura final</option>
+    </select>
+    <button class="w-btn inactive" onclick="wpfReset()">reset</button>
+  </div>
+  <div class="w-panel">
+    <div class="w-small" id="wpf-status">pendiente: completa checks para confirmar ruta.</div>
+  </div>
+</div>
 </div>
 
 <div class="sec" id="m15-s6">

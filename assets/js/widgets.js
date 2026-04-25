@@ -10,12 +10,32 @@ function ac() {
   return _ac;
 }
 
+function widgetLang() {
+  const lang = window.CourseI18n && typeof window.CourseI18n.getLanguage === 'function'
+    ? window.CourseI18n.getLanguage()
+    : (document.documentElement.getAttribute('lang') || 'es');
+  return String(lang).toLowerCase().startsWith('en') ? 'en' : 'es';
+}
+
+function tr(es, en) {
+  return widgetLang() === 'en' ? en : es;
+}
+
 /* ── 1. METRONOMO ───────────────────────────────────────── */
-const wmGenres = [
+const wmGenresEs = [
   [40,60,'drone · ambient extremo'],
   [60,80,'hip-hop lento · lo-fi · trap'],
   [80,100,'hip-hop mid-tempo · experimental'],
   [100,115,'funk · soul · pop midtempo'],
+  [115,130,'house · disco'],
+  [130,145,'techno · trance'],
+  [145,200,'drum & bass · footwork']
+];
+const wmGenresEn = [
+  [40,60,'drone · extreme ambient'],
+  [60,80,'slow hip-hop · lo-fi · trap'],
+  [80,100,'mid-tempo hip-hop · experimental'],
+  [100,115,'funk · soul · midtempo pop'],
   [115,130,'house · disco'],
   [130,145,'techno · trance'],
   [145,200,'drum & bass · footwork']
@@ -25,6 +45,7 @@ let wmBpm=85, wmSwingAmt=0, wmPlaying=false, wmTimer=null, wmBeat=0, wmNextTime=
 function wmUpdate() {
   wmBpm = +document.getElementById('wm-bpm').value;
   document.getElementById('wm-bpmv').textContent = wmBpm;
+  const wmGenres = widgetLang() === 'en' ? wmGenresEn : wmGenresEs;
   const g = wmGenres.find(([lo,hi]) => wmBpm >= lo && wmBpm < hi);
   document.getElementById('wm-genre').textContent = g ? g[2] : '';
 }
@@ -96,16 +117,30 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 /* ── 2. EXPLORADOR DE INTERVALOS ────────────────────────── */
-const wiNotes = ['Fa','Fa#','Sol','Sol#','La','La#','Si','Do','Do#','Re','Re#','Mi',
-                 'Fa','Fa#','Sol','Sol#','La','La#','Si','Do','Do#','Re','Re#','Mi'];
+const wiNotesEs = ['Fa','Fa#','Sol','Sol#','La','La#','Si','Do','Do#','Re','Re#','Mi',
+                   'Fa','Fa#','Sol','Sol#','La','La#','Si','Do','Do#','Re','Re#','Mi'];
+const wiNotesEn = ['F','F#','G','G#','A','A#','B','C','C#','D','D#','E',
+                   'F','F#','G','G#','A','A#','B','C','C#','D','D#','E'];
 // black key positions by semitone index (0=Fa)
 const wiIsBlack = [false,true,false,true,false,false,true,false,true,false,true,false];
 const wiFreqs = [174.61,185,196,207.65,220,233.08,246.94,261.63,277.18,293.66,311.13,329.63,
                  349.23,370,392,415.30,440,466.16,493.88,523.25,554.37,587.33,622.25,659.25];
-const wiIntervals = {1:'semitono',2:'tono',3:'3ª menor — oscuro',4:'3ª mayor — brillante',
+const wiIntervalsEs = {1:'semitono',2:'tono',3:'3ª menor — oscuro',4:'3ª mayor — brillante',
   5:'4ª justa',6:'tritono — máx. tensión',7:'5ª justa — estable',8:'6ª menor',
   9:'6ª mayor',10:'7ª menor',11:'7ª mayor',12:'octava'};
+const wiIntervalsEn = {1:'semitone',2:'whole tone',3:'minor 3rd — darker',4:'major 3rd — brighter',
+  5:'perfect 4th',6:'tritone — max tension',7:'perfect 5th — stable',8:'minor 6th',
+  9:'major 6th',10:'minor 7th',11:'major 7th',12:'octave'};
 let wiSel1=-1, wiSel2=-1;
+
+function wiNotes() {
+  return widgetLang() === 'en' ? wiNotesEn : wiNotesEs;
+}
+
+function wiIntervalLabel(diff) {
+  const map = widgetLang() === 'en' ? wiIntervalsEn : wiIntervalsEs;
+  return map[diff] || '';
+}
 
 function wiBuildKbd() {
   const kbd = document.getElementById('wi-kbd');
@@ -158,20 +193,20 @@ function wiClick(semi) {
     wiSel2=semi;
     const diff=Math.abs(semi-wiSel1);
     const lbl=document.getElementById('wi-label');
-    if(diff===0){lbl.textContent='misma nota'; return;}
-    lbl.textContent=(diff<=12?`${diff} semitonos — ${wiIntervals[diff]||''}`:' ')
-      + ` · ${wiNotes[wiSel1]} + ${wiNotes[wiSel2]}`;
+    if(diff===0){lbl.textContent=tr('misma nota', 'same note'); return;}
+    lbl.textContent=(diff<=12?`${diff} ${tr('semitonos', 'semitones')} — ${wiIntervalLabel(diff)}`:' ')
+      + ` · ${wiNotes()[wiSel1]} + ${wiNotes()[wiSel2]}`;
     wiPlayFreq(wiFreqs[wiSel1]);
     wiPlayFreq(wiFreqs[wiSel2], 0.05);
   } else {wiSel1=semi;wiSel2=-1;wiPlayFreq(wiFreqs[semi]);}
   wiHighlight();
   const lbl=document.getElementById('wi-label');
-  if(wiSel2===-1) lbl.textContent=`${wiNotes[semi]} seleccionado — elige otra nota`;
+  if(wiSel2===-1) lbl.textContent=`${wiNotes()[semi]} ${tr('seleccionado — elige otra nota', 'selected — choose another note')}`;
 }
-function wiClear(){wiSel1=-1;wiSel2=-1;wiHighlight();document.getElementById('wi-label').textContent='selecciona una nota raíz y luego otra';}
+function wiClear(){wiSel1=-1;wiSel2=-1;wiHighlight();document.getElementById('wi-label').textContent=tr('selecciona una nota raíz y luego otra', 'select one root note and then another');}
 function wiPlay(s1,s2){wiSel1=s1;wiSel2=s2;
   const diff=Math.abs(s2-s1);
-  document.getElementById('wi-label').textContent=`${diff} semitonos — ${wiIntervals[diff]||''} · ${wiNotes[s1]} + ${wiNotes[s2]}`;
+  document.getElementById('wi-label').textContent=`${diff} ${tr('semitonos', 'semitones')} — ${wiIntervalLabel(diff)} · ${wiNotes()[s1]} + ${wiNotes()[s2]}`;
   wiHighlight();wiPlayFreq(wiFreqs[s1]);wiPlayFreq(wiFreqs[s2],0.05);}
 document.addEventListener('DOMContentLoaded', wiBuildKbd);
 
@@ -332,11 +367,17 @@ document.addEventListener('DOMContentLoaded', () => { wsRender(); wsPreset('basi
 
 /* ── 5. WAVEFORMS ───────────────────────────────────────── */
 let wwOsc=null, wwGain=null, wwFilter=null, wwAnalyser=null, wwType='sine', wwRunning=false, wwAnimId=null;
-const wwDescs={
+const wwDescsEs={
   sine:'sine — onda sinusoidal pura, sin armónicos adicionales. suave y limpia. base del vocoder.',
   square:'square — onda cuadrada. rica en armónicos impares. carácter nasal y electrónico. new wave, chiptune.',
   sawtooth:'sawtooth — diente de sierra. todos los armónicos. brillante y agresiva. el sonido substractivo más rico.',
   triangle:'triangle — similar a sine pero con armónicos impares suaves. más cálida que square.'
+};
+const wwDescsEn={
+  sine:'sine — pure sine wave, no extra harmonics. smooth and clean. vocoder base.',
+  square:'square — square wave. rich in odd harmonics. nasal/electronic character. new wave, chiptune.',
+  sawtooth:'sawtooth — all harmonics. bright and aggressive. richest subtractive source.',
+  triangle:'triangle — like sine with soft odd harmonics. warmer than square.'
 };
 function wwDraw() {
   if(!wwAnalyser) return;
@@ -361,6 +402,7 @@ function wwSelect(type) {
     const btn=document.getElementById('ww-'+t);
     if(btn) btn.className='w-btn '+(t===type?'active':'inactive');
   });
+  const wwDescs = widgetLang() === 'en' ? wwDescsEn : wwDescsEs;
   document.getElementById('ww-desc').textContent=wwDescs[type]||'';
   if(wwOsc) wwOsc.type=type;
   if(!wwRunning) wwDrawStatic();
@@ -387,7 +429,7 @@ function wwDrawStatic() {
 function wwCutoff() {
   const val=+document.getElementById('ww-cut').value;
   const lbl=document.getElementById('ww-cutv');
-  lbl.textContent=val>=7000?'abierto':val<500?val+'Hz':Math.round(val/100)/10+'kHz';
+  lbl.textContent=val>=7000?tr('abierto','open'):val<500?val+'Hz':Math.round(val/100)/10+'kHz';
   if(wwFilter) wwFilter.frequency.value=val;
 }
 function wwToggle() {
@@ -405,7 +447,7 @@ function wwToggle() {
     wwDraw();
   } else {
     wwOsc.stop(); cancelAnimationFrame(wwAnimId);
-    wwRunning=false; btn.textContent='▶ tocar'; btn.style.background='';
+    wwRunning=false; btn.textContent=tr('▶ tocar','▶ play'); btn.style.background='';
     wwDrawStatic();
   }
 }
@@ -439,7 +481,7 @@ function ws2Move(dot, x, y, field, key) {
   ws2Config[key].pan=pan;
   if(ws2Config[key].panNode) ws2Config[key].panNode.pan.value=pan;
   const pct=Math.round(pan*100);
-  document.getElementById('ws2-info').textContent=`${key}: ${pct===0?'centro':pct>0?'derecha +'+pct:'izquierda '+pct}`;
+  document.getElementById('ws2-info').textContent=`${key}: ${pct===0?tr('centro','center'):pct>0?tr('derecha +','right +')+pct:tr('izquierda ','left ')+pct}`;
 }
 function ws2Toggle() {
   const btn=document.getElementById('ws2-play');
@@ -462,7 +504,7 @@ function ws2Toggle() {
     ws2Playing=true; btn.textContent='■ stop'; btn.style.background='var(--ink)';
   } else {
     Object.values(ws2Config).forEach(c=>{if(c.osc) c.osc.stop();});
-    ws2Playing=false; btn.textContent='▶ escuchar'; btn.style.background='';
+    ws2Playing=false; btn.textContent=tr('▶ escuchar','▶ listen'); btn.style.background='';
   }
 }
 function ws2Reset() {
@@ -535,32 +577,32 @@ function wtTrack() {
   wtRender();
 }
 function wtLift() {
-  if(!wtData[wtTrackIdx][wtHeadPos]) { wtSetStatus('no hay take bajo el cabezal para hacer lift'); return; }
+  if(!wtData[wtTrackIdx][wtHeadPos]) { wtSetStatus(tr('no hay take bajo el cabezal para hacer lift','no take under the head to lift')); return; }
   wtData[wtTrackIdx][wtHeadPos] = false;
   wtClipboard = true;
   wtRender();
-  wtSetStatus('lift hecho: take al portapapeles. ahora mueve cabezal y haz drop.');
+  wtSetStatus(tr('lift hecho: take al portapapeles. ahora mueve cabezal y haz drop.','lift done: take copied to clipboard. now move the head and drop.'));
 }
 function wtDrop() {
-  if(!wtClipboard) { wtSetStatus('portapapeles vacío. haz lift primero.'); return; }
+  if(!wtClipboard) { wtSetStatus(tr('portapapeles vacío. haz lift primero.','clipboard empty. do lift first.')); return; }
   wtData[wtTrackIdx][wtHeadPos] = true;
   wtRender();
-  wtSetStatus('drop aplicado. si quieres repetir, mueve cabezal y vuelve a drop.');
+  wtSetStatus(tr('drop aplicado. si quieres repetir, mueve cabezal y vuelve a drop.','drop applied. move the head and drop again to repeat.'));
 }
 function wtSplit() {
-  if(!wtData[wtTrackIdx][wtHeadPos]) { wtSetStatus('split requiere un take existente.'); return; }
-  if(wtHeadPos>=15) { wtSetStatus('no hay espacio a la derecha para split.'); return; }
+  if(!wtData[wtTrackIdx][wtHeadPos]) { wtSetStatus(tr('split requiere un take existente.','split requires an existing take.')); return; }
+  if(wtHeadPos>=15) { wtSetStatus(tr('no hay espacio a la derecha para split.','no space on the right to split.')); return; }
   wtData[wtTrackIdx][wtHeadPos+1] = true;
   wtRender();
-  wtSetStatus('split simulado: segmento dividido en dos partes contiguas.');
+  wtSetStatus(tr('split simulado: segmento dividido en dos partes contiguas.','simulated split: segment divided into two adjacent parts.'));
 }
 function wtClone() {
-  if(!wtData[wtTrackIdx][wtHeadPos]) { wtSetStatus('elige un take para duplicar.'); return; }
+  if(!wtData[wtTrackIdx][wtHeadPos]) { wtSetStatus(tr('elige un take para duplicar.','choose a take to duplicate.')); return; }
   const idx = wtData[wtTrackIdx].findIndex((v,i)=>!v && i>wtHeadPos);
-  if(idx===-1){ wtSetStatus('sin hueco libre a la derecha. mueve o borra antes.'); return; }
+  if(idx===-1){ wtSetStatus(tr('sin hueco libre a la derecha. mueve o borra antes.','no free slot on the right. move or clear first.')); return; }
   wtData[wtTrackIdx][idx]=true;
   wtRender();
-  wtSetStatus('take duplicado en la misma pista. útil para construir arreglo rápido.');
+  wtSetStatus(tr('take duplicado en la misma pista. útil para construir arreglo rápido.','take duplicated on the same track. useful to build arrangement quickly.'));
 }
 function wtReset() {
   wtSeed();
@@ -568,7 +610,7 @@ function wtReset() {
   if(t) t.value='0';
   if(h) h.value='0';
   wtHead();
-  wtSetStatus('estado base cargado. prueba lift/drop/split en orden.');
+  wtSetStatus(tr('estado base cargado. prueba lift/drop/split en orden.','base state loaded. test lift/drop/split in order.'));
 }
 
 /* ── 8. FM LAB ─────────────────────────────────────────── */
@@ -582,36 +624,50 @@ function wDistCurve(amount=0){
   return curve;
 }
 function wfmGet() {
+  const originEl = document.getElementById('wfm-origin');
   return {
     ratio: +document.getElementById('wfm-ratio').value/10,
     mod: +document.getElementById('wfm-mod').value,
-    fb: +document.getElementById('wfm-fb').value
+    fb: +document.getElementById('wfm-fb').value,
+    origin: originEl ? +originEl.value : 50
   };
+}
+function wfmOriginFreq(origin){
+  return 110 * Math.pow(2, (origin - 50) / 25);
 }
 function wfmDescribe(p){
   const ratioRounded = Math.round(p.ratio);
   const simple = Math.abs(p.ratio-ratioRounded) < 0.08 && [1,2,3,4,5,6,7,8].includes(ratioRounded);
-  if(p.mod<25 && p.fb<25 && simple) return 'lectura: estable-armónico, limpio';
-  if(!simple && p.mod>35) return 'lectura: inarmónico/metálico (campana útil)';
-  if(p.mod>70 || p.fb>65) return 'lectura: áspero y denso, úsalo con intención';
-  return 'lectura: punto intermedio, buen terreno para bajos/keys';
+  const lowOrigin = p.origin < 36;
+  const highOrigin = p.origin > 64;
+  if(p.mod<25 && p.fb<25 && simple) return tr('lectura: estable-armónico, limpio', 'read: stable-harmonic, clean');
+  if(!simple && p.mod>35) return tr('lectura: inarmónico/metálico (campana útil)', 'read: inharmonic/metallic (useful bell)');
+  if(lowOrigin && p.mod<55) return tr('lectura: carácter grave/profundo, útil para bajos', 'read: low/deep character, useful for bass');
+  if(highOrigin && p.mod>35) return tr('lectura: carácter agudo/cortante, útil para lead', 'read: high/cutting character, useful for lead');
+  if(p.mod>70 || p.fb>65) return tr('lectura: áspero y denso, úsalo con intención', 'read: rough and dense, use with intention');
+  return tr('lectura: punto intermedio, buen terreno para bajos/keys', 'read: middle ground, good territory for bass/keys');
 }
 function wfmUpdate() {
   const p=wfmGet();
+  const originSemi = Math.round((p.origin - 50) * 0.48);
+  const originFreq = Math.round(wfmOriginFreq(p.origin));
   document.getElementById('wfm-ratiov').textContent=p.ratio.toFixed(1);
+  const originVal = document.getElementById('wfm-originv');
+  if (originVal) originVal.textContent = `${originSemi >= 0 ? '+' : ''}${originSemi} st · ${originFreq}Hz`;
   document.getElementById('wfm-modv').textContent=p.mod+'%';
   document.getElementById('wfm-fbv').textContent=p.fb+'%';
   document.getElementById('wfm-note').textContent=wfmDescribe(p);
 }
 function wfmTone(p, when=0){
   const ctx=ac(), t=ctx.currentTime+when;
+  const base = wfmOriginFreq(p.origin);
   const out=ctx.createGain(); out.connect(ctx.destination);
   out.gain.setValueAtTime(0.001,t);
   out.gain.linearRampToValueAtTime(0.32,t+0.02);
   out.gain.exponentialRampToValueAtTime(0.001,t+0.8);
   const sh=ctx.createWaveShaper(); sh.curve=wDistCurve(p.fb/100); sh.oversample='2x';
-  const car=ctx.createOscillator(); car.type='sine'; car.frequency.value=220;
-  const mod=ctx.createOscillator(); mod.type='sine'; mod.frequency.value=220*p.ratio;
+  const car=ctx.createOscillator(); car.type='sine'; car.frequency.value=base;
+  const mod=ctx.createOscillator(); mod.type='sine'; mod.frequency.value=base*p.ratio;
   const mg=ctx.createGain(); mg.gain.value=(p.mod/100)*260;
   mod.connect(mg); mg.connect(car.frequency);
   car.connect(sh); sh.connect(out);
@@ -621,12 +677,14 @@ function wfmTone(p, when=0){
 function wfmPlay(){ wfmTone(wfmGet(),0); }
 function wfmPreset(name){
   const p = {
-    clean:{ratio:20,mod:20,fb:10},
-    metal:{ratio:47,mod:55,fb:20},
-    rough:{ratio:31,mod:80,fb:70}
+    clean:{ratio:20,origin:50,mod:20,fb:10},
+    metal:{ratio:47,origin:58,mod:55,fb:20},
+    rough:{ratio:31,origin:45,mod:80,fb:70}
   }[name];
   if(!p) return;
   document.getElementById('wfm-ratio').value=String(p.ratio);
+  const originEl = document.getElementById('wfm-origin');
+  if (originEl) originEl.value=String(p.origin);
   document.getElementById('wfm-mod').value=String(p.mod);
   document.getElementById('wfm-fb').value=String(p.fb);
   wfmUpdate();
@@ -634,12 +692,15 @@ function wfmPreset(name){
 function wfmStore(slot){
   if(slot==='a') wfmA = wfmGet();
   if(slot==='b') wfmB = wfmGet();
-  document.getElementById('wfm-note').textContent = `guardado ${slot.toUpperCase()} · usa A/B para comparar en contexto`;
+  document.getElementById('wfm-note').textContent = tr(
+    `guardado ${slot.toUpperCase()} · usa A/B para comparar en contexto`,
+    `saved ${slot.toUpperCase()} · use A/B to compare in context`
+  );
 }
 function wfmPlayAB(){
-  if(!wfmA || !wfmB){ document.getElementById('wfm-note').textContent='guarda A y B primero'; return; }
+  if(!wfmA || !wfmB){ document.getElementById('wfm-note').textContent=tr('guarda A y B primero','save A and B first'); return; }
   wfmTone(wfmA,0); wfmTone(wfmB,1.0);
-  document.getElementById('wfm-note').textContent='A primero, B después · decide por función en mezcla';
+  document.getElementById('wfm-note').textContent=tr('A primero, B después · decide por función en mezcla','A first, B second · decide by function in the mix');
 }
 
 /* ── 9. LFO LAB ────────────────────────────────────────── */
@@ -686,10 +747,10 @@ function wlfoUpdate(){
   document.getElementById('wlfo-depthv').textContent=dep+'%';
   const dest=document.getElementById('wlfo-dest').value;
   const msg = dest==='pitch'
-    ? 'pitch: usa profundidad baja para inestabilidad controlada'
+    ? tr('pitch: usa profundidad baja para inestabilidad controlada', 'pitch: keep depth low for controlled instability')
     : dest==='amp'
-      ? 'amp: tremolo rítmico. evita profundidad extrema si pierde groove'
-      : 'timbre: ideal para pads en movimiento lento';
+      ? tr('amp: tremolo rítmico. evita profundidad extrema si pierde groove', 'amp: rhythmic tremolo. avoid extreme depth if groove is lost')
+      : tr('timbre: ideal para pads en movimiento lento', 'timbre: ideal for slowly moving pads');
   document.getElementById('wlfo-note').textContent = msg;
   if(!wlfoRun) wlfoDraw();
 }
@@ -736,7 +797,7 @@ function wlfoToggle(){
     wlfoCarrier=null; wlfoLfo=null;
     clearInterval(wlfoRandTimer);
     cancelAnimationFrame(wlfoAnim);
-    btn.textContent='▶ escuchar';
+    btn.textContent=tr('▶ escuchar','▶ listen');
     wlfoDraw();
   }
 }
@@ -771,7 +832,7 @@ function wlfoOneShot(withLfo, when=0){
 function wlfoAB(){
   wlfoOneShot(false,0);
   wlfoOneShot(true,0.65);
-  document.getElementById('wlfo-note').textContent='A/B: primero sin LFO, luego con LFO';
+  document.getElementById('wlfo-note').textContent=tr('A/B: primero sin LFO, luego con LFO','A/B: first without LFO, then with LFO');
 }
 
 /* ── 10. FX BLIND ──────────────────────────────────────── */
@@ -779,7 +840,7 @@ let wfxMap = ['delay','phone','nitro'];
 function wfxShuffle(){
   const pool=['delay','phone','nitro'];
   wfxMap = pool.sort(()=>Math.random()-0.5).slice(0,3);
-  document.getElementById('wfx-note').textContent='nuevo orden cargado. escucha A/B/C y decide antes de revelar.';
+  document.getElementById('wfx-note').textContent=tr('nuevo orden cargado. escucha A/B/C y decide antes de revelar.','new order loaded. listen to A/B/C and decide before reveal.');
 }
 function wfxVoice(type, when=0){
   const ctx=ac(), t=ctx.currentTime+when;
@@ -811,10 +872,10 @@ function wfxPlay(slot){
   const idx = {a:0,b:1,c:2}[slot];
   if(idx===undefined) return;
   wfxVoice(wfxMap[idx],0);
-  document.getElementById('wfx-note').textContent='escuchando '+slot.toUpperCase()+' · compara por función, no por volumen';
+  document.getElementById('wfx-note').textContent=tr('escuchando ','listening to ')+slot.toUpperCase()+tr(' · compara por función, no por volumen',' · compare by function, not by volume');
 }
 function wfxReveal(){
-  document.getElementById('wfx-note').textContent=`revelado: A=${wfxMap[0]} · B=${wfxMap[1]} · C=${wfxMap[2]}`;
+  document.getElementById('wfx-note').textContent=tr('revelado','revealed')+`: A=${wfxMap[0]} · B=${wfxMap[1]} · C=${wfxMap[2]}`;
 }
 
 /* ── 11. SEQUENCER LAB ─────────────────────────────────── */
@@ -869,7 +930,7 @@ function wslPlay(side){
     const freq=base*Math.pow(2,semi/12);
     wslVoice(cfg.engine, freq, ac().currentTime+dt, cfg.seq==='arp'?0.12:0.17);
   });
-  document.getElementById('wsl-note').textContent=`${side.toUpperCase()}: ${cfg.engine} + ${cfg.seq} · compara carácter/groove`;
+  document.getElementById('wsl-note').textContent=`${side.toUpperCase()}: ${cfg.engine} + ${cfg.seq}${tr(' · compara carácter/groove',' · compare character/groove')}`;
 }
 function wslSwapEngines(){
   const a=document.getElementById('wsl-eng-a'), b=document.getElementById('wsl-eng-b');
@@ -881,7 +942,7 @@ function wslSwapSeq(){
 }
 function wslUpdate(){
   const a=wslRead('a'), b=wslRead('b');
-  document.getElementById('wsl-note').textContent=`A=${a.engine}/${a.seq} · B=${b.engine}/${b.seq} · evalúa cuál funciona mejor en contexto`;
+  document.getElementById('wsl-note').textContent=`A=${a.engine}/${a.seq} · B=${b.engine}/${b.seq}${tr(' · evalúa cuál funciona mejor en contexto',' · evaluate which works better in context')}`;
 }
 
 /* ── 12. INPUT / RESAMPLING MAP ───────────────────────── */
@@ -889,22 +950,34 @@ function wrsUpdate(){
   const src=document.getElementById('wrs-src').value;
   const goal=document.getElementById('wrs-goal').value;
   const dst=document.getElementById('wrs-dst').value;
-  const srcTxt={mic:'mic interno',line:'line-in',tape:'mix interno del tape',track:'pista específica'}[src];
-  const goalTxt={texture:'crear textura',compact:'compactar capas',reuse:'reciclar material'}[goal];
-  const dstTxt={drum:'slot Drum',synth:'nuevo material de synth/sampler',tape:'nueva pista de tape'}[dst];
-  let hint='graba corto, trim al ataque y compara antes/después.';
-  if(goal==='compact') hint='imprime capas que ya funcionan para liberar pistas y seguir arreglando.';
-  if(src==='line' || src==='mic') hint='ajusta nivel de entrada antes de grabar para evitar clipping o ruido débil.';
-  if(src==='tape' || src==='track') hint='resample interno: ideal para congelar textura irrepetible y reusarla.';
+  const srcTxt=(widgetLang()==='en'
+    ? {mic:'internal mic',line:'line-in',tape:'internal tape mix',track:'specific track'}
+    : {mic:'mic interno',line:'line-in',tape:'mix interno del tape',track:'pista específica'})[src];
+  const goalTxt=(widgetLang()==='en'
+    ? {texture:'create texture',compact:'compact layers',reuse:'recycle material'}
+    : {texture:'crear textura',compact:'compactar capas',reuse:'reciclar material'})[goal];
+  const dstTxt=(widgetLang()==='en'
+    ? {drum:'Drum slot',synth:'new synth/sampler material',tape:'new tape track'}
+    : {drum:'slot Drum',synth:'nuevo material de synth/sampler',tape:'nueva pista de tape'})[dst];
+  let hint=tr('graba corto, trim al ataque y compara antes/después.','record short, trim the attack, and compare before/after.');
+  if(goal==='compact') hint=tr('imprime capas que ya funcionan para liberar pistas y seguir arreglando.','print layers that already work to free tracks and keep arranging.');
+  if(src==='line' || src==='mic') hint=tr('ajusta nivel de entrada antes de grabar para evitar clipping o ruido débil.','set input level before recording to avoid clipping or weak/noisy signal.');
+  if(src==='tape' || src==='track') hint=tr('resample interno: ideal para congelar textura irrepetible y reusarla.','internal resample: ideal to freeze an unrepeatable texture and reuse it.');
   document.getElementById('wrs-plan').innerHTML =
-    `<strong style="color:var(--ink)">flujo recomendado:</strong> ${srcTxt} → ${goalTxt} → ${dstTxt}.<br>${hint}`;
+    `<strong style="color:var(--ink)">${tr('flujo recomendado:','recommended flow:')}</strong> ${srcTxt} → ${goalTxt} → ${dstTxt}.<br>${hint}`;
 }
 function wrsExercises(){
-  const ex=[
-    'ejercicio 1: resamplea una textura interna de 8 compases y conviértela en pad tocable.',
-    'ejercicio 2: graba 5-10 s por line/mic y úsalo como elemento percusivo.',
-    'ejercicio 3: toma una capa del tape y recíclala en material nuevo para 4 compases.'
-  ];
+  const ex=widgetLang()==='en'
+    ? [
+      'exercise 1: resample an internal 8-bar texture and turn it into a playable pad.',
+      'exercise 2: record 5-10 s from line/mic and use it as a percussive element.',
+      'exercise 3: take one tape layer and recycle it into new material for 4 bars.'
+    ]
+    : [
+      'ejercicio 1: resamplea una textura interna de 8 compases y conviértela en pad tocable.',
+      'ejercicio 2: graba 5-10 s por line/mic y úsalo como elemento percusivo.',
+      'ejercicio 3: toma una capa del tape y recíclala en material nuevo para 4 compases.'
+    ];
   document.getElementById('wrs-plan').innerHTML += '<br><br><strong style="color:var(--ink)">'+ex[Math.floor(Math.random()*ex.length)]+'</strong>';
 }
 
@@ -919,16 +992,16 @@ function wmxUpdate(){
   document.getElementById('wmx-revv').textContent=rev+'%';
   document.getElementById('wmx-midv').textContent=mid+'%';
   document.getElementById('wmx-drivev').textContent=drive+'%';
-  let lowTxt='equilibrado';
-  if(low<35) lowTxt='kick domina';
-  if(low>65) lowTxt='bajo domina';
+  let lowTxt=tr('equilibrado','balanced');
+  if(low<35) lowTxt=tr('kick domina','kick dominates');
+  if(low>65) lowTxt=tr('bajo domina','bass dominates');
   document.getElementById('wmx-lowv').textContent=lowTxt;
   const tips=[];
-  if(front>65 && rev>55) tips.push('si el foco debe ir delante, baja send/reverb de esa pista.');
-  if(mid>70) tips.push('rango medio cargado: separa por octava o simplifica una capa.');
-  if(drive>55) tips.push('drive alto: revisa fatiga y clipping en pasajes densos.');
-  if(low<30 || low>70) tips.push('kick/bajo desbalanceados: alterna roles o ajusta nivel/registro.');
-  if(!tips.length) tips.push('balance usable. haz A/B y cambia solo una variable por vez.');
+  if(front>65 && rev>55) tips.push(tr('si el foco debe ir delante, baja send/reverb de esa pista.','if the focus should be upfront, lower send/reverb on that track.'));
+  if(mid>70) tips.push(tr('rango medio cargado: separa por octava o simplifica una capa.','midrange overloaded: separate by octave or simplify one layer.'));
+  if(drive>55) tips.push(tr('drive alto: revisa fatiga y clipping en pasajes densos.','high drive: check fatigue and clipping in dense passages.'));
+  if(low<30 || low>70) tips.push(tr('kick/bajo desbalanceados: alterna roles o ajusta nivel/registro.','kick/bass imbalance: alternate roles or adjust level/register.'));
+  if(!tips.length) tips.push(tr('balance usable. haz A/B y cambia solo una variable por vez.','usable balance. do A/B and change only one variable at a time.'));
   document.getElementById('wmx-note').textContent=tips.join(' ');
 }
 
@@ -938,21 +1011,195 @@ function wexUpdate(){
   const done=checks.filter(k=>document.getElementById('wex-'+k).checked);
   const missing=checks.filter(k=>!document.getElementById('wex-'+k).checked);
   const pr=document.getElementById('wex-prio').value;
-  let route='ruta 1 · terminar dentro del OP-1 Field';
-  if(pr==='perf' && done.length>=4) route='ruta 2 · mixdown estéreo/performance final';
-  if(pr==='edit' || done.length<4) route='ruta 3 · exportar stems para terminar fuera';
-  if(pr==='fast' && done.length>=5) route='ruta 1 · cerrar dentro del OP-1 Field (rápido y sólido)';
+  let route=tr('ruta 1 · terminar dentro del OP-1 Field','route 1 · finish inside the OP-1 Field');
+  if(pr==='perf' && done.length>=4) route=tr('ruta 2 · mixdown estéreo/performance final','route 2 · stereo mixdown/final performance');
+  if(pr==='edit' || done.length<4) route=tr('ruta 3 · exportar stems para terminar fuera','route 3 · export stems to finish outside');
+  if(pr==='fast' && done.length>=5) route=tr('ruta 1 · cerrar dentro del OP-1 Field (rápido y sólido)','route 1 · close inside the OP-1 Field (fast and solid)');
   const missMap={
     balance:'balance',
     clip:'clipping',
-    tails:'colas de reverb',
-    trans:'transiciones',
-    gaps:'huecos',
-    bass:'bajo'
+    tails:tr('colas de reverb','reverb tails'),
+    trans:tr('transiciones','transitions'),
+    gaps:tr('huecos','gaps'),
+    bass:tr('bajo','bass')
   };
-  const missTxt=missing.length?('pendiente: '+missing.map(m=>missMap[m]).join(', ')):'checklist completo.';
+  const missTxt=missing.length?(tr('pendiente: ','pending: ')+missing.map(m=>missMap[m]).join(', ')):tr('checklist completo.','checklist complete.');
   document.getElementById('wex-result').innerHTML =
-    `<strong style="color:var(--ink)">sugerencia:</strong> ${route}.<br>${missTxt}`;
+    `<strong style="color:var(--ink)">${tr('sugerencia:','suggestion:')}</strong> ${route}.<br>${missTxt}`;
+}
+
+/* ── 15. ANATOMY MAP ──────────────────────────────────── */
+const wanData = {
+  es: {
+    synth: {
+      title: 'Synth — T1/T2/T3/T4 = engine/envelope/FX/LFO',
+      body: 'Ochre/Blue/Gray controlan el engine activo. Orange ajusta volumen del instrumento. Shift en encoders abre ADSR.',
+      tip: 'acción: toca una nota fija y gira un encoder por vez para aislar causa-efecto.'
+    },
+    drum: {
+      title: 'Drum — slots de sample y edición rápida',
+      body: 'Ochre y Blue ajustan start/end. Gray afina el sample. Orange controla volumen del instrumento activo.',
+      tip: 'acción: en un solo slot, mueve start/end y decide si el sample funciona mejor corto o largo.'
+    },
+    tape: {
+      title: 'Tape — grabar, navegar, editar takes',
+      body: 'Blue hace scrubbing del cabezal. 1–4 seleccionan pista activa. Lift/Drop/Split editan material en la cinta.',
+      tip: 'acción: haz lift de un take corto, mueve cabezal y haz drop para validar el flujo.'
+    },
+    mixer: {
+      title: 'Mixer — jerarquía y espacio',
+      body: 'Ochre volumen de pista, Blue paneo, Gray send, Orange master. Shift abre controles globales del bus.',
+      tip: 'acción: baja una pista de fondo 3–5 puntos y comprueba si el foco principal se entiende mejor.'
+    }
+  },
+  en: {
+    synth: {
+      title: 'Synth — T1/T2/T3/T4 = engine/envelope/FX/LFO',
+      body: 'Ochre/Blue/Gray control the active engine. Orange sets instrument volume. Shift on encoders opens ADSR.',
+      tip: 'action: hold one note and move one encoder at a time to isolate cause/effect.'
+    },
+    drum: {
+      title: 'Drum — sample slots and fast edit',
+      body: 'Ochre and Blue adjust start/end. Gray tunes the sample. Orange controls active instrument volume.',
+      tip: 'action: on one slot, move start/end and decide whether the sample works better short or long.'
+    },
+    tape: {
+      title: 'Tape — record, navigate, edit takes',
+      body: 'Blue scrubs the head. 1–4 select active track. Lift/Drop/Split edit material on tape.',
+      tip: 'action: lift one short take, move the head, and drop it to validate the full edit flow.'
+    },
+    mixer: {
+      title: 'Mixer — hierarchy and space',
+      body: 'Ochre track volume, Blue pan, Gray send, Orange master. Shift opens global bus controls.',
+      tip: 'action: lower one background layer by 3–5 points and check if the main focus reads better.'
+    }
+  }
+};
+function wanSet(mode){
+  const lang = widgetLang();
+  const set = wanData[lang] || wanData.es;
+  const data = set[mode] || set.synth;
+  ['synth','drum','tape','mixer'].forEach((id)=>{
+    const el = document.getElementById('wan-'+id);
+    if(!el) return;
+    el.className = 'w-btn ' + (id===mode ? 'active' : 'inactive');
+  });
+  const t = document.getElementById('wan-title');
+  const b = document.getElementById('wan-body');
+  const tip = document.getElementById('wan-tip');
+  if(t) t.textContent = data.title;
+  if(b) b.textContent = data.body;
+  if(tip) tip.textContent = data.tip;
+}
+function wanInit(){ if(document.getElementById('wan-title')) wanSet('synth'); }
+
+/* ── 16. WORKFLOW 90 ──────────────────────────────────── */
+function wwfPhase(min){
+  const phases = [
+    [0,5, tr('setup (0–5): BPM, tape base y contexto limpio.','setup (0–5): BPM, base tape, clean context.')],
+    [5,20, tr('drums (5–20): groove principal en pista 1.','drums (5–20): main groove on track 1.')],
+    [20,35, tr('bajo (20–35): función armónica + pegada.','bass (20–35): harmonic role + punch.')],
+    [35,50, tr('melodía (35–50): motivo claro, no sobreescribir.','melody (35–50): clear motif, avoid overfilling.')],
+    [50,65, tr('textura (50–65): movimiento sin tapar foco.','texture (50–65): movement without masking focus.')],
+    [65,80, tr('mezcla (65–80): jerarquía y espacio estéreo.','mix (65–80): hierarchy and stereo space.')],
+    [80,91, tr('export (80–90): decide ruta y cierra versión.','export (80–90): pick route and close version.')]
+  ];
+  return phases.find(([a,b])=>min>=a&&min<b)?.[2] || phases[0][2];
+}
+function wwfUpdate(){
+  const slider = document.getElementById('wwf-min');
+  if(!slider) return;
+  const min = +slider.value;
+  const minLbl = document.getElementById('wwf-minv');
+  const stage = document.getElementById('wwf-stage');
+  if(minLbl) minLbl.textContent = String(min);
+  if(stage) stage.textContent = tr('fase: ','stage: ') + wwfPhase(min);
+  const checks = ['wwf-c1','wwf-c2','wwf-c3','wwf-c4','wwf-c5','wwf-c6','wwf-c7'];
+  const done = checks.filter((id)=>document.getElementById(id)?.checked).length;
+  const progress = document.getElementById('wwf-progress');
+  if(progress) progress.textContent = tr(`${done}/7 fases completadas.`, `${done}/7 stages completed.`);
+}
+function wwfReset(){
+  ['wwf-c1','wwf-c2','wwf-c3','wwf-c4','wwf-c5','wwf-c6','wwf-c7'].forEach((id)=>{
+    const el = document.getElementById(id); if(el) el.checked=false;
+  });
+  const slider = document.getElementById('wwf-min');
+  if(slider) slider.value='0';
+  wwfUpdate();
+}
+
+/* ── 17. CONNECTION MATRIX ─────────────────────────────── */
+function wcmUpdate(){
+  const path = document.getElementById('wcm-path');
+  const goal = document.getElementById('wcm-goal');
+  const dev = document.getElementById('wcm-dev');
+  if(!path || !goal || !dev) return;
+  const devices = +dev.value;
+  const devLbl = document.getElementById('wcm-devv');
+  if(devLbl) devLbl.textContent = String(devices);
+  let score = ({usb_host:1, pulse:2, ble:3}[path.value] || 2);
+  if(goal.value==='record') score += (path.value==='ble'?2:path.value==='pulse'?1:0);
+  if(goal.value==='live') score += (path.value==='ble'?1:0);
+  if(devices>=3) score += 1;
+  if(devices>=4 && path.value==='ble') score += 1;
+  score = Math.max(1, Math.min(5, score));
+  let risk = tr('verde · estable para grabar.','green · stable for recording.');
+  let rec = tr('recomendación: valida play/stop dos veces y graba.',
+    'recommendation: validate play/stop twice, then record.');
+  if(score===3){
+    risk = tr('amarillo · útil para jam, valida antes de toma final.',
+      'yellow · good for jams, validate before final take.');
+    rec = tr('recomendación: haz test de 16 compases y prepara fallback cableado.',
+      'recommendation: run a 16-bar test and keep a wired fallback ready.');
+  } else if(score>=4){
+    risk = tr('rojo · evita toma final en esta ruta.',
+      'red · avoid final take on this route.');
+    rec = tr('recomendación: cambia a USB host o reduce dispositivos antes de grabar.',
+      'recommendation: switch to USB host or reduce device count before recording.');
+  }
+  const riskEl = document.getElementById('wcm-risk');
+  const noteEl = document.getElementById('wcm-note');
+  if(riskEl) riskEl.textContent = tr('riesgo: ','risk: ') + risk;
+  if(noteEl) noteEl.textContent = rec;
+}
+
+/* ── 18. PRE-PERFORMANCE CHECK ────────────────────────── */
+function wpfUpdate(){
+  const mode = document.getElementById('wpf-mode');
+  if(!mode) return;
+  const checks = [
+    ['wpf-fm', tr('canal FM libre','FM channel free')],
+    ['wpf-level', tr('nivel de salida estable','output level stable')],
+    ['wpf-sync', tr('sync validado','sync validated')],
+    ['wpf-lat', tr('latencia aceptable','latency acceptable')],
+    ['wpf-fallback', tr('fallback cableado listo','wired fallback ready')]
+  ];
+  const done = checks.filter(([id])=>document.getElementById(id)?.checked);
+  const missing = checks.filter(([id])=>!document.getElementById(id)?.checked).map(([,label])=>label);
+  let msg = tr(
+    `checklist: ${done.length}/5. Pendiente: ${missing.join(', ') || 'nada'}.`,
+    `checklist: ${done.length}/5. Pending: ${missing.join(', ') || 'none'}.`
+  );
+  if(done.length===5){
+    msg = mode.value==='capture'
+      ? tr('listo para captura final. Haz una pasada completa y exporta sin tocar más parámetros.',
+          'ready for final capture. Run one full pass and export without extra tweaks.')
+      : tr('listo para performance. Mantén fallback cableado disponible durante la sesión.',
+          'ready for performance. Keep the wired fallback available during the session.');
+  } else if(missing.includes(tr('sync validado','sync validated')) || missing.includes(tr('latencia aceptable','latency acceptable'))){
+    msg += ' ' + tr('sugerencia: prioriza ruta cableada/USB antes de seguir.',
+      'suggestion: prioritize wired/USB route before continuing.');
+  }
+  const out = document.getElementById('wpf-status');
+  if(out) out.textContent = msg;
+}
+function wpfReset(){
+  ['wpf-fm','wpf-level','wpf-sync','wpf-lat','wpf-fallback'].forEach((id)=>{
+    const el=document.getElementById(id); if(el) el.checked=false;
+  });
+  const mode = document.getElementById('wpf-mode');
+  if(mode) mode.value='performance';
+  wpfUpdate();
 }
 
 document.addEventListener('DOMContentLoaded', ()=>{
@@ -965,5 +1212,44 @@ document.addEventListener('DOMContentLoaded', ()=>{
   wrsUpdate();
   wmxUpdate();
   wexUpdate();
+  wanInit();
+  wwfUpdate();
+  wcmUpdate();
+  wpfUpdate();
 });
 
+function reinitWidgetsAfterModuleHydration() {
+  if (document.getElementById('wm-bpm')) {
+    wmUpdate();
+    wmSwing(0);
+  }
+  if (document.getElementById('wi-kbd')) wiBuildKbd();
+  if (document.getElementById('wa-canvas')) waDrawAndLabel();
+  if (document.getElementById('ws-grid')) wsRender();
+  if (document.getElementById('ww-canvas')) wwDrawStatic();
+
+  if (document.getElementById('ws2-field')) {
+    ['kick','bajo','tex','mel'].forEach((k) => ws2MakeDraggable(k, k));
+    setTimeout(() => { ws2Reset(); }, 80);
+  }
+
+  if (document.getElementById('wt-wrap')) wtReset();
+  if (document.getElementById('wfm-ratio')) wfmUpdate();
+  if (document.getElementById('wlfo-canvas')) {
+    wlfoUpdate();
+    wlfoDraw();
+  }
+  if (document.getElementById('wfx-note')) wfxShuffle();
+  if (document.getElementById('wsl-note')) wslUpdate();
+  if (document.getElementById('wrs-plan')) wrsUpdate();
+  if (document.getElementById('wmx-note')) wmxUpdate();
+  if (document.getElementById('wex-result')) wexUpdate();
+  if (document.getElementById('wan-title')) wanInit();
+  if (document.getElementById('wwf-stage')) wwfUpdate();
+  if (document.getElementById('wcm-risk')) wcmUpdate();
+  if (document.getElementById('wpf-status')) wpfUpdate();
+}
+
+document.addEventListener('course:modules-hydrated', () => {
+  setTimeout(reinitWidgetsAfterModuleHydration, 0);
+});
