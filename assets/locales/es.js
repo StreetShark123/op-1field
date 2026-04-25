@@ -1401,7 +1401,7 @@ window.CourseLocales.es = {
   <div class="step"><div class="sl">comparativa</div><div class="sb"><strong>hold vs arp vs pattern</strong><p>Arp ordena automáticamente. Pattern fija pasos explícitos. Hold mantiene el material tocado y te permite explorarlo con enfoque performativo. Los tres sirven; elige según control deseado y tiempo disponible.</p></div></div>
   <div class="step"><div class="sl">A/B/C</div><div class="sb"><strong>mismo acorde, tres secuenciadores</strong><p>Haz tres tomas de 20 segundos: Arp, Hold y Pattern con las mismas notas. Escucha sin mirar pantalla y elige la toma que mejor encaje en el track. Este test entrena criterio real de producción.</p></div></div>
 </div>
-<div class="co"><div class="co-b bl"></div><div class="co-bd"><strong>pieza interactiva</strong>Comparador instantáneo Arp/Hold/Pattern sobre mismo acorde y mismo engine. Útil para clase porque convierte una idea abstracta en decisión auditiva inmediata.</div></div>
+<div class="co"><div class="co-b bl"></div><div class="co-bd"><strong>ejercicio guiado opcional</strong>Comparador instantáneo Arp/Hold/Pattern sobre mismo acorde y mismo engine. Útil para clase porque convierte una idea abstracta en decisión auditiva inmediata.</div></div>
 </div>
 
 

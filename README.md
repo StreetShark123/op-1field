@@ -41,6 +41,12 @@ Run locale + structure checks:
 npm run qa
 ```
 
+Run content coherence QA only:
+
+```bash
+npm run qa:content
+```
+
 Run E2E tests:
 
 ```bash
@@ -90,6 +96,8 @@ For Windows target, the `.exe` installer is produced there.
 - `assets/locales/en.js` — English locale dictionary
 - `assets/locales/ja.js` — Japanese locale dictionary
 - `docs/EDITING_GUIDE.md` — contributor editing workflow
+- `CONTRIBUTING.md` — contributor process and guardrails
+- `STYLE_GUIDE.md` — editorial consistency rules
 
 ## Internationalization (i18n)
 
@@ -112,6 +120,13 @@ To add a new language:
 3. Add a language button in the header (`data-lang="<lang>"`).
 4. Translate UI keys first, then `course.modules.m0..m15`.
 5. Keep HTML markup inside module strings untouched (ids, anchors, onclick handlers, classes) to avoid breaking widgets/navigation.
+
+## Contribution flow
+
+1. Read [`CONTRIBUTING.md`](/Users/axelsearagomez/Downloads/op-1field/CONTRIBUTING.md).
+2. Follow [`STYLE_GUIDE.md`](/Users/axelsearagomez/Downloads/op-1field/STYLE_GUIDE.md) for didactic/editorial consistency.
+3. Run `npm run qa` before opening a PR.
+4. Use the PR template checklist in `.github/pull_request_template.md`.
 
 ## Notes
 

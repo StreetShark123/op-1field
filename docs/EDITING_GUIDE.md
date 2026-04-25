@@ -2,6 +2,11 @@
 
 This project was restructured to make maintenance easier.
 
+Primary references:
+
+- `CONTRIBUTING.md` for process and QA expectations.
+- `STYLE_GUIDE.md` for editorial consistency.
+
 ## Project layout
 
 - `index.html`: main course page (content + structure)
