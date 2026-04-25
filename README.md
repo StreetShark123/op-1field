@@ -62,10 +62,34 @@ For Windows target, the `.exe` installer is produced there.
 - `index.html` — app shell + course content
 - `assets/css/main.css` — styles (visual identity preserved)
 - `assets/js/state.js` — persistence layer
+- `assets/js/i18n.js` — translation engine (`data-i18n` + language switching)
 - `assets/js/core.js` — course navigation/progress/core-full logic
 - `assets/js/app-shell.js` — onboarding and product UI controls
 - `assets/js/widgets.js` — interactive audio/learning widgets
+- `assets/locales/es.js` — Spanish locale dictionary
+- `assets/locales/en.js` — English locale dictionary
 - `docs/EDITING_GUIDE.md` — contributor editing workflow
+
+## Internationalization (i18n)
+
+The app is now structured to translate without rewriting core logic:
+
+- UI text is mapped with `data-i18n`, `data-i18n-placeholder`, etc.
+- Locale dictionaries live in `assets/locales/*.js`.
+- `assets/js/i18n.js` handles fallback (`en` -> `es` -> source text).
+- Optional full module overrides are supported via `course.modules.<moduleId>` HTML strings.
+- Language is persisted in `localStorage` (`manual_lang`).
+- Current coverage:
+- Spanish (`assets/locales/es.js`): 16/16 modules (`m0..m15`)
+- English (`assets/locales/en.js`): 16/16 modules (`m0..m15`)
+
+To add a new language:
+
+1. Create `assets/locales/<lang>.js` based on `assets/locales/en.js` (same key tree).
+2. Register the dictionary in `window.CourseLocales.<lang>`.
+3. Add a language button in the header (`data-lang="<lang>"`).
+4. Translate UI keys first, then `course.modules.m0..m15`.
+5. Keep HTML markup inside module strings untouched (ids, anchors, onclick handlers, classes) to avoid breaking widgets/navigation.
 
 ## Notes
 

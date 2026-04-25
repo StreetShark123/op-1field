@@ -7,8 +7,22 @@ let done_set = new Set();
 let bookmarks_set = new Set();
 let appState = null;
 
+function t(key, fallback) {
+  if (window.CourseI18n && typeof window.CourseI18n.t === 'function') {
+    return window.CourseI18n.t(key, null, fallback !== undefined ? fallback : key);
+  }
+  return fallback !== undefined ? fallback : key;
+}
+
 function detectManualLanguage() {
   const htmlLang = (document.documentElement.getAttribute('lang') || '').toLowerCase();
+  if (window.CourseI18n && typeof window.CourseI18n.getAvailableLanguages === 'function') {
+    const langs = window.CourseI18n.getAvailableLanguages();
+    if (langs.includes(htmlLang)) return htmlLang;
+    const short = htmlLang.split('-')[0];
+    if (langs.includes(short)) return short;
+    return langs.includes('es') ? 'es' : (langs[0] || 'es');
+  }
   if (htmlLang.startsWith('en')) return 'en';
   return 'es';
 }
@@ -22,7 +36,12 @@ function updateLangButtons(lang) {
 }
 
 function setManualLanguage(target) {
-  const next = target === 'en' ? 'en' : 'es';
+  const next = String(target || '').toLowerCase() || 'es';
+  if (window.CourseI18n && typeof window.CourseI18n.setLanguage === 'function') {
+    window.CourseI18n.setLanguage(next, { persist: true, applyDom: true });
+    updateLangButtons(window.CourseI18n.getLanguage());
+    return;
+  }
   localStorage.setItem('manual_lang', next);
   document.documentElement.setAttribute('lang', next);
   updateLangButtons(next);
@@ -31,8 +50,12 @@ function setManualLanguage(target) {
 function initManualLanguageSwitch() {
   const detected = detectManualLanguage();
   const pref = localStorage.getItem('manual_lang');
-  const current = pref === 'en' || pref === 'es' ? pref : detected;
-  document.documentElement.setAttribute('lang', current);
+  const current = pref || detected;
+  if (window.CourseI18n && typeof window.CourseI18n.setLanguage === 'function') {
+    window.CourseI18n.setLanguage(current, { persist: false, applyDom: true });
+  } else {
+    document.documentElement.setAttribute('lang', current);
+  }
   updateLangButtons(current);
 }
 
@@ -104,6 +127,8 @@ function updateProgressUI() {
 }
 
 function applyDoneUi() {
+  const doneLabel = t('actions.completed', 'completado ✓');
+  const markReadyLabel = t('actions.markReady', 'marcar listo');
   navButtons.forEach((btn, i) => {
     const isDone = done_set.has(i);
     btn.classList.toggle('done', isDone);
@@ -112,13 +137,12 @@ function applyDoneUi() {
 
     const markBtn = document.getElementById(`bd${i}`);
     if (markBtn) {
-      if (!markBtn.dataset.defaultLabel) markBtn.dataset.defaultLabel = markBtn.textContent;
       if (isDone) {
-        markBtn.textContent = 'completado ✓';
+        markBtn.textContent = doneLabel;
         markBtn.classList.add('mk');
         markBtn.disabled = true;
       } else {
-        markBtn.textContent = markBtn.dataset.defaultLabel;
+        markBtn.textContent = markReadyLabel;
         markBtn.classList.remove('mk');
         markBtn.disabled = false;
       }
@@ -128,14 +152,15 @@ function applyDoneUi() {
 }
 
 function enhanceBookmarksUi() {
+  const bookmarkTitle = t('core.bookmarkToggleTitle', 'toggle bookmark');
   navButtons.forEach((btn, i) => {
     let fav = btn.querySelector('.fav-toggle');
     if (!fav) {
       fav = document.createElement('span');
       fav.className = 'fav-toggle';
       fav.textContent = '☆';
-      fav.title = 'toggle bookmark';
-      fav.setAttribute('aria-label', 'toggle bookmark');
+      fav.title = bookmarkTitle;
+      fav.setAttribute('aria-label', bookmarkTitle);
       fav.setAttribute('role', 'button');
       fav.tabIndex = 0;
       fav.addEventListener('click', (e) => {
@@ -151,8 +176,31 @@ function enhanceBookmarksUi() {
       });
       btn.appendChild(fav);
     }
+    fav.title = bookmarkTitle;
+    fav.setAttribute('aria-label', bookmarkTitle);
     fav.classList.toggle('on', bookmarks_set.has(i));
     fav.textContent = bookmarks_set.has(i) ? '★' : '☆';
+  });
+}
+
+function localizeModuleFooterButtons() {
+  const prevLabel = t('actions.previous', 'anterior');
+  const nextLabel = t('actions.next', 'siguiente');
+  const finishLabel = t('actions.finish', 'fin del curso');
+
+  document.querySelectorAll('.mf').forEach((footer, idx) => {
+    const buttons = footer.querySelectorAll('.btn');
+    if (!buttons.length) return;
+
+    const prevBtn = buttons[0];
+    if (prevBtn && !prevBtn.classList.contains('btn-d')) {
+      prevBtn.textContent = `\u2190 ${prevLabel}`;
+    }
+
+    const middleBtn = buttons[1];
+    if (middleBtn && !middleBtn.classList.contains('btn-d')) {
+      middleBtn.textContent = idx === mods.length - 1 ? finishLabel : `${nextLabel} \u2192`;
+    }
   });
 }
 
@@ -243,7 +291,7 @@ function sectionItemsForModule(moduleIndex) {
   const sections = Array.from(mod.querySelectorAll('.sec[id]'));
   return sections.map((sec, idx) => {
     const st = sec.querySelector('.st');
-    const raw = (st ? st.textContent : `section ${idx + 1}`).trim().replace(/\s+/g, ' ');
+    const raw = (st ? st.textContent : `${t('core.sectionFallback', 'section')} ${idx + 1}`).trim().replace(/\s+/g, ' ');
     const label = raw.length > 28 ? `${raw.slice(0, 27)}…` : raw;
     return { i: sec.id, t: label };
   });
@@ -409,6 +457,7 @@ function initCore() {
   mods.forEach((m) => { m.style.display = 'none'; });
 
   enhanceBookmarksUi();
+  localizeModuleFooterButtons();
   applyDoneUi();
   applyViewModeClass();
   applySidebarFilters();
@@ -418,6 +467,18 @@ function initCore() {
 
   const searchInput = document.getElementById('module-search');
   if (searchInput) searchInput.value = appState.searchQuery;
+
+  document.addEventListener('course:i18n-change', () => {
+    const lang = window.CourseI18n && typeof window.CourseI18n.getLanguage === 'function'
+      ? window.CourseI18n.getLanguage()
+      : detectManualLanguage();
+    updateLangButtons(lang);
+    enhanceBookmarksUi();
+    localizeModuleFooterButtons();
+    applyDoneUi();
+    buildSub(cur);
+    applySidebarFilters();
+  });
 
   document.dispatchEvent(new CustomEvent('course:ready', { detail: getState() }));
 }

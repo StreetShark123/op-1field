@@ -10,6 +10,7 @@ function createWindow() {
     autoHideMenuBar: true,
     backgroundColor: '#111110',
     title: 'OP-1 Field Learning App',
+    icon: path.join(__dirname, 'assets', 'app-icon', 'op1-app-icon.png'),
     webPreferences: {
       contextIsolation: true,
       nodeIntegration: false,
