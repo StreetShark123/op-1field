@@ -274,6 +274,17 @@ function waDrawAndLabel() {
   document.getElementById('wa-dv').textContent=document.getElementById('wa-d').value+'ms';
   document.getElementById('wa-sv').textContent=document.getElementById('wa-s').value+'%';
   document.getElementById('wa-rv').textContent=document.getElementById('wa-r').value+'ms';
+  waSetPresetState(null);
+}
+function waSetPresetState(name) {
+  const root = document.getElementById('w-adsr');
+  if (!root) return;
+  root.querySelectorAll('button').forEach((btn) => {
+    const on = btn.getAttribute('onclick') || '';
+    if (!on.includes('waPreset(')) return;
+    const active = !!name && on.includes(`'${name}'`);
+    btn.className = 'w-btn ' + (active ? 'active' : 'inactive');
+  });
 }
 function waPreset(p) {
   const presets={
@@ -288,6 +299,7 @@ function waPreset(p) {
   document.getElementById('wa-s').value=pr.s;
   document.getElementById('wa-r').value=pr.r;
   waDrawAndLabel();
+  waSetPresetState(p);
 }
 function waPlay() {
   const ctx=ac(), now=ctx.currentTime;
@@ -563,7 +575,53 @@ function ws2Move(dot, x, y, field, key) {
   ws2Config[key].pan=pan;
   if(ws2Config[key].panNode) ws2Config[key].panNode.pan.value=pan;
   const pct=Math.round(pan*100);
-  document.getElementById('ws2-info').textContent=`${key}: ${pct===0?tr('centro','center'):pct>0?tr('derecha +','right +')+pct:tr('izquierda ','left ')+pct}`;
+  ws2RefreshInfo(`${key}: ${pct===0 ? tr('centro','center','center') : pct>0 ? tr('derecha +','right +','right +')+pct : tr('izquierda ','left ','left ')+pct}`);
+}
+function ws2Assess() {
+  const pans = Object.values(ws2Config).map((c) => c.pan);
+  const spread = Math.max(...pans) - Math.min(...pans);
+  const centered = pans.filter((p) => Math.abs(p) < 0.12).length;
+  const lowOffCenter = Math.abs(ws2Config.kick.pan) > 0.2 || Math.abs(ws2Config.bajo.pan) > 0.2;
+
+  let widthMsg = tr(
+    'campo abierto: hay separación lateral útil.',
+    'open field: lateral separation is working.',
+    'ステレオは広めです。左右の分離が機能しています。',
+  );
+  if (spread < 0.35) {
+    widthMsg = tr(
+      'campo estrecho: abre al menos un elemento hacia cada lado.',
+      'narrow field: push at least one element to each side.',
+      'ステレオが狭いです。左右に最低1要素ずつ広げてください。',
+    );
+  } else if (centered >= 3) {
+    widthMsg = tr(
+      'colisión al centro: demasiados elementos en el mismo punto.',
+      'center collision: too many elements stacked in the middle.',
+      '中央に要素が集中しすぎています。',
+    );
+  }
+
+  const monoMsg = lowOffCenter
+    ? tr(
+      'mono-check: centra kick/bajo para no perder pegada.',
+      'mono-check: recenter kick/bass to keep punch.',
+      'モノ確認: キック/ベースは中央寄りに戻してパンチを維持。',
+    )
+    : tr(
+      'mono-check: grave estable al centro.',
+      'mono-check: low-end is stable in the center.',
+      'モノ確認: 低域は中央で安定しています。',
+    );
+
+  return { widthMsg, monoMsg };
+}
+function ws2RefreshInfo(prefix) {
+  const info = document.getElementById('ws2-info');
+  if (!info) return;
+  const { widthMsg, monoMsg } = ws2Assess();
+  const pfx = prefix ? `${prefix} · ` : '';
+  info.textContent = `${pfx}${widthMsg} ${monoMsg}`;
 }
 function ws2Toggle() {
   const btn=document.getElementById('ws2-play');
@@ -584,9 +642,11 @@ function ws2Toggle() {
       ws2Config[key].osc=o; ws2Config[key].gain=g; ws2Config[key].panNode=p;
     });
     ws2Playing=true; btn.textContent='■ stop'; btn.style.background='var(--ink)';
+    ws2RefreshInfo();
   } else {
     Object.values(ws2Config).forEach(c=>{if(c.osc) c.osc.stop();});
     ws2Playing=false; btn.textContent=tr('▶ escuchar','▶ listen'); btn.style.background='';
+    ws2RefreshInfo();
   }
 }
 function ws2Reset() {
@@ -601,6 +661,7 @@ function ws2Reset() {
     ws2Config[key].pan=pan;
     if(ws2Config[key].panNode) ws2Config[key].panNode.pan.value=pan;
   });
+  ws2RefreshInfo(tr('reset aplicado.','reset applied.','リセット完了。'));
   return true;
 }
 document.addEventListener('DOMContentLoaded', ()=>{
@@ -1026,6 +1087,24 @@ function wslUpdate(){
   const a=wslRead('a'), b=wslRead('b');
   document.getElementById('wsl-note').textContent=`A=${a.engine}/${a.seq} · B=${b.engine}/${b.seq}${tr(' · evalúa cuál funciona mejor en contexto',' · evaluate which works better in context')}`;
 }
+function wslPolishLabels(){
+  const seqTitle = document.querySelector('#w-seq .w-title');
+  if (seqTitle) {
+    seqTitle.textContent = tr(
+      'step sequencer — calentamiento rápido (base)',
+      'step sequencer — quick warm-up (base)',
+      'step sequencer — クイックウォームアップ（基礎）',
+    );
+  }
+  const labTitle = document.querySelector('#w-seq-lab .w-title');
+  if (labTitle) {
+    labTitle.textContent = tr(
+      'laboratorio principal — mismo patrón, resultado distinto',
+      'main lab — same pattern, different result',
+      'メインラボ — 同じパターンでも結果は変わる',
+    );
+  }
+}
 
 /* ── 12. INPUT / RESAMPLING MAP ───────────────────────── */
 function wrsUpdate(){
@@ -1052,8 +1131,48 @@ function wrsUpdate(){
   if(goal==='compact') hint=tr('imprime capas que ya funcionan para liberar pistas y seguir arreglando.','print layers that already work to free tracks and keep arranging.');
   if(src==='line' || src==='mic') hint=tr('ajusta nivel de entrada antes de grabar para evitar clipping o ruido débil.','set input level before recording to avoid clipping or weak/noisy signal.');
   if(src==='tape' || src==='track') hint=tr('resample interno: ideal para congelar textura irrepetible y reusarla.','internal resample: ideal to freeze an unrepeatable texture and reuse it.');
+  const step1 = src==='line' || src==='mic'
+    ? tr(
+      '1) captura 5–10 s, deja margen y evita clipping.',
+      '1) capture 5–10 s, leave headroom, avoid clipping.',
+      '1) 5〜10秒を録音し、ヘッドルームを残してクリップを避ける。',
+    )
+    : tr(
+      '1) aísla 4–8 compases internos que ya funcionen musicalmente.',
+      '1) isolate 4–8 internal bars that already work musically.',
+      '1) すでに機能している内部4〜8小節を切り出す。',
+    );
+  const step2 = goal==='texture'
+    ? tr(
+      '2) procesa por color (FX/LFO), no por volumen; busca contraste.',
+      '2) process for color (FX/LFO), not loudness; seek contrast.',
+      '2) 音量ではなく色（FX/LFO）で加工し、コントラストを作る。',
+    )
+    : goal==='compact'
+      ? tr(
+        '2) imprime capas juntas para liberar pistas del tape.',
+        '2) print layers together to free tape tracks.',
+        '2) レイヤーをまとめて書き出し、Tapeトラックを空ける。',
+      )
+      : tr(
+        '2) recorta ataque/cola y deja el material listo para tocar.',
+        '2) trim attack/tail and make it playable.',
+        '2) アタック/テールを整えて演奏可能な素材にする。',
+      );
+  const step3 = dst==='tape'
+    ? tr(
+      '3) regraba en nueva pista y compáralo A/B contra el original.',
+      '3) record to a new track and A/B against the original.',
+      '3) 新規トラックに録音し、元素材とA/B比較する。',
+    )
+    : tr(
+      '3) asigna el nuevo material a un slot y úsalo en un loop de 4 compases.',
+      '3) assign the new material to a slot and use it in a 4-bar loop.',
+      '3) 新素材をスロットに割り当て、4小節ループで使う。',
+    );
   document.getElementById('wrs-plan').innerHTML =
     `<strong style="color:var(--ink)">${tr('flujo recomendado:','recommended flow:')}</strong> ${srcTxt} → ${goalTxt} → ${dstTxt}.<br>${hint}`;
+  document.getElementById('wrs-plan').innerHTML += `<br><br><strong style="color:var(--ink)">${tr('siguiente acción (3 pasos):','next action (3 steps):','次のアクション（3ステップ）:')}</strong><br>${step1}<br>${step2}<br>${step3}`;
 }
 function wrsExercises(){
   const lang = widgetLang();
@@ -1193,10 +1312,29 @@ const wanData = {
     },
   },
 };
+const wanModes = ['synth','drum','tape','mixer'];
+const wanSeenModes = new Set();
+function wanProgressText(currentMode){
+  const idx = wanModes.indexOf(currentMode) + 1;
+  const base = tr(
+    `modo ${idx}/4 · revisados ${wanSeenModes.size}/4.`,
+    `mode ${idx}/4 · visited ${wanSeenModes.size}/4.`,
+    `モード ${idx}/4 · 確認済み ${wanSeenModes.size}/4。`,
+  );
+  if (wanSeenModes.size === 4) {
+    return `${base} ${tr(
+      'mapa completo: úsalo como checklist de arranque.',
+      'map complete: use this as your startup checklist.',
+      '全モード確認完了: 起動チェックリストとして使えます。',
+    )}`;
+  }
+  return base;
+}
 function wanSet(mode){
   const lang = widgetLang();
   const set = wanData[lang] || wanData.es;
   const data = set[mode] || set.synth;
+  wanSeenModes.add(mode);
   ['synth','drum','tape','mixer'].forEach((id)=>{
     const el = document.getElementById('wan-'+id);
     if(!el) return;
@@ -1207,7 +1345,7 @@ function wanSet(mode){
   const tip = document.getElementById('wan-tip');
   if(t) t.textContent = data.title;
   if(b) b.textContent = data.body;
-  if(tip) tip.textContent = data.tip;
+  if(tip) tip.textContent = `${data.tip} · ${wanProgressText(mode)}`;
 }
 function wanInit(){ if(document.getElementById('wan-title')) wanSet('synth'); }
 
@@ -1262,19 +1400,38 @@ function wcmUpdate(){
   if(devices>=4 && path.value==='ble') score += 1;
   score = Math.max(1, Math.min(5, score));
   let risk = tr('verde · estable para grabar.','green · stable for recording.');
-  let rec = tr('recomendación: valida play/stop dos veces y graba.',
-    'recommendation: validate play/stop twice, then record.');
+  let route = tr('mantén esta ruta de inicio a fin.',
+    'keep this route end-to-end.',
+    'このルートを最後まで維持。');
   if(score===3){
     risk = tr('amarillo · útil para jam, valida antes de toma final.',
       'yellow · good for jams, validate before final take.');
-    rec = tr('recomendación: haz test de 16 compases y prepara fallback cableado.',
-      'recommendation: run a 16-bar test and keep a wired fallback ready.');
+    route = tr(
+      'úsala para sketch/jam y cambia a cableado para captura final.',
+      'use it for sketch/jam, then switch to wired for final capture.',
+      'スケッチ/ジャム用に使い、最終録音は有線へ切替。',
+    );
   } else if(score>=4){
     risk = tr('rojo · evita toma final en esta ruta.',
       'red · avoid final take on this route.');
-    rec = tr('recomendación: cambia a USB host o reduce dispositivos antes de grabar.',
-      'recommendation: switch to USB host or reduce device count before recording.');
+    route = tr(
+      'cambia a USB host o PO sync y reduce dispositivos antes de grabar.',
+      'switch to USB host or PO sync and reduce device count before recording.',
+      '録音前に USB host か PO sync に変更し、台数を減らす。',
+    );
   }
+  const master = path.value==='usb_host'
+    ? tr('OP-1 Field como clock host con una sola cadena USB.',
+      'OP-1 Field as clock host with a single USB chain.',
+      'OP-1 Field をクロックホストにして USB を一本化。')
+    : path.value==='pulse'
+      ? tr('EP-133/PO como master por pulso, OP-1 Field como receptor.',
+        'EP-133/PO as pulse master, OP-1 Field as receiver.',
+        'EP-133/PO をパルスマスター、OP-1 Field を受信側。')
+      : tr('BLE solo para movilidad; deja fallback cableado listo.',
+        'BLE for mobility only; keep a wired fallback ready.',
+        'BLE は機動性用。常に有線フォールバックを準備。');
+  const rec = `${tr('master sugerido: ','suggested master: ','推奨マスター: ')}${master} ${tr('· ruta: ','· route: ','· ルート: ')}${route} ${tr('· test: play/stop + 16 compases.','· test: play/stop + 16 bars.','· テスト: play/stop + 16小節。')}`;
   const riskEl = document.getElementById('wcm-risk');
   const noteEl = document.getElementById('wcm-note');
   if(riskEl) riskEl.textContent = tr('riesgo: ','risk: ') + risk;
@@ -1297,16 +1454,39 @@ function wpfUpdate(){
   let msg = tr(
     `checklist: ${done.length}/5. Pendiente: ${missing.join(', ') || 'nada'}.`,
     `checklist: ${done.length}/5. Pending: ${missing.join(', ') || 'none'}.`,
+    `checklist: ${done.length}/5. 未完了: ${missing.join(', ') || 'なし'}.`,
   );
+  const priority = ['wpf-sync','wpf-lat','wpf-level','wpf-fallback','wpf-fm'];
+  const primaryId = priority.find((id)=>!document.getElementById(id)?.checked);
+  const primaryLabel = checks.find(([id])=>id===primaryId)?.[1];
   if(done.length===5){
     msg = mode.value==='capture'
       ? tr('listo para captura final. Haz una pasada completa y exporta sin tocar más parámetros.',
-          'ready for final capture. Run one full pass and export without extra tweaks.')
+          'ready for final capture. Run one full pass and export without extra tweaks.',
+          '最終キャプチャ準備完了。1回通して実行し、追加調整せず書き出す。')
       : tr('listo para performance. Mantén fallback cableado disponible durante la sesión.',
-          'ready for performance. Keep the wired fallback available during the session.');
-  } else if(missing.includes(tr('sync validado','sync validated')) || missing.includes(tr('latencia aceptable','latency acceptable'))){
-    msg += ' ' + tr('sugerencia: prioriza ruta cableada/USB antes de seguir.',
-      'suggestion: prioritize wired/USB route before continuing.');
+          'ready for performance. Keep the wired fallback available during the session.',
+          'パフォーマンス準備完了。有線フォールバックを常備する。');
+  } else {
+    if (primaryLabel) {
+      msg += ' ' + tr(
+        `bloqueo principal: ${primaryLabel}.`,
+        `primary blocker: ${primaryLabel}.`,
+        `主要ブロッカー: ${primaryLabel}.`,
+      );
+    }
+    if(missing.includes(tr('sync validado','sync validated','同期が検証されました')) || missing.includes(tr('latencia aceptable','latency acceptable','レイテンシー acceptable'))){
+      msg += ' ' + tr('sugerencia: prioriza ruta cableada/USB antes de seguir.',
+        'suggestion: prioritize wired/USB route before continuing.',
+        '提案: 続行前に有線/USBルートを優先。');
+    }
+    if(mode.value==='capture' && (primaryId==='wpf-sync' || primaryId==='wpf-level')){
+      msg += ' ' + tr(
+        'captura final: no avances hasta cerrar ese punto.',
+        'final capture: do not proceed until this point is closed.',
+        '最終キャプチャ: この項目を解消するまで進めない。',
+      );
+    }
   }
   const out = document.getElementById('wpf-status');
   if(out) out.textContent = msg;
@@ -1326,6 +1506,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
   wlfoUpdate();
   wlfoDraw();
   wfxShuffle();
+  wslPolishLabels();
   wslUpdate();
   wrsUpdate();
   wmxUpdate();
@@ -1359,7 +1540,10 @@ function reinitWidgetsAfterModuleHydration() {
     wlfoDraw();
   }
   if (document.getElementById('wfx-note')) wfxShuffle();
-  if (document.getElementById('wsl-note')) wslUpdate();
+  if (document.getElementById('wsl-note')) {
+    wslPolishLabels();
+    wslUpdate();
+  }
   if (document.getElementById('wrs-plan')) wrsUpdate();
   if (document.getElementById('wmx-note')) wmxUpdate();
   if (document.getElementById('wex-result')) wexUpdate();
