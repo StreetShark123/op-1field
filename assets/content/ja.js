@@ -1884,8 +1884,327 @@ window.CourseContent.ja.m15 = `<div class="mod" id="m15">
 </div>
 <div class="mf">
 <button class="btn" onclick="go(14)">← 前へ</button>
-<button class="btn" disabled="">もちろん終わり</button>
+<button class="btn btn-p" onclick="go(16)">次へ →</button>
 <button class="btn btn-d" id="bd15" onclick="done(15)">準備完了のマークを付ける</button>
 </div>
 </div>`;
 
+
+window.CourseContent.ja.m16 = `<div class="mod" id="m16">
+<div class="mod-hd">
+  <div class="ey">モジュール16・エコシステム</div>
+  <div class="mt">あなたのリグ：<strong>役割とオーディオのルーティング</strong></div>
+  <div class="md">OP-1 Field が単体で鳴ることはあまりありません。このモジュールでは実際のポータブルリグを整理します：EP-133、PO-32、Bastl Kastle 2 が3台（Wave Bard、FX Wizard、Alchemist）、Bestie ミキサー、K.O. Sidekick、ting マイク。全部つなぐことが目的ではなく、各機材に明確な役割を与え、どのケーブルがどこへ行くかを把握することが目的です。</div>
+  <div class="mm-row"><div class="mm">~1.5h</div><div class="mm">リグ全体</div><div class="mm">3.5mm + USB-C ケーブル</div></div>
+</div>
+
+<div class="sec" id="m16-s1">
+<div class="st">01 — 1台に1つの役割</div>
+<div class="steps">
+  <div class="step"><div class="sl">EP-133</div><div class="sb"><strong>マスタークロック＋ドラムとサンプル</strong><p>K.O. II がリグ全体のテンポを決め、メインのドラム（キック、スネア、チョップしたブレイク、ボイス）を担当します。チャンネルごとの EQ はなく、音作りはマスターフィルター、マスターコンプ、サイドチェインです。EQ はミキサー側でかけます。</p></div></div>
+  <div class="step"><div class="sl">PO-32</div><div class="sb"><strong>ベースと色付けのパーカッション</strong><p>EP-133 がドラムを担当するなら、PO-32 には別の仕事を：サウンド13（bass）でベースライン、たまに合成的なヒット。2台のドラムマシンがぶつからなくなります。</p></div></div>
+  <div class="step"><div class="sl">Kastle 2</div><div class="sb"><strong>Wave Bard = テクスチャ・FX Wizard = 空間・Alchemist = メロディ</strong><p>3台の Kastle 2 はハードウェアが共通で、ファームウェアだけが違います。このリグでは Bard がループやチョップを鳴らし、その音を Wizard（delay、freezer、slicer）に通し、Alchemist がメロディやアルペジオを担当します。</p></div></div>
+  <div class="step"><div class="sl">OP-1 Field</div><div class="sb"><strong>レコーダーではなく楽器のひとつ</strong><p>OP-1 をレコーダーにすると、入力・モニター・トラックを常に気にする必要があります。ミキサーに専用チャンネルを与え、USB-C で EP-133 のテンポに合わせてシンセを上に弾くほうが楽です。</p></div></div>
+  <div class="step"><div class="sl">ting</div><div class="sb"><strong>エフェクト付きのボイス</strong><p>EP–2350 ting は最大 2 Vrms のステレオラインを出力します（かなり大きい）。内部ボリューム（フタの下の緑のホイール）を低めにし、ミキサーのチャンネルは 0 dB 未満から始めましょう。</p></div></div>
+</div>
+<div class="co"><div class="co-b"></div><div class="co-bd"><strong>重複のルール</strong>2台が同じこと（ドラム2台、ベース2台）をしているなら、そのセッションでは1台が余分です。配線の前に、各機材の役割を1行で書きましょう。1行に収まらないなら、役割がはっきりしていません。</div></div>
+</div>
+
+<div class="sec" id="m16-s2">
+<div class="st">02 — 2つのバス：リズムとカラー</div>
+<div class="steps">
+  <div class="step"><div class="sl">考え方</div><div class="sb"><strong>リズムとメロディを分ける</strong><p>K.O. Sidekick にはゲイン、3バンド EQ、コンプ、チャンネルごとに1つのエフェクトを持つステレオチャンネルが2つあります。パーカッションを片方、メロディ系をもう片方に送れば、EQ とエフェクトがそれぞれ1つの音のグループに効きます。</p></div></div>
+  <div class="step"><div class="sl">チャンネル1</div><div class="sb"><strong>EP-133 をステレオで</strong><p>何も通さず直接入れます。ステレオを保ったまま Sidekick で EQ をかけます。</p></div></div>
+  <div class="step"><div class="sl">チャンネル2</div><div class="sb"><strong>Bestie をメロディのサブミックスに</strong><p>Bestie：チャンネル1 Wizard（処理した Bard、L 入力にステレオ）、チャンネル2 Alchemist、チャンネル3 未接続（任意でフィードバック）、チャンネル4 ting、チャンネル5 PO-32（R にモノ、L にコピーされる）。Bestie の出力は Sidekick のチャンネル2へ。</p></div></div>
+  <div class="step"><div class="sl">aux</div><div class="sb"><strong>OP-1 は Sidekick の aux 入力へ</strong><p>aux（session in）はミックスに加算されます。ガイドには EQ やエフェクトを通るかどうか書かれていないので、処理されない入力と考え、何かをつないで確かめてください。OP-1 には自前のエフェクトがあります。</p></div></div>
+  <div class="step"><div class="sl">出力</div><div class="sb"><strong>Sidekick の main out → スピーカーまたはインターフェース</strong><p>Sidekick は USB オーディオインターフェース（8イン/4アウト）でもあるので、ミックスをパソコンに録音できます。</p></div></div>
+</div>
+<div class="infog">
+  <div class="infog-lb">オーディオルーティング — Sidekick の2バス</div>
+  <svg viewBox="0 0 520 250" class="diag">
+    <rect x="10" y="10" width="110" height="34" fill="#fff0eb" stroke="#ff5500" stroke-width="1.2"/>
+    <text x="65" y="31" font-family="IBM Plex Mono" font-size="9" text-anchor="middle" fill="#111110">EP-133</text>
+    <rect x="150" y="10" width="80" height="34" fill="#e8f0ff" stroke="#0055cc" stroke-width="1"/>
+    <text x="190" y="31" font-family="IBM Plex Mono" font-size="9" text-anchor="middle" fill="#111110">Wave Bard</text>
+    <rect x="250" y="10" width="80" height="34" fill="#e8f0ff" stroke="#0055cc" stroke-width="1"/>
+    <text x="290" y="31" font-family="IBM Plex Mono" font-size="9" text-anchor="middle" fill="#111110">FX Wizard</text>
+    <line x1="230" y1="27" x2="248" y2="27" stroke="#888884" stroke-width="1"/>
+    <rect x="150" y="64" width="80" height="30" fill="#e8f0ff" stroke="#0055cc" stroke-width="1"/>
+    <text x="190" y="83" font-family="IBM Plex Mono" font-size="9" text-anchor="middle" fill="#111110">Alchemist</text>
+    <rect x="250" y="64" width="80" height="30" fill="#e8f0ff" stroke="#0055cc" stroke-width="1"/>
+    <text x="290" y="83" font-family="IBM Plex Mono" font-size="9" text-anchor="middle" fill="#111110">ting</text>
+    <rect x="350" y="64" width="80" height="30" fill="#e8f0ff" stroke="#0055cc" stroke-width="1"/>
+    <text x="390" y="83" font-family="IBM Plex Mono" font-size="9" text-anchor="middle" fill="#111110">PO-32</text>
+    <rect x="150" y="120" width="280" height="30" fill="#f5f4f0" stroke="#888884" stroke-width="1"/>
+    <text x="290" y="139" font-family="IBM Plex Mono" font-size="9" text-anchor="middle" fill="#111110">Bestie · 1 Wizard · 2 Alch · 3 fb · 4 ting · 5 PO</text>
+    <line x1="290" y1="44" x2="290" y2="60" stroke="#888884" stroke-width="1"/>
+    <line x1="190" y1="94" x2="190" y2="118" stroke="#888884" stroke-width="1"/>
+    <line x1="290" y1="94" x2="290" y2="118" stroke="#888884" stroke-width="1"/>
+    <line x1="390" y1="94" x2="390" y2="118" stroke="#888884" stroke-width="1"/>
+    <rect x="450" y="120" width="60" height="30" fill="#f5f4f0" stroke="#888884" stroke-width="1"/>
+    <text x="480" y="139" font-family="IBM Plex Mono" font-size="9" text-anchor="middle" fill="#111110">OP-1</text>
+    <rect x="10" y="180" width="500" height="30" fill="#f5f4f0" stroke="#111110" stroke-width="1.2"/>
+    <text x="260" y="199" font-family="IBM Plex Mono" font-size="9" text-anchor="middle" fill="#111110">K.O. Sidekick · ch1 EP-133 · ch2 Bestie · aux OP-1</text>
+    <line x1="65" y1="44" x2="65" y2="178" stroke="#ff5500" stroke-width="1"/>
+    <line x1="290" y1="150" x2="290" y2="178" stroke="#0055cc" stroke-width="1"/>
+    <line x1="480" y1="150" x2="480" y2="178" stroke="#888884" stroke-width="1"/>
+    <line x1="260" y1="210" x2="260" y2="230" stroke="#111110" stroke-width="1"/>
+    <text x="260" y="244" font-family="IBM Plex Mono" font-size="8" text-anchor="middle" fill="#888884">main out → speaker / USB → PC</text>
+  </svg>
+  <div class="infog-nt">オレンジ = リズムバス・青 = メロディバス・Wizard は Bestie の前で Bard を処理</div>
+</div>
+</div>
+
+<div class="sec" id="m16-s3">
+<div class="st">03 — 配線の鉄則</div>
+<div class="steps">
+  <div class="step"><div class="sl">ループ</div><div class="sb"><strong>出力を自分の入力に戻さない</strong><p>OP-1 でミックスを録音するなら、その出力を OP-1 の入力に送っているミキサーに戻してはいけません。自分自身を聴いてしまい、ハウリングや二重録音になります。PO-32 も同様で、入力の音を加算する SY4 では、出力をその供給元に戻さないこと。</p></div></div>
+  <div class="step"><div class="sl">レベル</div><div class="sb"><strong>Bestie：12時が 0 dB</strong><p>12時より下はクリーン。それより上は +20 dB まで上がり、サチュレーションします。全部低めから始め、1チャンネルずつ上げましょう。</p></div></div>
+  <div class="step"><div class="sl">グラウンド</div><div class="sb"><strong>全部 USB でハム = グラウンドループ</strong><p>Bestie は USB とオーディオでグラウンドを共有します。ハムが出たら別電源か電池で。</p></div></div>
+  <div class="step"><div class="sl">ミュート</div><div class="sb"><strong>同時に鳴らすのは最大3声</strong><p>7つの音源だとすぐに濁ります。3つだけ鳴らし、ミュートをアレンジとして使いましょう：開ける、閉じる、入れ替える。</p></div></div>
+</div>
+<div class="co"><div class="co-b bl"></div><div class="co-bd"><strong>2チャンネルで足りないとき</strong>7つの音源を Sidekick の2チャンネルでミックスするのは楽しいけれど混沌とします。各フェーダーが複数のものを動かすからです。解決策は、aux で2台目の Sidekick をチェーンする（EQ とエフェクト付きで4チャンネル）か、TX-6（3.5 mm ステレオ6チャンネル、EQ、コンプ、USB への録音）。TX-6 があれば Bestie は不要になり、Sidekick で EP-133 + PO-32 を1チャンネルにまとめられます。</div></div>
+</div>
+
+<div class="ex">
+  <div class="ex-lb">モジュール演習</div>
+  <div class="ex-ti">リグを紙に書く — 20分</div>
+  <ul class="ex-ul">
+    <li>今日のセッションでの役割を、機材ごとに1行で書く。</li>
+    <li>2つのバスを描く：Sidekick のチャンネル1とチャンネル2に何が入るか。</li>
+    <li>出力が自分のチェーンに戻るケーブルに X を付ける。X があれば電源を入れる前に直す。</li>
+    <li>電源を入れ、他をミュートして1チャンネルずつ上げ、バランスの取れる位置をメモする。</li>
+  </ul>
+</div>
+<div class="mf">
+  <button class="btn" onclick="go(15)">← 前へ</button>
+  <button class="btn btn-p" onclick="go(17)">次へ →</button>
+  <button class="btn btn-d" id="bd16" onclick="done(16)">完了にする</button>
+</div>
+</div>`;
+
+window.CourseContent.ja.m17 = `<div class="mod" id="m17">
+<div class="mod-hd">
+  <div class="ey">モジュール17・エコシステム</div>
+  <div class="mt">sync：<strong>すべてをひとつのクロックで</strong></div>
+  <div class="md">ルールはモジュール14と同じ：マスターは1台だけ。ここでは3種類の同期方式が混在するリグに適用します：USB の MIDI（OP-1 と EP-133）、Bastl のアナログパルス（Kastle 2）、Pocket Operator のパルス（PO-32）。</div>
+  <div class="mm-row"><div class="mm">~1.5h</div><div class="mm">EP-133 + Kastle + PO-32</div><div class="mm">モノケーブル1本 + USB-C</div></div>
+</div>
+
+<div class="sec" id="m17-s1">
+<div class="st">01 — クロックチェーン</div>
+<div class="steps">
+  <div class="step"><div class="sl">USB</div><div class="sb"><strong>EP-133 → OP-1 Field（USB-C）</strong><p>OP-1 Field は USB ホストになれるので、パソコンなしで EP-133 と直接通信できます。EP-133 は MIDI クロック送信がオフで出荷されます：オンにしましょう（セクション02）。OP-1 側はテンポを外部クロック追従にし、play/stop を2回試します。</p></div></div>
+  <div class="step"><div class="sl">パルス</div><div class="sb"><strong>EP-133 SYNC OUT → Bard → Wizard → Alchemist → PO-32</strong><p>EP-133 の sync から Wave Bard の SYNC IN へモノケーブル1本で十分です。Kastle はチップでクロックを読みます。外部クロックを受けた Kastle は、分周していない元のクロックを SYNC OUT から送ります（sync thru）。チェーンの最後の機材は EP-133 が送るものをそのまま受け取ります。</p></div></div>
+  <div class="step"><div class="sl">PO-32</div><div class="sb"><strong>チェーンの最後に、SY2 で</strong><p>SY2：入力は sync のみ、出力はオーディオのみ。EP-133 を始める前に PO で play を押し、クロック待ちにします。</p></div></div>
+</div>
+<div class="co"><div class="co-b"></div><div class="co-bd"><strong>なぜ8分音符か</strong>Pocket Operator は8分音符のパルスを想定しています。EP-133 が16分（デフォルト）を送ると PO-32 は倍速になります。だから EP-133 の sync は 1/8 にし、Kastle 側は倍率を上げてパターンを16分に戻します。</div></div>
+</div>
+
+<div class="sec" id="m17-s2">
+<div class="st">02 — EP-133 のシステム設定</div>
+<div class="steps">
+  <div class="step"><div class="sl">入る</div><div class="sb"><strong><kbd>Shift</kbd> + <kbd>Erase</kbd></strong><p>パッドでコードを入力し <kbd>Enter</kbd> で確定。<kbd>Shift</kbd> + <kbd>Enter</kbd> で前のページに戻ります。</p></div></div>
+  <div class="step"><div class="sl">102</div><div class="sb"><strong>MIDI clock out</strong><p>MIDI クロックはデフォルトでオフ（100）。101 = 受信のみ、102 = 送信のみ。OP-1 を USB で EP-133 に追従させるには 102 が必要です。</p></div></div>
+  <div class="step"><div class="sl">210</div><div class="sb"><strong>sync out を 1/8 に</strong><p>sync 出力レート：210 = 1/8、211 = 1/16（デフォルト）、212 = 24 ppq。Pocket Operator で終わるチェーンなら 210。</p></div></div>
+  <div class="step"><div class="sl">おまけ</div><div class="sb"><strong>ポンピング用のサイドチェイン</strong><p>出力設定（<kbd>Shift</kbd> + <kbd>FX</kbd>、続けて plus）で、ある音（例：キック）で他のグループをダックさせられます。knobX = 長さ、knobY = 形。フィルターハウスに最適。</p></div></div>
+</div>
+</div>
+
+<div class="sec" id="m17-s3">
+<div class="st">03 — Kastle 2：クロックの読み方</div>
+<div class="steps">
+  <div class="step"><div class="sl">ライト</div><div class="sb"><strong><kbd>Shift</kbd> を押してメトロノームのライトを見る</strong><p>シアン = 外部クロック有効。マゼンタ = 内部クロック。青 = USB MIDI クロック。オレンジ = アナログ sync を無視。点滅しないなら、届かないクロックを待っています。</p></div></div>
+  <div class="step"><div class="sl">分周</div><div class="sb"><strong><kbd>Shift</kbd> + LFO = テンポまたは分周</strong><p>内部クロックではテンポ、外部クロックでは分周・倍率を選びます。8分音符が入ってくる場合は、パターンが倍速になるまで上げます。Bard のタップテンポは <kbd>Shift</kbd> + <kbd>Bank</kbd>、Alchemist と Wizard は <kbd>Shift</kbd> + <kbd>Mode</kbd>。</p></div></div>
+  <div class="step"><div class="sl">待機</div><div class="sb"><strong>SYNC IN にケーブルがあると常に待つ</strong><p>マスターが止まっていても内部クロックには戻りません。無音になったら SYNC IN を抜いてみて、鳴るならクロックチェーンの問題です。2秒以上クロックがないと、パターンジェネレーターはステップ1に戻ります。</p></div></div>
+</div>
+</div>
+
+<div class="sec" id="m17-s4">
+<div class="st">04 — PO-32 の sync モード</div>
+<div class="steps">
+  <div class="step"><div class="sl">変更</div><div class="sb"><strong><kbd>ACC</kbd> を押しながら <kbd>BPM</kbd></strong><p>モードは右上に表示されます。SY2〜SY5 は入力にケーブルがあるときだけ出ます。sync 有効時は信号が分かれます：左が sync、右がオーディオ。</p></div></div>
+  <div class="step"><div class="sl">一覧</div><div class="sb"><strong>SY0〜SY5</strong><p>SY0：オーディオ入力、オーディオ出力（sync なし）。SY1：オーディオ入力、sync + モノオーディオ出力。SY2：sync 入力、オーディオのみ出力。SY3：sync 入力、sync + モノオーディオ出力。SY4：sync + モノオーディオ入力、オーディオ出力（入力を加算）。SY5：sync + モノオーディオ入力、sync + モノオーディオ出力。</p></div></div>
+  <div class="step"><div class="sl">OP-1</div><div class="sb"><strong>OP-1 を PO のマスターに：PO sync</strong><p>OP-1 のテンポガイドには PO sync モードがあり、左出力がクリック、右がモノオーディオになります。OP-1 の出力から PO の入力へ、PO は SY4、PO で play してから OP-1 で play。PO の出力でモニターします。公開ガイドはオリジナル OP-1 のものなので、お使いのファームウェアで確認してください。</p></div></div>
+</div>
+<div class="co"><div class="co-b gr"></div><div class="co-bd"><strong>インタラクティブモジュール</strong>マスターと使う機材を選ぶと、ケーブルのつなぎ方と各機材の設定が表示されます。</div></div>
+<div class="widget" id="w-sync-wizard">
+  <div class="w-title">sync アシスタント — ケーブルと設定</div>
+  <div class="w-row">
+    <span class="w-label">マスター</span>
+    <select id="wsw-master" class="w-btn inactive" style="text-transform:none;padding:6px 10px" onchange="wswUpdate()">
+      <option value="ep">EP-133</option>
+      <option value="bard">Wave Bard</option>
+      <option value="op1">OP-1 Field</option>
+    </select>
+  </div>
+  <div class="w-row w-checks">
+    <label><input type="checkbox" id="wsw-op1" checked onchange="wswUpdate()"> OP-1</label>
+    <label><input type="checkbox" id="wsw-kastle" checked onchange="wswUpdate()"> Kastle 2</label>
+    <label><input type="checkbox" id="wsw-po" checked onchange="wswUpdate()"> PO-32</label>
+  </div>
+  <div class="w-panel">
+    <div class="w-small" id="wsw-chain">チェーン：EP-133 → Bard → Wizard → Alchemist → PO-32 · EP-133 ⇄ OP-1（USB-C）</div>
+    <div class="w-small" id="wsw-steps" style="margin-top:8px">設定：EP-133 102 + 210 · Kastle：シアン点灯と倍率 ×2 · PO-32 は SY2 · OP-1 は外部クロック追従</div>
+  </div>
+</div>
+</div>
+
+<div class="sec" id="m17-s5">
+<div class="st">05 — 合わないとき</div>
+<div class="steps">
+  <div class="step"><div class="sl">PO 倍速</div><div class="sb"><strong>PO-32 が倍速または半分</strong><p>EP-133 のコード 210 を確認。マスターが Kastle なら、マスターの分周を変えてスレーブ側で補正します。</p></div></div>
+  <div class="step"><div class="sl">クリック</div><div class="sb"><strong>PO のチャンネルで毎ステップ「チッ」</strong><p>sync を聴いています：PO が左に sync を出すモード（SY1/3/5）です。SY2 にするか、スプリッターで右側だけを使いましょう。</p></div></div>
+  <div class="step"><div class="sl">無音</div><div class="sb"><strong>GATE → TRIG でも Kastle が鳴らない</strong><p>GATE は動いているクロックが必要です。シアンのライトと、ケーブルが前の機材の AUDIO OUT ではなく SYNC OUT から来ているか確認。</p></div></div>
+  <div class="step"><div class="sl">OP-1</div><div class="sb"><strong>OP-1 が EP-133 に追従しない</strong><p>ほとんどの場合、コード 102 が未設定か、OP-1 が外部クロック追従ではなく beat match のままです。</p></div></div>
+</div>
+</div>
+
+<div class="ex">
+  <div class="ex-lb">モジュール演習</div>
+  <div class="ex-ti">15分でクロックチェーン</div>
+  <ul class="ex-ul">
+    <li>EP-133：<kbd>Shift</kbd> + <kbd>Erase</kbd>、102 <kbd>Enter</kbd>、210 <kbd>Enter</kbd>。</li>
+    <li>EP-133 sync → Bard SYNC IN にモノケーブル。Bard → Wizard → Alchemist を sync ケーブルで。Alchemist SYNC OUT → PO-32 入力。</li>
+    <li>各 Kastle で <kbd>Shift</kbd> を押してシアンを確認。GATE → TRIG が16分で鳴るまで倍率を調整。</li>
+    <li>PO-32 を SY2 にして play。EP-133 をスタート。2回止めて再開し、全部が揃って入ればチェーンは OK。</li>
+  </ul>
+</div>
+<div class="mf">
+  <button class="btn" onclick="go(16)">← 前へ</button>
+  <button class="btn btn-p" onclick="go(18)">次へ →</button>
+  <button class="btn btn-d" id="bd17" onclick="done(17)">完了にする</button>
+</div>
+</div>`;
+
+window.CourseContent.ja.m18 = `<div class="mod" id="m18">
+<div class="mod-hd">
+  <div class="ey">モジュール18・エコシステム</div>
+  <div class="mt">Bastl Kastle 2：<strong>Alchemist、Wave Bard、FX Wizard</strong></div>
+  <div class="md">同じハードウェアでファームウェアを入れ替えられる3つのポケット楽器。ジャムの最中に探すコントロールと、OP-1 や EP-133 と組み合わせて使える3つのレシピをまとめます。</div>
+  <div class="mm-row"><div class="mm">~2h</div><div class="mm">Kastle 2</div><div class="mm">パッチケーブル</div></div>
+</div>
+
+<div class="sec" id="m18-s1">
+<div class="st">01 — 3台に共通すること</div>
+<div class="steps">
+  <div class="step"><div class="sl">パッチベイ</div><div class="sb"><strong>出力は白枠あり、入力は白枠なし</strong><p>横一列の3つのポイントは互いにつながっています。0〜5 V を受け渡しします。複数の出力を1つの入力にまとめても安全です。+ はハイ、− はローを出します。</p></div></div>
+  <div class="step"><div class="sl">shift</div><div class="sb"><strong>短押し = トリガー・長押し = 銀色の機能</strong><p><kbd>Shift</kbd> + PITCH = 出力音量。<kbd>Shift</kbd> + PITCH MOD = 入力ゲイン。<kbd>Shift</kbd> + LFO = テンポ/分周。<kbd>Shift</kbd> + LFO MOD = GATE のリズム。<kbd>Shift</kbd> + ボタン（Mode/Bank）2秒以上 = 詳細設定、15秒以上 = メモリーリセット。</p></div></div>
+  <div class="step"><div class="sl">LFO</div><div class="sb"><strong>中央 = 最も遅い・左 = 同期・右 = フリー</strong><p><kbd>Shift</kbd> を押すと、冷たい白 = 同期、暖かい白 = フリー。</p></div></div>
+  <div class="step"><div class="sl">スイング</div><div class="sb"><strong>ボタン + LFO：右でスイング（オレンジ）、左でヒューマナイズ（シアン）</strong><p>パターンジェネレーターの GATE と CV 出力にだけ効き、LFO には効きません。</p></div></div>
+  <div class="step"><div class="sl">赤</div><div class="sb"><strong>全ライトが赤 = 電池残量不足</strong><p>約 3 V を下回ると正常に動きません。新しい電池か USB-C に（USB 給電中は電池を使いません）。</p></div></div>
+</div>
+</div>
+
+<div class="sec" id="m18-s2">
+<div class="st">02 — Alchemist：NOTE と PLAY をわかりやすく</div>
+<div class="steps">
+  <div class="step"><div class="sl">モード</div><div class="sb"><strong><kbd>Mode</kbd> で合成方式を切り替え</strong><p>FILTER オレンジ・FM 緑・SUPERSAW マゼンタ・HYPERSINE シアン・GLITCHNOISE 白。<kbd>Mode</kbd> + PITCH = オクターブ。<kbd>Mode</kbd> + PITCH MOD = スケール（変更時にライトが一瞬暗くなる）。<kbd>Mode</kbd> + TIMBRE MOD = ルート音。<kbd>Mode</kbd> + TIMBRE = ピッチスライド/ポルタメント。</p></div></div>
+  <div class="step"><div class="sl">NOTE</div><div class="sb"><strong>どのベース音を鳴らすか</strong><p>TRIG のたびに更新され、常にスケール内に収まります。</p></div></div>
+  <div class="step"><div class="sl">PLAY</div><div class="sb"><strong>上に重なる跳躍：3度、5度、オクターブ</strong><p>PLAY の電圧が変わるたびに音が鳴ります。注意：NOTE と PLAY はどちらも PITCH MOD ノブを通ります。中央では何も起きません。PLAY が鳴らないなら PITCH MOD を右へ。</p></div></div>
+  <div class="step"><div class="sl">ENV</div><div class="sb"><strong>中央のマクロ</strong><p>右：ディケイが長くなりプラック系に。左：アタックが増える。両端でドローンモード。</p></div></div>
+</div>
+<div class="co"><div class="co-b"></div><div class="co-bd"><strong>レシピ・ディスコのオクターブベース</strong>FILTER モード、1オクターブ下げる。LFO を左（同期）。LFO PULSE → PLAY にケーブル。跳躍が1オクターブになるまで PITCH MOD を右へ。LFO 1周期で2音：ルート、オクターブ、ルート、オクターブ。ENV → TIMBRE MOD、TIMBRE MOD を右で「ワウ」。ルート音は PITCH で手動で変える。</div></div>
+</div>
+
+<div class="sec" id="m18-s3">
+<div class="st">03 — Wave Bard：フィルターのかかったループ</div>
+<div class="steps">
+  <div class="step"><div class="sl">サンプル</div><div class="sb"><strong>8個ずつのバンク、モノで最大約89秒</strong><p><kbd>Bank</kbd> でバンク切り替え（それぞれ色がある）。SAMPLE でサンプルを選び、LENGTH を左にするとアタック付きで逆再生。自分のサンプル、スケール、リズムは Bastl の Web アプリで読み込みます。メロディ系のサンプルは C に合わせておくとよいです。</p></div></div>
+  <div class="step"><div class="sl">CUE</div><div class="sb"><strong>SAMPLE MOD を左 = CUE モード</strong><p>モジュレーションがサンプルを選び、TRIG を待つのでグリッドに合います。右（PLAY）では変化した瞬間に鳴るので、グリッド外のリズムになります。</p></div></div>
+  <div class="step"><div class="sl">フィルター</div><div class="sb"><strong><kbd>Shift</kbd> + SAMPLE = LP/HP フィルター</strong><p>中央でオープン、左でローパス、右でハイパス。</p></div></div>
+</div>
+<div class="co"><div class="co-b bl"></div><div class="co-bd"><strong>レシピ・フィルターハウスのスイープ</strong>詳細設定（<kbd>Shift</kbd> + <kbd>Bank</kbd> 2秒以上）で <kbd>Shift</kbd> を押しながら SAMPLE を回すと、LFO MOD 入力がフィルターを動かすようになります。入ったときと同じ操作で抜けます。LFO TRI → LFO MOD にケーブル、LFO は左でゆっくり、ベースのフィルターはローパス。ループが勝手に開いたり閉じたりします。</div></div>
+</div>
+
+<div class="sec" id="m18-s4">
+<div class="st">04 — FX Wizard：slicer、freezer、replayer</div>
+<div class="steps">
+  <div class="step"><div class="sl">モード</div><div class="sb"><strong><kbd>FX Mode</kbd> で9種類を巡回</strong><p>ディレイ系（緑と青）：Delay、Flanger（シアン）、Freezer（青）。アンプ系（明るい色）：Panner、Crusher、Slicer（明るい緑）。ピッチ系（赤）：Pitcher、Replayer（オレンジ）、Shifter。AMOUNT は中央の大きなノブで、ドライ/ウェットを決めます。</p></div></div>
+  <div class="step"><div class="sl">ファーム</div><div class="sb"><strong>Alchemist に Wizard のファームウェア？表記が合いません</strong><p>同じノブで機能が違います。位置による実用的な対応：PITCH = TIME、PITCH MOD = TIME MOD、TIMBRE = FEEDBACK、TIMBRE MOD = FEEDBACK MOD、ENV（中央）= AMOUNT、MODE ボタン = FX MODE。お使いの機体で確認してください。</p></div></div>
+  <div class="step"><div class="sl">slicer</div><div class="sb"><strong>4分音符のポンピング</strong><p>TIME でチョップのパターン、AMOUNT でディケイ（左で長く、右で短く）とミックス、FEEDBACK はゼロにしてランダムな反転を防ぎます。本物のサイドチェインではなくディケイエンベロープですが、ディケイを長くするとかなり近くなります。</p></div></div>
+  <div class="step"><div class="sl">freezer</div><div class="sb"><strong>コードを凍らせる</strong><p>AMOUNT をゼロにして Freezer に入り、コードが鳴った瞬間に AMOUNT を上げると、その瞬間の入力が凍結されます。TIME を右にするとパッドのような持続音に。AMOUNT を下げてまた上げると新しく凍結します。</p></div></div>
+  <div class="step"><div class="sl">replayer</div><div class="sb"><strong>テープループ</strong><p>AMOUNT を半分にすると入力を録音し、右いっぱいでループを固定。TIME を左にすると逆再生。</p></div></div>
+</div>
+</div>
+
+<div class="ex">
+  <div class="ex-lb">モジュール演習</div>
+  <div class="ex-ti">3つのレシピ、Kastle ごとに1つ — 45分</div>
+  <ul class="ex-ul">
+    <li>Alchemist：オクターブベースを作る。PLAY が鳴らなければ PITCH MOD とクロックのライトを確認。</li>
+    <li>Wave Bard：コードのループにフィルタースイープをかける。</li>
+    <li>FX Wizard：Bard を4分音符の Slicer に通し、そのあと Freezer でコードを凍らせる。</li>
+    <li>ミキサーで3台を開け閉めしながら、OP-1 かパソコンに2分録音する。</li>
+  </ul>
+</div>
+<div class="mf">
+  <button class="btn" onclick="go(17)">← 前へ</button>
+  <button class="btn btn-p" onclick="go(19)">次へ →</button>
+  <button class="btn btn-d" id="bd18" onclick="done(18)">完了にする</button>
+</div>
+</div>`;
+
+window.CourseContent.ja.m19 = `<div class="mod" id="m19">
+<div class="mod-hd">
+  <div class="ey">モジュール19・エコシステム</div>
+  <div class="mt">PO-32、Sidekick、Bestie：<strong>セットを演奏する</strong></div>
+  <div class="md">ポケットドラムマシンと2つのミキサーのクイックリファレンス、そしてすべてを一緒に使う2つのセット：120 BPM のフィルターハウスと、ギター入りのスローなトラップ。</div>
+  <div class="mm-row"><div class="mm">~2h</div><div class="mm">リグ全体</div><div class="mm">ライブ演奏</div></div>
+</div>
+
+<div class="sec" id="m19-s1">
+<div class="st">01 — PO-32 tonic のひと目まとめ</div>
+<div class="steps">
+  <div class="step"><div class="sl">サウンド</div><div class="sb"><strong>1 kick・2 snare・7 クローズ/オープンハット・12 クラップ・13 bass・15 シンバル</strong><p><kbd>Sound</kbd> + 1〜16 でサウンド、<kbd>Pattern</kbd> + 1〜16 でパターン。<kbd>Write</kbd> で録音モードに入りステップを押します。</p></div></div>
+  <div class="step"><div class="sl">リズム</div><div class="sb"><strong>アクセント、ロール、スイング</strong><p><kbd>Acc</kbd> + ステップ = アクセント。ステップを押したまま <kbd>BPM</kbd> = ロール ×1、2、3、4、6、8（トラップのハットに最適）。<kbd>BPM</kbd> + ノブ A = スイング。<kbd>BPM</kbd> + 1〜16 = マスター音量：出力が小さいので上げましょう。</p></div></div>
+  <div class="step"><div class="sl">FX</div><div class="sb"><strong><kbd>FX</kbd> + 1〜16 をライブで</strong><p>4 echo fade、6 EQ sweep、11 beat repeat、12 さらに速く、14 granular、15 reverse。<kbd>Pattern</kbd> を押したまま順に押すとパターンをチェーン（最大64）。</p></div></div>
+  <div class="step"><div class="sl">Microtonic</div><div class="sb"><strong>オーディオで自作サウンドを転送</strong><p>PO-32 は Microtonic プラグイン（Sonic Charge、有料）のエンジンを搭載しています。プラグインでキットを作り、マイクかケーブルで送ります：<kbd>Acc</kbd> + <kbd>Sound</kbd> で PO を受信モードに。</p></div></div>
+</div>
+</div>
+
+<div class="sec" id="m19-s2">
+<div class="st">02 — K.O. Sidekick と Bestie</div>
+<div class="steps">
+  <div class="step"><div class="sl">Sidekick</div><div class="sb"><strong>チャンネルごとに1つのエフェクト、パッドで演奏</strong><p>チャンネルの <kbd>FX</kbd> を押して編集。<kbd>FX</kbd> を押したまま mod stick を動かして選択：filter、delay、tape、loop、tremolo、siren。stick を動かすか force pad を押している間だけ鳴ります。モジュレーション中に <kbd>Select</kbd> = 値を固定。<kbd>Select</kbd> を押したままモジュレーション = 動きのループを録音。<kbd>Select</kbd> + 両方の <kbd>FX</kbd> = シリアルモード：ミックス全体が2つのエフェクトを通ります。</p></div></div>
+  <div class="step"><div class="sl">チャンネル</div><div class="sb"><strong>ゲイン、EQ、コンプ、キュー</strong><p>ゲインを回す = ゲイン、押す = コンプ。<kbd>Select</kbd> + <kbd>Cue</kbd> = テンポ画面（タップまたはチャンネルごとの追従。エフェクトはそのテンポに同期）。Cue はレベルとエフェクトを通さずにキュー出力へ送り、試聴できます。</p></div></div>
+  <div class="step"><div class="sl">Bestie</div><div class="sb"><strong>ステレオ5チャンネル、エフェクトなし</strong><p>1と5はデュアルジャック（R にモノを挿すと両側で鳴る）。チャンネル3 を未接続にするとフィードバック：12時前は歪みを加え、それ以上で自己発振、最大でトレモロ。ミュートのライト点灯 = チャンネル有効。ヘッドホンを PRE にするとミュート前で試聴できます。</p></div></div>
+</div>
+</div>
+
+<div class="sec" id="m19-s3">
+<div class="st">03 — 日曜のフィルターハウスセット（~120 BPM）</div>
+<div class="steps">
+  <div class="step"><div class="sl">ベース</div><div class="sb"><strong>EP-133 か PO-32 で4つ打ち</strong><p>キック 1、5、9、13・クラップ 5 と 13・オープンハット 3、7、11、15。ハットだけのパターン、キック入り、フル、キックなしのブレイクを用意。</p></div></div>
+  <div class="step"><div class="sl">ループ</div><div class="sb"><strong>ファンク/ディスコのチョップとフィルタースイープの Bard</strong><p>GATE → TRIG は密なリズム、CV → SAMPLE MOD は CUE、LFO でフィルタースイープ（モジュール18）。Wizard はグルーヴで Flanger、ドロップで Slicer。</p></div></div>
+  <div class="step"><div class="sl">ベース音</div><div class="sb"><strong>Alchemist でディスコのオクターブ</strong><p>ループと同じスケールとルート。スイングは控えめに、Bard と Alchemist で同じ値。</p></div></div>
+  <div class="step"><div class="sl">構成</div><div class="sb"><strong>イントロ・キック・グルーヴ・ブレイク・ビルド・ドロップ・アウトロ</strong><p>イントロはフィルターを閉じて。キックが入ったらベースのミュートを解除。ブレイク：キックなしパターン、Wizard は Freezer、Alchemist はドローン。ビルド：Bestie のフィードバックを開き、PO の beat repeat。ドロップ：全部戻してフィルター全開。</p></div></div>
+</div>
+</div>
+
+<div class="sec" id="m19-s4">
+<div class="st">04 — ギター入りのスローセット（トラップ、~140/70 BPM）</div>
+<div class="steps">
+  <div class="step"><div class="sl">ギター</div><div class="sb"><strong>スパニッシュギターのチョップを Bard に</strong><p>フリジアンスケール（Web アプリで作成）、LENGTH は右、まばらなリズム。Wizard は Delay で FEEDBACK 高め、ブレイクでは Freezer。</p></div></div>
+  <div class="step"><div class="sl">808</div><div class="sb"><strong>ほぼサイン波の Alchemist</strong><p>HYPERSINE か FILTER で TIMBRE を左、2オクターブ下、長い ENV とポルタメント（<kbd>Mode</kbd> + TIMBRE を左）。PLAY のケーブルは外す：ここではオクターブは不要。</p></div></div>
+  <div class="step"><div class="sl">ドラム</div><div class="sb"><strong>ハーフタイム</strong><p>キック 1 と 11、クラップ 9、ハットは8分で、15 と 16 に ×3/×4 のロール。</p></div></div>
+  <div class="step"><div class="sl">ボイス</div><div class="sb"><strong>ting を ROBOT、ECHO、harmony で</strong><p>ミックスの前面に。イントロはディレイ付きのギターだけで、ボイスを小さく入れても。</p></div></div>
+</div>
+<div class="co"><div class="co-b or"></div><div class="co-bd"><strong>少ないほど良い</strong>全部つないだ初日は混沌としがちです。レイヤーで組み立てましょう：リズムとベース、次にメロディ、次にテクスチャ。片手はミュート、もう片手は1台の機材に。</div></div>
+</div>
+
+<div class="ex">
+  <div class="ex-lb">モジュール演習</div>
+  <div class="ex-ti">20分のフルセット</div>
+  <ul class="ex-ul">
+    <li>2つのセットから1つ選び、録音前にパターンとパッチを準備する（20分）。</li>
+    <li>セクション03か04の構成に沿って、止めずに最後まで録音する。</li>
+    <li>翌日に聴き直し、レイヤーが多すぎた瞬間を3つメモする。</li>
+  </ul>
+</div>
+<div class="mf">
+  <button class="btn" onclick="go(18)">← 前へ</button>
+  <button class="btn" disabled>コース終了</button>
+  <button class="btn btn-d" id="bd19" onclick="done(19)">完了にする</button>
+</div>
+</div>`;

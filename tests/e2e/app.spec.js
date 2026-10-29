@@ -40,7 +40,7 @@ test('core UX controls: progress, bookmarks, filters, tracks, view modes', async
   await openFreshCourse(page);
 
   await page.click('#bd0');
-  await expect(page.locator('#pt')).toHaveText('1 / 16');
+  await expect(page.locator('#pt')).toHaveText('1 / 20');
 
   await page.click('.ni[data-index="4"] .fav-toggle');
   await page.click('.ni[data-index="4"]');
@@ -93,4 +93,26 @@ test('resume state after reload keeps language and current module', async ({ pag
 
   expect(state.lang).toBe('en');
   expect(state.raw).toBeTruthy();
+});
+
+test('ecosystem modules render and the sync assistant reacts', async ({ page }) => {
+  await openFreshCourse(page);
+
+  await page.click('.ni[data-index="17"]');
+  await expect(page.locator('#m17 .ey').first()).toContainText('módulo 17');
+  await expect(page.locator('#wsw-chain')).toContainText('EP-133 → Bard → Wizard → Alchemist → PO-32');
+
+  await page.uncheck('#wsw-po');
+  await expect(page.locator('#wsw-chain')).not.toContainText('PO-32');
+  await expect(page.locator('#wsw-steps')).toContainText('211');
+
+  await page.selectOption('#wsw-master', 'bard');
+  await expect(page.locator('#wsw-kastle')).toBeChecked();
+  await expect(page.locator('#wsw-steps')).toContainText('201');
+
+  await openSettings(page);
+  await page.click('.lang-btn[data-lang="en"]');
+  await expect(page.locator('.ni[data-index="16"] .nt')).toContainText('your rig');
+  await expect(page.locator('#m17 .ey').first()).toContainText('module 17');
+  await expect(page.locator('#wsw-chain')).toContainText('chain:');
 });

@@ -48,7 +48,8 @@ window.CourseLocales.es = {
       "synthesis": "síntesis",
       "sequencers": "secuenc.",
       "production": "producción",
-      "closing": "cierre"
+      "closing": "cierre",
+      "ecosystem": "ecosistema"
     },
     "modules": {
       "m0": "teoría mínima",
@@ -66,7 +67,11 @@ window.CourseLocales.es = {
       "m12": "mezcla y masterización",
       "m13": "workflow completo",
       "m14": "OP-1 + ep–133",
-      "m15": "exportar y seguir"
+      "m15": "exportar y seguir",
+      "m16": "tu setup y ruteo",
+      "m17": "sync y reloj",
+      "m18": "bastl kastle 2",
+      "m19": "po-32, mezcla y sets"
     }
   },
   "actions": {

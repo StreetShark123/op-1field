@@ -48,7 +48,8 @@ window.CourseLocales.ja = {
       "synthesis": "synthシス",
       "sequencers": "シーケンサー",
       "production": "生産",
-      "closing": "閉店"
+      "closing": "閉店",
+      "ecosystem": "エコシステム"
     },
     "modules": {
       "m0": "最小理論",
@@ -66,7 +67,11 @@ window.CourseLocales.ja = {
       "m12": "ミキシング＆マスタリング",
       "m13": "完全なワークフロー",
       "m14": "OP-1 + EP-133",
-      "m15": "エクスポートして継続する"
+      "m15": "エクスポートして継続する",
+      "m16": "リグとルーティング",
+      "m17": "sync とクロック",
+      "m18": "bastl kastle 2",
+      "m19": "po-32・ミックス・セット"
     }
   },
   "actions": {

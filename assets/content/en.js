@@ -2006,8 +2006,327 @@ window.CourseContent.en.m15 = `<div class="mod" id="m15">
 </div>
 <div class="mf">
   <button class="btn" onclick="go(14)">← previous</button>
-  <button class="btn" disabled>end of course</button>
+  <button class="btn btn-p" onclick="go(16)">next →</button>
   <button class="btn btn-d" id="bd15" onclick="done(15)">mark ready</button>
 </div>
 </div>`;
 
+
+window.CourseContent.en.m16 = `<div class="mod" id="m16">
+<div class="mod-hd">
+  <div class="ey">module 16 · ecosystem</div>
+  <div class="mt">your rig: <strong>roles and audio routing</strong></div>
+  <div class="md">The OP-1 Field rarely plays alone. This module organizes a real portable rig: EP-133, PO-32, three Bastl Kastle 2 units (Wave Bard, FX Wizard, Alchemist), the Bestie mixer, the K.O. Sidekick and the ting mic. The goal is not to plug everything in: it is to give each device a clear job and know where every cable goes.</div>
+  <div class="mm-row"><div class="mm">~1.5h</div><div class="mm">full rig</div><div class="mm">3.5mm + USB-C cables</div></div>
+</div>
+
+<div class="sec" id="m16-s1">
+<div class="st">01 — one job per device</div>
+<div class="steps">
+  <div class="step"><div class="sl">EP-133</div><div class="sb"><strong>master clock + drums and samples</strong><p>The K.O. II sets the tempo for the whole rig and carries the main drums: kick, snare, chopped breaks, vocals. It has no per-channel EQ: its tone shaping is the master filter, master compressor and sidechain. EQ comes from the mixer.</p></div></div>
+  <div class="step"><div class="sl">PO-32</div><div class="sb"><strong>bass and color percussion</strong><p>If the EP-133 already plays drums, give the PO-32 a different job: sound 13 (bass) as the bassline plus the odd synthetic hit. That way two drum machines are not fighting.</p></div></div>
+  <div class="step"><div class="sl">Kastle 2</div><div class="sb"><strong>Wave Bard = texture · FX Wizard = space · Alchemist = melody</strong><p>All three Kastle 2 share hardware; only the firmware changes. In this rig the Bard plays loops and chops, its audio goes through the Wizard (delay, freezer, slicer) and the Alchemist plays the melody or arpeggio.</p></div></div>
+  <div class="step"><div class="sl">OP-1 Field</div><div class="sb"><strong>one more instrument, not the recorder</strong><p>Using the OP-1 as the recorder means watching input, monitoring and tracks. It is more comfortable to give it its own mixer channel and play its synths on top, locked to the EP-133 over USB-C.</p></div></div>
+  <div class="step"><div class="sl">ting</div><div class="sb"><strong>voice with effects</strong><p>The EP–2350 ting outputs stereo line level up to 2 Vrms: a lot of level. Start with its internal volume low (green wheel under the lid) and the mixer channel below 0 dB.</p></div></div>
+</div>
+<div class="co"><div class="co-b"></div><div class="co-bd"><strong>overlap rule</strong>If two devices do the same thing (two drum machines, two basses), one is extra in that session. Before cabling, write one line per device with its job. If it does not fit in one line, the role is not clear.</div></div>
+</div>
+
+<div class="sec" id="m16-s2">
+<div class="st">02 — two buses: rhythm and color</div>
+<div class="steps">
+  <div class="step"><div class="sl">idea</div><div class="sb"><strong>separate rhythm from melody</strong><p>The K.O. Sidekick has two stereo channels with gain, 3-band EQ, compressor and one effect per channel. Send percussion to one channel and melodic parts to the other, and each EQ and effect works on one family of sounds.</p></div></div>
+  <div class="step"><div class="sl">channel 1</div><div class="sb"><strong>EP-133 in stereo</strong><p>Straight in, through nothing else. It keeps its stereo image and gets EQ on the Sidekick.</p></div></div>
+  <div class="step"><div class="sl">channel 2</div><div class="sb"><strong>Bestie as melodic submix</strong><p>Bestie: channel 1 Wizard (the processed Bard, stereo into the L input), channel 2 Alchemist, channel 3 unplugged (optional feedback), channel 4 ting, channel 5 PO-32 (mono into R, copied to L). The Bestie output goes into Sidekick channel 2.</p></div></div>
+  <div class="step"><div class="sl">aux</div><div class="sb"><strong>OP-1 into the Sidekick aux input</strong><p>The aux (session in) is summed into the mix. The guide does not say whether it passes through EQ or effects; treat it as an unprocessed input and test it with something plugged in. The OP-1 has its own effects anyway.</p></div></div>
+  <div class="step"><div class="sl">output</div><div class="sb"><strong>Sidekick main out → speaker or interface</strong><p>The Sidekick is also a USB audio interface (8 in / 4 out), so you can record the mix on a computer.</p></div></div>
+</div>
+<div class="infog">
+  <div class="infog-lb">audio routing — two buses on the Sidekick</div>
+  <svg viewBox="0 0 520 250" class="diag">
+    <rect x="10" y="10" width="110" height="34" fill="#fff0eb" stroke="#ff5500" stroke-width="1.2"/>
+    <text x="65" y="31" font-family="IBM Plex Mono" font-size="9" text-anchor="middle" fill="#111110">EP-133</text>
+    <rect x="150" y="10" width="80" height="34" fill="#e8f0ff" stroke="#0055cc" stroke-width="1"/>
+    <text x="190" y="31" font-family="IBM Plex Mono" font-size="9" text-anchor="middle" fill="#111110">Wave Bard</text>
+    <rect x="250" y="10" width="80" height="34" fill="#e8f0ff" stroke="#0055cc" stroke-width="1"/>
+    <text x="290" y="31" font-family="IBM Plex Mono" font-size="9" text-anchor="middle" fill="#111110">FX Wizard</text>
+    <line x1="230" y1="27" x2="248" y2="27" stroke="#888884" stroke-width="1"/>
+    <rect x="150" y="64" width="80" height="30" fill="#e8f0ff" stroke="#0055cc" stroke-width="1"/>
+    <text x="190" y="83" font-family="IBM Plex Mono" font-size="9" text-anchor="middle" fill="#111110">Alchemist</text>
+    <rect x="250" y="64" width="80" height="30" fill="#e8f0ff" stroke="#0055cc" stroke-width="1"/>
+    <text x="290" y="83" font-family="IBM Plex Mono" font-size="9" text-anchor="middle" fill="#111110">ting</text>
+    <rect x="350" y="64" width="80" height="30" fill="#e8f0ff" stroke="#0055cc" stroke-width="1"/>
+    <text x="390" y="83" font-family="IBM Plex Mono" font-size="9" text-anchor="middle" fill="#111110">PO-32</text>
+    <rect x="150" y="120" width="280" height="30" fill="#f5f4f0" stroke="#888884" stroke-width="1"/>
+    <text x="290" y="139" font-family="IBM Plex Mono" font-size="9" text-anchor="middle" fill="#111110">Bestie · 1 Wizard · 2 Alch · 3 fb · 4 ting · 5 PO</text>
+    <line x1="290" y1="44" x2="290" y2="60" stroke="#888884" stroke-width="1"/>
+    <line x1="190" y1="94" x2="190" y2="118" stroke="#888884" stroke-width="1"/>
+    <line x1="290" y1="94" x2="290" y2="118" stroke="#888884" stroke-width="1"/>
+    <line x1="390" y1="94" x2="390" y2="118" stroke="#888884" stroke-width="1"/>
+    <rect x="450" y="120" width="60" height="30" fill="#f5f4f0" stroke="#888884" stroke-width="1"/>
+    <text x="480" y="139" font-family="IBM Plex Mono" font-size="9" text-anchor="middle" fill="#111110">OP-1</text>
+    <rect x="10" y="180" width="500" height="30" fill="#f5f4f0" stroke="#111110" stroke-width="1.2"/>
+    <text x="260" y="199" font-family="IBM Plex Mono" font-size="9" text-anchor="middle" fill="#111110">K.O. Sidekick · ch1 EP-133 · ch2 Bestie · aux OP-1</text>
+    <line x1="65" y1="44" x2="65" y2="178" stroke="#ff5500" stroke-width="1"/>
+    <line x1="290" y1="150" x2="290" y2="178" stroke="#0055cc" stroke-width="1"/>
+    <line x1="480" y1="150" x2="480" y2="178" stroke="#888884" stroke-width="1"/>
+    <line x1="260" y1="210" x2="260" y2="230" stroke="#111110" stroke-width="1"/>
+    <text x="260" y="244" font-family="IBM Plex Mono" font-size="8" text-anchor="middle" fill="#888884">main out → speaker / USB to computer</text>
+  </svg>
+  <div class="infog-nt">orange = rhythm bus · blue = melodic bus · the Wizard processes the Bard before the Bestie</div>
+</div>
+</div>
+
+<div class="sec" id="m16-s3">
+<div class="st">03 — golden cabling rules</div>
+<div class="steps">
+  <div class="step"><div class="sl">loop</div><div class="sb"><strong>no output returns to its own input</strong><p>If the OP-1 records the mix, its output cannot go into the mixer that feeds its input: it hears itself and you get a rising squeal or a doubled take. Same with the PO-32: if it sums its input audio (SY4), do not send its output back to whatever feeds it.</p></div></div>
+  <div class="step"><div class="sl">levels</div><div class="sb"><strong>Bestie: 12 o'clock is 0 dB</strong><p>Below 12 it mixes clean. Past it, gain rises to +20 dB and saturates. Start everything low and bring channels up one by one.</p></div></div>
+  <div class="step"><div class="sl">ground</div><div class="sb"><strong>hum with everything on USB = ground loop</strong><p>The Bestie shares ground between USB and audio. If it hums, power it separately or from batteries.</p></div></div>
+  <div class="step"><div class="sl">mutes</div><div class="sb"><strong>three voices at once, at most</strong><p>With seven sources it is easy to make mush. Keep three playing and use mutes as arrangement: open, close, swap.</p></div></div>
+</div>
+<div class="co"><div class="co-b bl"></div><div class="co-bd"><strong>when two channels are not enough</strong>Mixing seven sources into two Sidekick channels is fun but chaotic: each fader moves several things. The way out is a second Sidekick chained through the aux (4 channels with EQ and effects) or a TX-6 (6 stereo 3.5 mm channels, EQ, compressor and recording to USB). With a TX-6 the Bestie becomes optional and the Sidekick can merge EP-133 + PO-32 into one channel.</div></div>
+</div>
+
+<div class="ex">
+  <div class="ex-lb">module exercise</div>
+  <div class="ex-ti">map your rig on paper — 20 min</div>
+  <ul class="ex-ul">
+    <li>Write one line per device with its job in today's session.</li>
+    <li>Draw the two buses: what goes into Sidekick channel 1 and what into channel 2.</li>
+    <li>Mark with an X any cable that sends an output back into its own chain. If there is an X, fix it before powering on.</li>
+    <li>Power on, bring each channel up alone with the rest muted and note where it sits in balance.</li>
+  </ul>
+</div>
+<div class="mf">
+  <button class="btn" onclick="go(15)">← previous</button>
+  <button class="btn btn-p" onclick="go(17)">next →</button>
+  <button class="btn btn-d" id="bd16" onclick="done(16)">mark ready</button>
+</div>
+</div>`;
+
+window.CourseContent.en.m17 = `<div class="mod" id="m17">
+<div class="mod-hd">
+  <div class="ey">module 17 · ecosystem</div>
+  <div class="mt">sync: <strong>one clock for everything</strong></div>
+  <div class="md">The rule is the same as in module 14: a single master. Here we apply it to a rig with three different sync families: MIDI over USB (OP-1 and EP-133), Bastl analog pulse (Kastle 2) and Pocket Operator pulse (PO-32).</div>
+  <div class="mm-row"><div class="mm">~1.5h</div><div class="mm">EP-133 + Kastle + PO-32</div><div class="mm">1 mono cable + USB-C</div></div>
+</div>
+
+<div class="sec" id="m17-s1">
+<div class="st">01 — the clock chain</div>
+<div class="steps">
+  <div class="step"><div class="sl">USB</div><div class="sb"><strong>EP-133 → OP-1 Field over USB-C</strong><p>The OP-1 Field can act as USB host, so it talks to the EP-133 directly without a computer. The EP-133 ships with MIDI clock output off: turn it on (see section 02). On the OP-1, set tempo to follow external clock and test play/stop twice.</p></div></div>
+  <div class="step"><div class="sl">pulse</div><div class="sb"><strong>EP-133 SYNC OUT → Bard → Wizard → Alchemist → PO-32</strong><p>One mono cable from the EP-133 sync jack to the Wave Bard SYNC IN is enough: the Kastle reads clock on the tip. Every Kastle receiving external clock passes the original, undivided clock on its SYNC OUT (sync thru), so the last device gets exactly what the EP-133 sends.</p></div></div>
+  <div class="step"><div class="sl">PO-32</div><div class="sb"><strong>at the end of the chain, in SY2</strong><p>SY2: the input only receives sync and the output only carries audio. Press play on the PO before starting the EP-133 so it waits for clock.</p></div></div>
+</div>
+<div class="co"><div class="co-b"></div><div class="co-bd"><strong>why eighth notes</strong>Pocket Operators expect eighth-note pulses. If the EP-133 sends sixteenths (its default), the PO-32 runs double speed. That is why the EP-133 sync goes to 1/8 and the Kastles get their multiplier raised so their patterns run in sixteenths again.</div></div>
+</div>
+
+<div class="sec" id="m17-s2">
+<div class="st">02 — EP-133 system settings</div>
+<div class="steps">
+  <div class="step"><div class="sl">enter</div><div class="sb"><strong><kbd>Shift</kbd> + <kbd>Erase</kbd></strong><p>Type the code on the pads and confirm with <kbd>Enter</kbd>. <kbd>Shift</kbd> + <kbd>Enter</kbd> goes back one page.</p></div></div>
+  <div class="step"><div class="sl">102</div><div class="sb"><strong>MIDI clock out</strong><p>MIDI clock is off by default (100). 101 = receive only, 102 = send only. For the OP-1 to follow the EP-133 over USB you need 102.</p></div></div>
+  <div class="step"><div class="sl">210</div><div class="sb"><strong>sync out at 1/8</strong><p>Sync output rate: 210 = 1/8, 211 = 1/16 (default), 212 = 24 ppq. For a chain that ends in a Pocket Operator, use 210.</p></div></div>
+  <div class="step"><div class="sl">extra</div><div class="sb"><strong>sidechain for pumping</strong><p>In the output settings (<kbd>Shift</kbd> + <kbd>FX</kbd>, then plus) you can make one sound, for example the kick, duck other groups. KnobX = length, knobY = shape. Great for filter house.</p></div></div>
+</div>
+</div>
+
+<div class="sec" id="m17-s3">
+<div class="st">03 — Kastle 2: reading the clock</div>
+<div class="steps">
+  <div class="step"><div class="sl">light</div><div class="sb"><strong>hold <kbd>Shift</kbd> and watch the metronome light</strong><p>Cyan = external clock active. Magenta = internal clock. Blue = USB MIDI clock. Orange = ignoring analog sync. If it does not blink, it is waiting for a clock that never arrives.</p></div></div>
+  <div class="step"><div class="sl">divider</div><div class="sb"><strong><kbd>Shift</kbd> + LFO = tempo or divider</strong><p>On internal clock it sets tempo; on external clock it picks a divider or multiplier. With eighth notes coming in, raise it until the pattern runs twice as fast. Tap tempo on the Bard is <kbd>Shift</kbd> + <kbd>Bank</kbd>; on Alchemist and Wizard, <kbd>Shift</kbd> + <kbd>Mode</kbd>.</p></div></div>
+  <div class="step"><div class="sl">wait</div><div class="sb"><strong>with a cable in SYNC IN, the Kastle always waits</strong><p>It does not fall back to its internal clock even if the master is stopped. If it goes silent, unplug SYNC IN: if it plays again, the problem is in the clock chain. With no clock for more than 2 s, the pattern generator returns to step 1.</p></div></div>
+</div>
+</div>
+
+<div class="sec" id="m17-s4">
+<div class="st">04 — PO-32 sync modes</div>
+<div class="steps">
+  <div class="step"><div class="sl">change</div><div class="sb"><strong>hold <kbd>ACC</kbd> and press <kbd>BPM</kbd></strong><p>The mode shows top right. SY2 to SY5 only appear with a cable in the input. With sync on, the signal is split: sync on the left, audio on the right.</p></div></div>
+  <div class="step"><div class="sl">table</div><div class="sb"><strong>SY0 to SY5</strong><p>SY0: audio in, audio out (no sync). SY1: audio in, sync + mono audio out. SY2: sync in, audio only out. SY3: sync in, sync + mono audio out. SY4: sync + mono audio in, audio out (sums the input). SY5: sync + mono audio in, sync + mono audio out.</p></div></div>
+  <div class="step"><div class="sl">OP-1</div><div class="sb"><strong>OP-1 as master of a PO: PO sync</strong><p>The OP-1 tempo guide has a PO sync mode: the left output becomes the click and the right carries mono audio. Cable from OP-1 out to PO in, PO in SY4, play on the PO then on the OP-1; listen from the PO output. Verify on your firmware: the published guide is for the original OP-1.</p></div></div>
+</div>
+<div class="co"><div class="co-b gr"></div><div class="co-bd"><strong>Interactive module</strong>Choose who is master and which devices you use: the assistant gives you the cable chain and each device's settings.</div></div>
+<div class="widget" id="w-sync-wizard">
+  <div class="w-title">sync assistant — cables and settings</div>
+  <div class="w-row">
+    <span class="w-label">master</span>
+    <select id="wsw-master" class="w-btn inactive" style="text-transform:none;padding:6px 10px" onchange="wswUpdate()">
+      <option value="ep">EP-133</option>
+      <option value="bard">Wave Bard</option>
+      <option value="op1">OP-1 Field</option>
+    </select>
+  </div>
+  <div class="w-row w-checks">
+    <label><input type="checkbox" id="wsw-op1" checked onchange="wswUpdate()"> OP-1</label>
+    <label><input type="checkbox" id="wsw-kastle" checked onchange="wswUpdate()"> Kastle 2</label>
+    <label><input type="checkbox" id="wsw-po" checked onchange="wswUpdate()"> PO-32</label>
+  </div>
+  <div class="w-panel">
+    <div class="w-small" id="wsw-chain">chain: EP-133 → Bard → Wizard → Alchemist → PO-32 · EP-133 ⇄ OP-1 over USB-C</div>
+    <div class="w-small" id="wsw-steps" style="margin-top:8px">settings: EP-133 102 + 210 · Kastle: cyan light and ×2 multiplier · PO-32 in SY2 · OP-1 follows external clock</div>
+  </div>
+</div>
+</div>
+
+<div class="sec" id="m17-s5">
+<div class="st">05 — when it will not lock</div>
+<div class="steps">
+  <div class="step"><div class="sl">PO double</div><div class="sb"><strong>the PO-32 runs double or half speed</strong><p>Check code 210 on the EP-133. If the master is a Kastle, try another divider on the master and compensate on the followers.</p></div></div>
+  <div class="step"><div class="sl">click</div><div class="sb"><strong>a tick on every step in the PO channel</strong><p>You are hearing the sync: the PO is in a mode that outputs sync on the left (SY1/3/5). Switch to SY2 or use a splitter and only the right side.</p></div></div>
+  <div class="step"><div class="sl">silent</div><div class="sb"><strong>a Kastle stays silent with GATE → TRIG</strong><p>GATE needs a running clock. Check the cyan light and that the cable comes from the previous SYNC OUT, not AUDIO OUT.</p></div></div>
+  <div class="step"><div class="sl">OP-1</div><div class="sb"><strong>the OP-1 does not follow the EP-133</strong><p>Almost always code 102 not enabled, or the OP-1 left in beat match instead of following external clock.</p></div></div>
+</div>
+</div>
+
+<div class="ex">
+  <div class="ex-lb">module exercise</div>
+  <div class="ex-ti">clock chain in 15 minutes</div>
+  <ul class="ex-ul">
+    <li>EP-133: <kbd>Shift</kbd> + <kbd>Erase</kbd>, 102 <kbd>Enter</kbd>, 210 <kbd>Enter</kbd>.</li>
+    <li>Mono cable EP-133 sync → Bard SYNC IN. Bard → Wizard → Alchemist with sync cables. Alchemist SYNC OUT → PO-32 input.</li>
+    <li>On each Kastle, hold <kbd>Shift</kbd>: cyan light. Adjust the multiplier until GATE → TRIG plays sixteenths.</li>
+    <li>PO-32 in SY2, play. Start the EP-133. Stop and start twice: if everything lands together, the chain is good.</li>
+  </ul>
+</div>
+<div class="mf">
+  <button class="btn" onclick="go(16)">← previous</button>
+  <button class="btn btn-p" onclick="go(18)">next →</button>
+  <button class="btn btn-d" id="bd17" onclick="done(17)">mark ready</button>
+</div>
+</div>`;
+
+window.CourseContent.en.m18 = `<div class="mod" id="m18">
+<div class="mod-hd">
+  <div class="ey">module 18 · ecosystem</div>
+  <div class="mt">Bastl Kastle 2: <strong>Alchemist, Wave Bard and FX Wizard</strong></div>
+  <div class="md">Three pocket instruments with the same hardware and swappable firmware. This module sums up the controls you will look for in the middle of a jam and three recipes that work with the OP-1 and the EP-133.</div>
+  <div class="mm-row"><div class="mm">~2h</div><div class="mm">Kastle 2</div><div class="mm">patch cables</div></div>
+</div>
+
+<div class="sec" id="m18-s1">
+<div class="st">01 — common to all three</div>
+<div class="steps">
+  <div class="step"><div class="sl">patchbay</div><div class="sb"><strong>outputs have a white outline, inputs do not</strong><p>The three points of each horizontal row are connected together. Points take and give 0–5 V. Several outputs into one input is safe. + gives a high level, − a low level.</p></div></div>
+  <div class="step"><div class="sl">shift</div><div class="sb"><strong>short press = trigger · hold = silver functions</strong><p><kbd>Shift</kbd> + PITCH = output volume. <kbd>Shift</kbd> + PITCH MOD = input gain. <kbd>Shift</kbd> + LFO = tempo/divider. <kbd>Shift</kbd> + LFO MOD = GATE rhythm. <kbd>Shift</kbd> + button (Mode/Bank) over 2 s = advanced settings; over 15 s = memory reset.</p></div></div>
+  <div class="step"><div class="sl">LFO</div><div class="sb"><strong>center = slowest · left = synced · right = free</strong><p>With <kbd>Shift</kbd>: cold white light = synced, warm white = free.</p></div></div>
+  <div class="step"><div class="sl">swing</div><div class="sb"><strong>button + LFO: right swing (orange), left humanize (cyan)</strong><p>It only affects the GATE and CV outputs of the pattern generator, not the LFO.</p></div></div>
+  <div class="step"><div class="sl">red</div><div class="sb"><strong>all lights red = low batteries</strong><p>Below about 3 V it stops working properly. Fresh batteries or USB-C (on USB it does not draw from the batteries).</p></div></div>
+</div>
+</div>
+
+<div class="sec" id="m18-s2">
+<div class="st">02 — Alchemist: NOTE and PLAY demystified</div>
+<div class="steps">
+  <div class="step"><div class="sl">modes</div><div class="sb"><strong><kbd>Mode</kbd> changes the synthesis</strong><p>FILTER orange · FM green · SUPERSAW magenta · HYPERSINE cyan · GLITCHNOISE white. <kbd>Mode</kbd> + PITCH = octave. <kbd>Mode</kbd> + PITCH MOD = scale (lights dim briefly on change). <kbd>Mode</kbd> + TIMBRE MOD = root note. <kbd>Mode</kbd> + TIMBRE = pitch slide/portamento.</p></div></div>
+  <div class="step"><div class="sl">NOTE</div><div class="sb"><strong>which base note plays</strong><p>Updated on each TRIG and always inside the scale.</p></div></div>
+  <div class="step"><div class="sl">PLAY</div><div class="sb"><strong>jumps on top: third, fifth, octave</strong><p>Each voltage change at PLAY triggers a note. Note: both NOTE and PLAY go through the PITCH MOD knob. At center they do nothing: if PLAY is silent, turn PITCH MOD to the right.</p></div></div>
+  <div class="step"><div class="sl">ENV</div><div class="sb"><strong>the central macro</strong><p>Right: longer decay, pluck sound. Left: more attack. Both extremes enter drone mode.</p></div></div>
+</div>
+<div class="co"><div class="co-b"></div><div class="co-bd"><strong>recipe · disco octave bass</strong>FILTER mode, one octave down. LFO to the left (synced). Cable LFO PULSE → PLAY. Turn PITCH MOD right until the jump is one octave. Each LFO cycle gives two notes: root, octave, root, octave. ENV → TIMBRE MOD with TIMBRE MOD to the right for the "wah". Change the root by hand with PITCH.</div></div>
+</div>
+
+<div class="sec" id="m18-s3">
+<div class="st">03 — Wave Bard: the filtered loop</div>
+<div class="steps">
+  <div class="step"><div class="sl">samples</div><div class="sb"><strong>banks of 8, up to ~89 s mono</strong><p><kbd>Bank</kbd> switches banks (each has a color). SAMPLE picks the sample, LENGTH to the left reverses it with attack. Load your own samples, scales and rhythms with the Bastl web app; melodic samples should be tuned to C.</p></div></div>
+  <div class="step"><div class="sl">CUE</div><div class="sb"><strong>SAMPLE MOD to the left = CUE mode</strong><p>Modulation aims at a sample and waits for TRIG: it stays on the grid. To the right (PLAY) it fires as soon as it changes: off-grid rhythms.</p></div></div>
+  <div class="step"><div class="sl">filter</div><div class="sb"><strong><kbd>Shift</kbd> + SAMPLE = LP/HP filter</strong><p>Center open, left low-pass, right high-pass.</p></div></div>
+</div>
+<div class="co"><div class="co-b bl"></div><div class="co-bd"><strong>recipe · filter-house sweep</strong>Advanced settings (<kbd>Shift</kbd> + <kbd>Bank</kbd> &gt;2 s), hold <kbd>Shift</kbd> and turn SAMPLE: the LFO MOD input now drives the filter. Exit the same way. Cable LFO TRI → LFO MOD, LFO to the left and slow, base filter on low-pass. The loop opens and closes by itself.</div></div>
+</div>
+
+<div class="sec" id="m18-s4">
+<div class="st">04 — FX Wizard: slicer, freezer, replayer</div>
+<div class="steps">
+  <div class="step"><div class="sl">modes</div><div class="sb"><strong><kbd>FX Mode</kbd> cycles through nine effects</strong><p>Delay family (greens and blues): Delay, Flanger (cyan), Freezer (blue). Amplitude (bright colors): Panner, Crusher, Slicer (light green). Pitch (reds): Pitcher, Replayer (orange), Shifter. AMOUNT is the big center knob and sets dry/wet.</p></div></div>
+  <div class="step"><div class="sl">firmware</div><div class="sb"><strong>Alchemist running Wizard firmware? labels do not match</strong><p>Same knob, different function. Practical approximation by position: PITCH = TIME, PITCH MOD = TIME MOD, TIMBRE = FEEDBACK, TIMBRE MOD = FEEDBACK MOD, ENV (center) = AMOUNT, MODE button = FX MODE. Verify on your unit.</p></div></div>
+  <div class="step"><div class="sl">slicer</div><div class="sb"><strong>quarter-note pumping</strong><p>TIME picks the chop pattern, AMOUNT the decay (left long, right short) and the mix, FEEDBACK at zero so it does not randomly invert hits. It is a decay envelope, not a true sidechain, but with a long decay it gets very close.</p></div></div>
+  <div class="step"><div class="sl">freezer</div><div class="sb"><strong>freeze a chord</strong><p>AMOUNT at zero, enter Freezer and raise AMOUNT when the chord plays: it freezes what is coming in at that moment. TIME to the right = sustained tone, pad-like. Lower and raise AMOUNT to freeze a new one.</p></div></div>
+  <div class="step"><div class="sl">replayer</div><div class="sb"><strong>tape loop</strong><p>AMOUNT halfway records the input; fully right locks the loop. TIME to the left = backwards.</p></div></div>
+</div>
+</div>
+
+<div class="ex">
+  <div class="ex-lb">module exercise</div>
+  <div class="ex-ti">three recipes, one per Kastle — 45 min</div>
+  <ul class="ex-ul">
+    <li>Alchemist: build the octave bass. If PLAY is silent, check PITCH MOD and the clock light.</li>
+    <li>Wave Bard: build the filter sweep over a chord loop.</li>
+    <li>FX Wizard: run the Bard through the quarter-note Slicer, then freeze a chord with the Freezer.</li>
+    <li>Record 2 minutes on the OP-1 or a computer, opening and closing all three from the mixer.</li>
+  </ul>
+</div>
+<div class="mf">
+  <button class="btn" onclick="go(17)">← previous</button>
+  <button class="btn btn-p" onclick="go(19)">next →</button>
+  <button class="btn btn-d" id="bd18" onclick="done(18)">mark ready</button>
+</div>
+</div>`;
+
+window.CourseContent.en.m19 = `<div class="mod" id="m19">
+<div class="mod-hd">
+  <div class="ey">module 19 · ecosystem</div>
+  <div class="mt">PO-32, Sidekick and Bestie: <strong>playing the set</strong></div>
+  <div class="md">Quick reference for the pocket drum machine and the two mixers, plus two full sets that use everything together: a 120 BPM filter-house set and a slow trap set with guitar.</div>
+  <div class="mm-row"><div class="mm">~2h</div><div class="mm">full rig</div><div class="mm">play live</div></div>
+</div>
+
+<div class="sec" id="m19-s1">
+<div class="st">01 — PO-32 tonic at a glance</div>
+<div class="steps">
+  <div class="step"><div class="sl">sounds</div><div class="sb"><strong>1 kick · 2 snare · 7 closed/open hat · 12 clap · 13 bass · 15 cymbal</strong><p><kbd>Sound</kbd> + 1–16 picks a sound, <kbd>Pattern</kbd> + 1–16 a pattern. <kbd>Write</kbd> enters record mode and you press steps.</p></div></div>
+  <div class="step"><div class="sl">rhythm</div><div class="sb"><strong>accent, rolls and swing</strong><p><kbd>Acc</kbd> + step = accent. Hold a step and press <kbd>BPM</kbd> = roll ×1, 2, 3, 4, 6 or 8 (perfect for trap hats). <kbd>BPM</kbd> + knob A = swing. <kbd>BPM</kbd> + 1–16 = master volume: turn it up, it outputs little level.</p></div></div>
+  <div class="step"><div class="sl">FX</div><div class="sb"><strong><kbd>FX</kbd> + 1–16 live</strong><p>4 echo fade, 6 EQ sweep, 11 beat repeat, 12 faster, 14 granular, 15 reverse. Chain patterns by holding <kbd>Pattern</kbd> and pressing them in order (up to 64).</p></div></div>
+  <div class="step"><div class="sl">Microtonic</div><div class="sb"><strong>your own sounds over audio</strong><p>The PO-32 runs the engine of the Microtonic plugin (Sonic Charge, paid). With the plugin you design kits and send them via the mic or a cable: <kbd>Acc</kbd> + <kbd>Sound</kbd> puts the PO in receive mode.</p></div></div>
+</div>
+</div>
+
+<div class="sec" id="m19-s2">
+<div class="st">02 — K.O. Sidekick and Bestie</div>
+<div class="steps">
+  <div class="step"><div class="sl">Sidekick</div><div class="sb"><strong>one effect per channel, played with the pad</strong><p>Press a channel <kbd>FX</kbd> to edit it; hold <kbd>FX</kbd> and move the mod stick to choose: filter, delay, tape, loop, tremolo, siren. It sounds while you move the stick or press the force pad. <kbd>Select</kbd> while modulating = lock the value. Hold <kbd>Select</kbd> and modulate = record a motion loop. <kbd>Select</kbd> + both <kbd>FX</kbd> = serial mode: the whole mix goes through both effects.</p></div></div>
+  <div class="step"><div class="sl">channel</div><div class="sb"><strong>gain, EQ, compressor and cue</strong><p>Turn gain = gain; click gain = compressor. <kbd>Select</kbd> + <kbd>Cue</kbd> = tempo screen (tap or per-channel tracking: effects sync to that tempo). Cue sends the channel to the cue output without level or effects, for previewing.</p></div></div>
+  <div class="step"><div class="sl">Bestie</div><div class="sb"><strong>5 stereo channels, no effects</strong><p>1 and 5 have dual jacks (a mono cable in R plays on both sides). Channel 3 unplugged = feedback: below 12 it adds distortion, past it self-oscillates, at max it gives tremolo. Mute light on = channel active. Headphones on PRE = preview before the mutes.</p></div></div>
+</div>
+</div>
+
+<div class="sec" id="m19-s3">
+<div class="st">03 — Sunday filter-house set (~120 BPM)</div>
+<div class="steps">
+  <div class="step"><div class="sl">base</div><div class="sb"><strong>EP-133 or PO-32 with four-on-the-floor kick</strong><p>Kick on 1, 5, 9, 13 · clap on 5 and 13 · open hat on 3, 7, 11, 15. One pattern with hats only, one with kick, one full and one break with no kick.</p></div></div>
+  <div class="step"><div class="sl">loop</div><div class="sb"><strong>Bard with funk/disco chops and a filter sweep</strong><p>GATE → TRIG with a dense rhythm, CV → SAMPLE MOD in CUE, LFO filter sweep (module 18). Through the Wizard on Flanger in the groove and Slicer in the drop.</p></div></div>
+  <div class="step"><div class="sl">bass</div><div class="sb"><strong>Alchemist on disco octaves</strong><p>Same scale and root as the loop. A little swing, the same on Bard and Alchemist.</p></div></div>
+  <div class="step"><div class="sl">form</div><div class="sb"><strong>intro · kick · groove · break · build · drop · outro</strong><p>Intro with the filter closed. The kick enters and you unmute the bass. Break: no-kick pattern, Wizard on Freezer, Alchemist in drone. Build: Bestie feedback opening + PO beat repeat. Drop: everything back and filter wide open.</p></div></div>
+</div>
+</div>
+
+<div class="sec" id="m19-s4">
+<div class="st">04 — slow guitar set (trap, ~140/70 BPM)</div>
+<div class="steps">
+  <div class="step"><div class="sl">guitar</div><div class="sb"><strong>Bard with Spanish guitar chops</strong><p>Phrygian scale (create it in the web app), LENGTH to the right, sparse rhythm. Wizard on Delay with high FEEDBACK; Freezer in the breaks.</p></div></div>
+  <div class="step"><div class="sl">808</div><div class="sb"><strong>Alchemist almost sine</strong><p>HYPERSINE or FILTER with TIMBRE to the left, two octaves down, long ENV and portamento (<kbd>Mode</kbd> + TIMBRE to the left). Remove the PLAY cable: no octaves here.</p></div></div>
+  <div class="step"><div class="sl">drums</div><div class="sb"><strong>half-time</strong><p>Kick on 1 and 11, clap on 9, hats on eighths with ×3/×4 rolls on 15 and 16.</p></div></div>
+  <div class="step"><div class="sl">voice</div><div class="sb"><strong>ting with ROBOT, ECHO or harmony</strong><p>Up front in the mix. The intro can be guitar alone with delay and the voice coming in quietly.</p></div></div>
+</div>
+<div class="co"><div class="co-b or"></div><div class="co-bd"><strong>less is more</strong>The first day with everything plugged in usually sounds like chaos. Build in layers: rhythm and bass, then melody, then texture. One hand on the mutes, the other on a single device.</div></div>
+</div>
+
+<div class="ex">
+  <div class="ex-lb">module exercise</div>
+  <div class="ex-ti">a full 20-minute set</div>
+  <ul class="ex-ul">
+    <li>Pick one of the two sets and prepare patterns and patches before recording (20 min).</li>
+    <li>Record the whole set without stopping, following the form in section 03 or 04.</li>
+    <li>Listen the next day and note three moments where one layer was too many.</li>
+  </ul>
+</div>
+<div class="mf">
+  <button class="btn" onclick="go(18)">← previous</button>
+  <button class="btn" disabled>end of course</button>
+  <button class="btn btn-d" id="bd19" onclick="done(19)">mark ready</button>
+</div>
+</div>`;

@@ -36,7 +36,7 @@ Thanks for helping improve this OP-1 Field course.
 
 ## Locale rules
 
-- Keep module coverage complete in all locales (`m0..m15`).
+- Keep module coverage complete in all locales (`m0..m19`).
 - If you add a new section or widget in one locale, mirror the structure in the others.
 - Keep UI/device labels in English where they match the OP-1 Field interface.
 

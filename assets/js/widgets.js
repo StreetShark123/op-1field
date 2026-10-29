@@ -1517,6 +1517,72 @@ document.addEventListener('DOMContentLoaded', ()=>{
   wpfUpdate();
 });
 
+/* ── 18. SYNC ASSISTANT (ecosystem rig) ─────────────────── */
+function wswUpdate(){
+  const masterEl = document.getElementById('wsw-master');
+  const op1El = document.getElementById('wsw-op1');
+  const kEl = document.getElementById('wsw-kastle');
+  const poEl = document.getElementById('wsw-po');
+  const chainEl = document.getElementById('wsw-chain');
+  const stepsEl = document.getElementById('wsw-steps');
+  if(!masterEl || !op1El || !kEl || !poEl || !chainEl || !stepsEl) return;
+  const master = masterEl.value;
+  if(master==='op1') op1El.checked = true;
+  if(master==='bard') kEl.checked = true;
+  const hasOp1 = op1El.checked;
+  const hasK = kEl.checked;
+  const hasPo = poEl.checked;
+  const kChain = 'Bard → Wizard → Alchemist';
+  const chain = [];
+  const steps = [];
+  const verify = tr('verifica play/stop dos veces.', 'verify play/stop twice.', 'play/stop を2回確認。');
+
+  if(master==='ep'){
+    const pulse = ['EP-133'];
+    if(hasK) pulse.push(kChain);
+    if(hasPo) pulse.push('PO-32');
+    if(pulse.length>1) chain.push(pulse.join(' → '));
+    if(hasOp1) chain.push(tr('EP-133 ⇄ OP-1 por USB-C', 'EP-133 ⇄ OP-1 over USB-C', 'EP-133 ⇄ OP-1（USB-C）'));
+    const codes = [];
+    if(hasOp1) codes.push('102');
+    if(hasPo) codes.push('210');
+    else if(hasK) codes.push('211');
+    if(codes.length) steps.push(`EP-133 (Shift+Erase): ${codes.join(' + ')}`);
+    if(hasK) steps.push(hasPo
+      ? tr('Kastle: luz cian y multiplicador ×2', 'Kastle: cyan light and ×2 multiplier', 'Kastle：シアン点灯と倍率 ×2')
+      : tr('Kastle: luz cian, divisor ×1', 'Kastle: cyan light, ×1 divider', 'Kastle：シアン点灯、分周 ×1'));
+    if(hasPo) steps.push(tr('PO-32 en SY2', 'PO-32 in SY2', 'PO-32 は SY2'));
+    if(hasOp1) steps.push(tr('OP-1 sigue reloj externo', 'OP-1 follows external clock', 'OP-1 は外部クロック追従'));
+  } else if(master==='bard'){
+    const pulse = [kChain];
+    if(hasPo) pulse.push('PO-32');
+    chain.push(pulse.join(' → '));
+    chain.push(tr('EP-133 sync in ← Wizard o Alchemist SYNC OUT', 'EP-133 sync in ← Wizard or Alchemist SYNC OUT', 'EP-133 sync in ← Wizard か Alchemist の SYNC OUT'));
+    if(hasOp1) chain.push(tr('Bard ⇄ OP-1 por USB-C (el Kastle envía reloj MIDI)', 'Bard ⇄ OP-1 over USB-C (the Kastle sends MIDI clock)', 'Bard ⇄ OP-1（USB-C、Kastle が MIDI クロックを送信）'));
+    steps.push(tr('Bard: tempo con Shift+LFO o tap Shift+Bank', 'Bard: tempo with Shift+LFO or tap Shift+Bank', 'Bard：Shift+LFO でテンポ、または Shift+Bank でタップ'));
+    steps.push(tr('EP-133: sync in 201 (1/16); si va al doble o a la mitad, 200', 'EP-133: sync in 201 (1/16); if double or half speed, 200', 'EP-133：sync in 201（1/16）、倍速か半分なら 200'));
+    if(hasPo) steps.push(tr('PO-32 en SY2 · si va al doble, cambia el divisor del Bard', 'PO-32 in SY2 · if double speed, change the Bard divider', 'PO-32 は SY2・倍速なら Bard の分周を変更'));
+    if(hasOp1) steps.push(tr('OP-1 sigue reloj externo (aproximación práctica: pruébalo)', 'OP-1 follows external clock (practical approximation: test it)', 'OP-1 は外部クロック追従（実用的な近似：要確認）'));
+  } else {
+    chain.push(tr('OP-1 ⇄ EP-133 por USB-C', 'OP-1 ⇄ EP-133 over USB-C', 'OP-1 ⇄ EP-133（USB-C）'));
+    const pulse = ['EP-133'];
+    if(hasK) pulse.push(kChain);
+    if(hasPo) pulse.push('PO-32');
+    if(pulse.length>1) chain.push(pulse.join(' → '));
+    steps.push(tr('OP-1 manda el tempo (envía reloj MIDI)', 'OP-1 sets the tempo (sends MIDI clock)', 'OP-1 がテンポを決める（MIDI クロック送信）'));
+    steps.push(`EP-133 (Shift+Erase): 101${hasPo ? ' + 210' : (hasK ? ' + 211' : '')}`);
+    if(hasK) steps.push(hasPo
+      ? tr('Kastle: luz cian y multiplicador ×2', 'Kastle: cyan light and ×2 multiplier', 'Kastle：シアン点灯と倍率 ×2')
+      : tr('Kastle: luz cian', 'Kastle: cyan light', 'Kastle：シアン点灯'));
+    if(hasPo) steps.push(tr('PO-32 en SY2 · sin EP-133: PO sync del OP-1 y PO en SY4', 'PO-32 in SY2 · without EP-133: OP-1 PO sync and PO in SY4', 'PO-32 は SY2・EP-133 なしなら OP-1 の PO sync と PO の SY4'));
+    steps.push(tr('aproximación práctica: confirma que el EP-133 esclavo sigue sacando sync', 'practical approximation: confirm the slaved EP-133 still outputs sync', '実用的な近似：スレーブ時も EP-133 が sync を出すか確認'));
+  }
+  const chainLbl = tr('cadena: ', 'chain: ', 'チェーン：');
+  const stepsLbl = tr('ajustes: ', 'settings: ', '設定：');
+  chainEl.textContent = chainLbl + (chain.length ? chain.join(' · ') : tr('solo el master, sin cadena', 'master only, no chain', 'マスターのみ'));
+  stepsEl.textContent = `${stepsLbl}${steps.join(' · ')} · ${verify}`;
+}
+
 function reinitWidgetsAfterModuleHydration() {
   ws2CleanupDraggables();
   if (document.getElementById('wm-bpm')) {
@@ -1551,6 +1617,7 @@ function reinitWidgetsAfterModuleHydration() {
   if (document.getElementById('wwf-stage')) wwfUpdate();
   if (document.getElementById('wcm-risk')) wcmUpdate();
   if (document.getElementById('wpf-status')) wpfUpdate();
+  if (document.getElementById('wsw-chain')) wswUpdate();
 }
 
 document.addEventListener('course:modules-hydrated', () => {
