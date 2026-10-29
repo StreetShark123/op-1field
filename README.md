@@ -8,7 +8,8 @@ Built from a long manual and turned into a desktop app focused on learning by do
 
 ## What you get
 
-- 16 learning modules (theory + hands-on production)
+- 20 learning modules (theory + hands-on production)
+- Ecosystem modules (16–19): portable rig with EP-133, PO-32, Bastl Kastle 2, Bestie, K.O. Sidekick and ting — routing, sync and live sets
 - Core path and full path
 - Practice mode and reading mode
 - Search, bookmarks, and progress tracking
@@ -46,7 +47,7 @@ Build outputs are generated in `dist/`.
 
 - `index.html` + `assets/*` = app UI + course content
 - `main.js` = Electron entry
-- `assets/content/*.js` = modular module content (`m0..m15`, ES/EN/JA)
+- `assets/content/*.js` = modular module content (`m0..m19`, ES/EN/JA)
 - `assets/locales/*.js` = UI language dictionaries + app text keys
 - `docs/EDITING_GUIDE.md` = content editing notes
 - `CONTRIBUTING.md` = contribution guide

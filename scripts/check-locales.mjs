@@ -13,7 +13,7 @@ const CONTENT = [
   { code: 'en', file: 'assets/content/en.js' },
   { code: 'ja', file: 'assets/content/ja.js' },
 ];
-const EXPECTED_MODULES = Array.from({ length: 16 }, (_, i) => `m${i}`);
+const EXPECTED_MODULES = Array.from({ length: 20 }, (_, i) => `m${i}`);
 
 function loadLocale(fileRel, code) {
   const fileAbs = path.join(ROOT, fileRel);
@@ -125,5 +125,5 @@ if (errors.length) {
 console.log('✅ Locale QA passed');
 for (const { code } of LOCALES) {
   const count = Object.keys(resolvedModules(loaded[code], loadedContent[code])).length;
-  console.log(`- ${code}: ${count}/16 modules`);
+  console.log(`- ${code}: ${count}/20 modules`);
 }

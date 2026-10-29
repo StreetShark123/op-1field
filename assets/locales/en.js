@@ -48,7 +48,8 @@ window.CourseLocales.en = {
       "synthesis": "synthesis",
       "sequencers": "sequencers",
       "production": "production",
-      "closing": "closing"
+      "closing": "closing",
+      "ecosystem": "ecosystem"
     },
     "modules": {
       "m0": "minimum theory",
@@ -66,7 +67,11 @@ window.CourseLocales.en = {
       "m12": "mixing & mastering",
       "m13": "full workflow",
       "m14": "OP-1 + EP-133",
-      "m15": "export & keep going"
+      "m15": "export & keep going",
+      "m16": "your rig & routing",
+      "m17": "sync & clock",
+      "m18": "bastl kastle 2",
+      "m19": "po-32, mixing & sets"
     }
   },
   "actions": {

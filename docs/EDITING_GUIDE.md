@@ -28,7 +28,7 @@ Primary references:
 
 If you want to edit...
 
-- Full course text/content (`m0..m15`): edit `assets/content/es.js`, `assets/content/en.js`, `assets/content/ja.js`
+- Full course text/content (`m0..m19`): edit `assets/content/es.js`, `assets/content/en.js`, `assets/content/ja.js`
 - Layout shell and static chrome: edit `index.html`
 - Visual style: edit `assets/css/main.css`
 - Sidebar/subsection navigation logic: edit `assets/js/core.js`
@@ -66,12 +66,12 @@ For translatable UI text:
 - use `data-i18n-placeholder="..."` for inputs
 - add matching keys in `assets/locales/es.js` and `assets/locales/en.js`
 
-For module-level content, use `assets/content/<lang>.js` (`m0..m15`).
+For module-level content, use `assets/content/<lang>.js` (`m0..m19`).
 Locale files now focus on UI text keys and app chrome labels.
 
 Current setup:
 
-- `m0..m15` are served from `assets/content/<lang>.js`.
+- `m0..m19` are served from `assets/content/<lang>.js`.
 - `assets/locales/<lang>.js` remains as UI i18n + compatibility fallback.
 - Runtime precedence is: current language content file → default language content file → current locale module → default locale module.
 
